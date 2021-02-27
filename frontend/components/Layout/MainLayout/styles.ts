@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Wrapper as Button } from '@/components/UI/Button/styles'
 import { Wrapper as Search } from '@/components/UI/Search/styles'
 
@@ -167,7 +167,7 @@ export const Notify = styled.button`
   }
 `;
 
-export const MenuOpen = styled.div`
+export const MenuOpen = styled.div<{ isOpen: boolean }>`
   z-index: 500;
   display: none;
   margin-left: 20px;
@@ -176,19 +176,30 @@ export const MenuOpen = styled.div`
   justify-content: center;
   gap: 9px;
   height: 41px;
+  width: 46px;
   cursor: pointer;
   > div {
+    transition: all 0.5s ease;
     &:nth-child(1) {
+      transform-origin: 6px;
       width: 46px;
       height: 4px;
       background-color: #000;
       border-radius: 2px;
+      ${({ isOpen }) => isOpen && css`
+        transform: rotate(45deg);
+        width: 32px;
+      `}
     }
     &:nth-child(2) {
+      transform-origin: 6px;
       width: 32px;
       height: 4px;
       background-color: #000;
       border-radius: 2px;
+      ${({ isOpen }) => isOpen && css`
+        transform: rotate(-45deg);
+      `}
     }
   }
   @media (max-width: 575.98px) {

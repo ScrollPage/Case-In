@@ -107,7 +107,7 @@ const MainLayoutComponent: React.FC<MainLayoutProps> = ({ children }) => {
                   <img src="/notify.svg" alt="Запросы команды" />
                   {isShowNotify && <NotifyList onClose={handleClose} />}
                 </Notify>
-                <MenuOpen onClick={() => setIsOpen((e) => !e)}>
+                <MenuOpen onClick={() => setIsOpen((e) => !e)} isOpen={isOpen} >
                   <div />
                   <div />
                 </MenuOpen>
