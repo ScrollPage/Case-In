@@ -15,9 +15,6 @@ export const Button = styled.button`
 `;
 export const Wrapper = styled.div`
   margin-right: 40px;
-  @media (max-width: 575.98px) {
-    display: none;
-  }
 `;
 export const Inner = styled.div`
   display: flex;

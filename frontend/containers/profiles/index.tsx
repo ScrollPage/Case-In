@@ -1,5 +1,6 @@
 import { Profiles } from "@/components/Profile/Profiles";
 import { Filter } from "@/components/UI/Filter";
+import { Search } from "@/components/UI/Search";
 import React from "react";
 import { Wrapper, Main, Side } from "./styles";
 
@@ -12,6 +13,7 @@ export const ProfilesContainer: React.FC<ProfilesContainerProps> = ({}) => {
         <Profiles />
       </Main>
       <Side>
+        <Search />
         <Filter />
       </Side>
     </Wrapper>

@@ -18,15 +18,15 @@ const ProfileItemComponent = ({
   fullName,
 }: ProfileItemProps) => (
   <Wrapper>
-    <Avatar size={50} href={`/profile/${id}`} />
     <Main>
+      <Avatar size={50} href={`/profile/${id}`} />
       <Title>
         <Link href={`/profile/${id}`}>
           <a>{company}</a>
         </Link>
       </Title>
-      <Rating defaultRate={rate} disabled />
     </Main>
+    <Rating defaultRate={rate} disabled />
   </Wrapper>
 );
 

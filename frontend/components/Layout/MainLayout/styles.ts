@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Wrapper as Button } from '@/components/UI/Button/styles'
+import { Wrapper as Search } from '@/components/UI/Search/styles'
 
 export const Wrapper = styled.div`
   position: relative;
@@ -73,6 +74,11 @@ export const HeaderSide = styled.div`
   display: flex;
   align-items: center;
   > ${Button} {
+    @media (max-width: 575.98px) {
+      display: none;
+    }
+  }
+  > ${Search} {
     @media (max-width: 575.98px) {
       display: none;
     }

@@ -20,6 +20,11 @@ export const Title = styled.h3`
     font-size: 32px;
     line-height: 37px;
     color: #000;
+    @media (max-width: 575.98px) {
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 10px;
+    }
     &:hover {
       color: ${({ theme }) => theme.blue};
     }
