@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.blueBgc};
 `;
 export const Header = styled.div`
-  z-index: 20;
+  z-index: 401;
   height: 100px;
   position: fixed;
   top: 0;
@@ -63,6 +63,9 @@ export const HeaderMain = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-left: 40px;
+  @media (max-width: 575.98px) {
+    justify-content: flex-end;
+  }
 `;
 
 export const HeaderSide = styled.div`
@@ -109,14 +112,25 @@ export const SideLink = styled.div<{ isActive: boolean }>`
   }
 `;
 
-export const SideBar = styled.div`
+export const SideBar = styled.div<{ isOpen: boolean }>`
   display: flex;
   flex-direction: column;
   width: 250px;
   height: 100%;
   padding-right: 60px;
+  transition: all 0.4s ease;
   @media (max-width: 575.98px) {
-    display: none;
+    padding-top: 100px;
+    padding-right: 18px;
+    align-items: flex-end;
+    width: 182px;
+    position: fixed;
+    z-index: 400;
+    top: 0;
+    left: ${({ isOpen }) => isOpen ? '0' : '100%'};
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
   }
   > ${Button} {
     display: none;
@@ -142,3 +156,32 @@ export const Notify = styled.button`
     margin-right: 0px;
   }
 `;
+
+export const MenuOpen = styled.div`
+  z-index: 500;
+  display: none;
+  margin-left: 20px;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 9px;
+  height: 41px;
+  cursor: pointer;
+  > div {
+    &:nth-child(1) {
+      width: 46px;
+      height: 4px;
+      background-color: #000;
+      border-radius: 2px;
+    }
+    &:nth-child(2) {
+      width: 32px;
+      height: 4px;
+      background-color: #000;
+      border-radius: 2px;
+    }
+  }
+  @media (max-width: 575.98px) {
+    display: flex;
+  }
+`

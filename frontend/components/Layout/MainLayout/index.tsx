@@ -13,6 +13,7 @@ import {
   HeaderInner,
   HeaderSide,
   Notify,
+  MenuOpen,
 } from "./styles";
 import { useDispatch } from "react-redux";
 import { authCheckState, logout } from "@/store/actions/auth";
@@ -33,6 +34,7 @@ interface MainLayoutProps {
 }
 
 const MainLayoutComponent: React.FC<MainLayoutProps> = ({ children }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const { pathname } = useRouter();
   const { userId, company } = useUser();
@@ -44,6 +46,15 @@ const MainLayoutComponent: React.FC<MainLayoutProps> = ({ children }) => {
   useEffect(() => {
     dispatch(authCheckState());
   }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
 
   usePusher();
 
@@ -96,6 +107,10 @@ const MainLayoutComponent: React.FC<MainLayoutProps> = ({ children }) => {
                   <img src="/notify.svg" alt="Запросы команды" />
                   {isShowNotify && <NotifyList onClose={handleClose} />}
                 </Notify>
+                <MenuOpen onClick={() => setIsOpen((e) => !e)}>
+                  <div />
+                  <div />
+                </MenuOpen>
                 <Button onClick={logoutHandler} myType="outline" width="182px">
                   Выход
                 </Button>
@@ -106,7 +121,7 @@ const MainLayoutComponent: React.FC<MainLayoutProps> = ({ children }) => {
       </Header>
       <Container>
         <Flex>
-          <SideBar>
+          <SideBar isOpen={isOpen}>
             {links.map((link, index) => (
               <SideLink
                 key={`sidelink__key__${index}`}
