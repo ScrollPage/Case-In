@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Wrapper as Button } from '@/components/UI/Button/styles'
 
 export const Wrapper = styled.div`
   position: relative;
@@ -12,6 +13,7 @@ export const Header = styled.div`
   top: 0;
   left: 0;
   width: 100%;
+  background-color: #FAFCFF;
   background-color: ${({ theme }) => theme.blueBgc};
 `
 export const HeaderInner = styled.div`
@@ -24,6 +26,9 @@ export const Flex = styled.div`
   padding-top: 145px;
   display: flex;
   height: 100%;
+  @media (max-width: 575.98px) {
+    padding-top: 111px;
+  }
 `;
 
 export const Hero = styled.div`
@@ -57,13 +62,25 @@ export const HeaderMain = styled.div`
 export const HeaderSide = styled.div`
   display: flex;
   align-items: center;
+  > ${Button} {
+    @media (max-width: 575.98px) {
+      display: none;
+    }
+  }
 `;
 
-export const Logo = styled.div``;
+export const Logo = styled.div`
+  @media (max-width: 575.98px) {
+    > a > img {
+    width: 172px;
+    }
+  }
+`;
 export const Main = styled.div`
   flex: 1;
   padding-bottom: 40px;
   height: 100%;
+  max-width: 100%;
 `;
 
 export const SideLink = styled.div<{ isActive: boolean }>`
@@ -92,6 +109,9 @@ export const SideBar = styled.div`
   width: 250px;
   height: 100%;
   padding-right: 60px;
+  @media (max-width: 575.98px) {
+    display: none;
+  }
 `;
 export const Notify = styled.button`
   outline: none;
@@ -106,4 +126,7 @@ export const Notify = styled.button`
   cursor: pointer;
   position: relative;
   margin-right: 30px;
+  @media (max-width: 575.98px) {
+    margin-right: 0px;
+  }
 `;

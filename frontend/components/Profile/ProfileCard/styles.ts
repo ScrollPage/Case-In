@@ -39,6 +39,10 @@ export const Title = styled.h1`
   font-size: 28px;
   line-height: 34px;
   margin: 0;
+  @media (max-width: 575.98px) {
+    font-size: 18px;
+    line-height: 22px;
+  }
 `;
 export const Main = styled.div`
   ${Button} {
@@ -93,4 +97,8 @@ export const SubTitle = styled.h3`
   font-size: 24px;
   line-height: 28px;
   margin-bottom: 20px;
+  @media (max-width: 575.98px) {
+    font-size: 18px;
+    line-height: 22px;
+  }
 `;

@@ -56,7 +56,7 @@ const EditTaskFormComponent: React.FC<EditTaskFormProps> = ({}) => {
                 <Button
                   myType="outline"
                   type="submit"
-                  width="218px"
+                  width="228px"
                   disabled={!(dirty && isValid)}
                 >
                   Изменить задачу

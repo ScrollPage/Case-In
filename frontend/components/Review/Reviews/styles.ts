@@ -7,6 +7,10 @@ export const Title = styled.h3`
   font-size: 24px;
   line-height: 29px;
   margin: 0;
+  @media (max-width: 575.98px) {
+    font-size: 18px;
+    line-height: 22px;
+  }
 `
 export const Main = styled.div`
   display: flex;

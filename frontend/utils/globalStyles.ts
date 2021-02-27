@@ -8,8 +8,11 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
   }
-  html, body, #__next {
-    height: 100% !important;
+  html {
+    height: 100%;
+  }
+  body, #__next {
+    min-height: 100%;
   }
   body {
     overflow-x: hidden;

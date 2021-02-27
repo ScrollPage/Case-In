@@ -8,4 +8,7 @@ export const Wrapper = styled.div`
   min-height: 445px;
   margin-bottom: 30px;
   margin-top: 30px;
+  @media (max-width: 575.98px) {
+    min-height: 200px;
+  }
 `;
