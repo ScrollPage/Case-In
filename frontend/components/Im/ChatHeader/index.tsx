@@ -1,6 +1,6 @@
 import { Avatar } from "@/components/UI/Avatar";
 import React, { memo, useContext, useMemo, useState } from "react";
-import { Wrapper, Hero, Name } from "./styles";
+import { Wrapper, Hero, Name, Close } from "./styles";
 import deepEqual from "fast-deep-equal";
 import { ImProps, ImContext } from "@/pages/im";
 import useSWR from "swr";
@@ -12,7 +12,7 @@ import { useUser } from "@/hooks/useUser";
 
 const ChatHeaderComponent = () => {
   const { currentChat } = useContext(ImContext) as ImProps;
-  const { query } = useRouter();
+  const { query, push } = useRouter();
   const { userId } = useUser();
 
   const chatId = getAsString(query.id);
@@ -50,6 +50,12 @@ const ChatHeaderComponent = () => {
     }
   }, [data, error]);
 
+  const handleClose = () => {
+    push({ pathname: "/im" }, undefined, {
+      shallow: true,
+    });
+  };
+
   if (error) {
     return (
       <Wrapper>
@@ -71,6 +77,7 @@ const ChatHeaderComponent = () => {
             </Link>
           </Name>
         </Hero>
+        <Close onClick={handleClose} />
       </Wrapper>
     );
   }

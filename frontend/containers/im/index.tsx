@@ -17,9 +17,7 @@ export const ImContainer: React.FC<ImContainerProps> = ({}) => {
       <Side>
         <Dialogs />
       </Side>
-      <Main>
-        {chatId ? <Chat /> : <EmptyMessage message="Выберите собесединика" />}
-      </Main>
+      <Main>{chatId && <Chat />}</Main>
     </Wrapper>
   );
 };

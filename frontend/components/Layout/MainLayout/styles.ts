@@ -3,7 +3,7 @@ import { Wrapper as Button } from '@/components/UI/Button/styles'
 
 export const Wrapper = styled.div`
   position: relative;
-  height: 100%;
+  min-height: 100vh;
   background-color: ${({ theme }) => theme.blueBgc};
 `;
 export const Header = styled.div`
@@ -31,6 +31,7 @@ export const Flex = styled.div`
   height: 100%;
   @media (max-width: 575.98px) {
     padding-top: 100px;
+    height: calc(100vh);
   }
 `;
 
@@ -88,8 +89,11 @@ export const Logo = styled.div`
 export const Main = styled.div`
   flex: 1;
   padding-bottom: 40px;
-  height: 100%;
+  height: calc(100vh - 145px);
   max-width: 100%;
+  @media (max-width: 575.98px) {
+    padding-bottom: 10px;
+  }
 `;
 
 export const SideLink = styled.div<{ isActive: boolean }>`
