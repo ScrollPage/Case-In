@@ -10,6 +10,14 @@ export const Header = styled.div`
   top: 0;
   left: 0;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  @media (max-width: 575.98px) {
+    > img {
+      width: 172px;
+    }
+    padding: 34px;
+  }
 `;
 export const Main = styled.div`
   z-index: 10;

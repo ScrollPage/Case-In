@@ -44,7 +44,7 @@ const LoginFormComponent: React.FC<LoginFormProps> = ({ handleSubmit }) => {
               <Button
                 myType="blue"
                 type="submit"
-                width="218px"
+                width="228px"
                 disabled={!(dirty && isValid)}
               >
                 Войти
