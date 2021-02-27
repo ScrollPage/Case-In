@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
     position: fixed;
-    z-index: 22;
+    z-index: 502;
     width: 600px;
     top: 100px;
     left: 50%;
@@ -74,7 +74,7 @@ export const Close = styled.div`
 `
 
 export const BackDrop = styled.div`
-    z-index: 21;
+    z-index: 501;
     background-color: rgba(0, 0, 0, 0.7);
     position: fixed;
     top: 0;

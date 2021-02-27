@@ -95,7 +95,6 @@ const RegisterFormComponent: React.FC<RegisterFormProps> = ({
             <Input type="password" name="password" placeholder="Пароль" />
             <Select
               value={values.role}
-              style={{ width: 300, marginBottom: "21px" }}
               onChange={(value) => setFieldValue("role", value)}
             >
               <Option value="1">Я стейкхолдер</Option>

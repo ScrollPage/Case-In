@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   background: #EBF7FF;
   border-radius: 20px 0 0 20px;
   padding: 20px 30px;
-  z-index: 40;
+  z-index: 600;
   max-height: 440px;
   overflow-y: scroll;
   overflow-x: hidden;

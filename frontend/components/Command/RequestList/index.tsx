@@ -9,7 +9,7 @@ import { RefObject } from "react";
 import useSWR from "swr";
 import { AccessItem } from "../AccessItem";
 import { RequestItem } from "../RequestItem";
-import { Wrapper } from "./styles";
+import { Wrapper, Close } from "./styles";
 
 const renderRequestItems = (requests: IJoinRequest[]) => {
   return requests.map((request) => {
@@ -66,6 +66,7 @@ const RequestListComponent: React.FC<RequestListProps> = ({ onClose }) => {
           {renderRequestItems(joinData)} {renderAccessItems(accessData)}
         </>
       )}
+      <Close onClick={onClose} />
     </Wrapper>
   );
 };

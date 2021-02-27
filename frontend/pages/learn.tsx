@@ -21,7 +21,7 @@ export default function Learn() {
       <Wrapper>
         <Inner>
           <Button width="218px" myType="outline" onClick={handleExit}>
-            Выйти
+            Закончить обучение
           </Button>
           <AwesomeSlider buttons={true} bullets={true}>
             <div data-src="/slider/Frame 11.png" />

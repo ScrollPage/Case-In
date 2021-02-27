@@ -27,6 +27,9 @@ export const Hr = styled.div`
 `;
 
 export const Header = styled.div`
+  @media (max-width: 575.98px) {
+    margin-bottom: 20px;
+  }
 `;
 export const Main = styled.div``;
 
