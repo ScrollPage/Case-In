@@ -32,4 +32,44 @@ export const Wrapper = styled.div`
       padding-top: 0;
     }
   }
+  @media (max-width: 575.98px) {
+    position: fixed;
+    left: 10px;
+    right: 10px;
+    top: 10px;
+    width: auto;
+    margin-right: 0px;
+    border-radius: 20px;
+  }
 `;
+
+export const Close = styled.div`
+  position: absolute;
+  height: 13px;
+  width: 13px;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  display: none;
+  @media (max-width: 575.98px) {
+    display: block;
+  }
+  &:after, &:before {
+    content: '';
+    position: absolute;
+    height: 29px;
+    width: 1.5px;
+    background-color: #000;
+    top: 50%;
+    left: 50%;
+    @media (max-width: 575.98px) {
+      height: 18px;
+    }
+  }
+  &:after {
+    transform: translateX(-50%) translateY(-50%) rotate(45deg);
+  }
+  &:before {
+    transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+  }
+`

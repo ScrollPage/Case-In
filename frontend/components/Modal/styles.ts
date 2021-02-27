@@ -55,12 +55,21 @@ export const Close = styled.div`
       background-color: #000;
       top: 50%;
       left: 50%;
+      @media (max-width: 575.98px) {
+        height: 18px;
+      }
     }
     &:after {
         transform: translateX(-50%) translateY(-50%) rotate(45deg);
     }
     &:before {
         transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+    }
+    @media (max-width: 575.98px) {
+        height: 13px;
+        width: 13px;
+        top: 15px;
+        right: 15px;
     }
 `
 

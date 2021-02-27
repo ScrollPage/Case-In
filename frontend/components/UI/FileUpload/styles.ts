@@ -7,9 +7,15 @@ export const Wrapper = styled.div`
   .avatar-uploader {
     height: 100% !important;
     flex: 0;
+    @media (max-width: 575.98px) {
+      width: 100% !important;
+    }
     > .ant-upload {
       height: 100% !important;
       border-radius: 20px;
+      @media (max-width: 575.98px) {
+      width: 100% !important;
+    }
     }
   }
 `;

@@ -6,17 +6,26 @@ export const Wrapper = styled.div`
   bottom: 20px;
   left: 20px;
   z-index: 100;
+  @media (max-width: 575.98px) {
+    left: 10px;
+    top: 10px !important;
+    right: 10px;
+  }
 `;
 
 export const Content = styled.div<{ type: typeOfType }>`
   position: relative;
   padding: 12px 50px 12px 20px;
+  @media (max-width: 575.98px) {
+    padding: 12px;
+  }
   border-radius: 12px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   min-width: 273px;
   background-color: ${({ type, theme }) => type === 'success' ? theme.green : type === 'warning' ? theme.yellow : theme.red};
+  
 `;
 
 export const Text = styled.div`
@@ -26,6 +35,9 @@ export const Text = styled.div`
   font-size: 18px;
   line-height: 22px;
   color: #FFFFFF;
+  @media (max-width: 575.98px) {
+    font-size: 15px;
+  }
 `;
 
 export const Close = styled.div`

@@ -4,7 +4,7 @@ import { LoadingSpinner } from "@/components/UI/LoadingSpinner";
 import React, { memo, useRef } from "react";
 import useSWR from "swr";
 import { NotifyItem } from "../NotifyItem";
-import { Wrapper } from "./styles";
+import { Wrapper, Close } from "./styles";
 import { useOnClickOutside } from "@/hooks/useOnClickOutside";
 import { RefObject } from "react";
 
@@ -44,6 +44,7 @@ const NotifyListComponent: React.FC<NotifyListProps> = ({ onClose }) => {
       ) : (
         renderRequestItems(data)
       )}
+      <Close onClick={onClose} />
     </Wrapper>
   );
 };

@@ -9,12 +9,16 @@ export const Title = styled.h3`
   font-size: 24px;
   line-height: 29px;
   margin-bottom: 34px;
+  @media (max-width: 575.98px) {
+    font-size: 18px;
+    line-height: 22px;
+  }
 `
 
 export const Inner = styled.div`
   display: flex;
-  ${Button} {
-    margin-right: 20px;
+  ${Button} + ${Button} {
+    margin-left: 20px;
   }
 `
 

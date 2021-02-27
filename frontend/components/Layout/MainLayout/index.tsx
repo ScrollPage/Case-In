@@ -117,6 +117,9 @@ const MainLayoutComponent: React.FC<MainLayoutProps> = ({ children }) => {
                 </Link>
               </SideLink>
             ))}
+            <Button onClick={logoutHandler} myType="outline" width="182px">
+              Выход
+            </Button>
           </SideBar>
           <Main>{children}</Main>
         </Flex>

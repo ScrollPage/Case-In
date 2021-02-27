@@ -15,6 +15,9 @@ export const Header = styled.div`
   width: 100%;
   background-color: #FAFCFF;
   background-color: ${({ theme }) => theme.blueBgc};
+  @media (max-width: 575.98px) {
+    height: 80px; 
+  }
 `
 export const HeaderInner = styled.div`
   display: flex;
@@ -27,13 +30,16 @@ export const Flex = styled.div`
   display: flex;
   height: 100%;
   @media (max-width: 575.98px) {
-    padding-top: 111px;
+    padding-top: 100px;
   }
 `;
 
 export const Hero = styled.div`
   display: flex;
   align-items: center;
+  @media (max-width: 575.98px) {
+    display: none;
+  }
 `;
 
 export const Name = styled.p`
@@ -111,6 +117,12 @@ export const SideBar = styled.div`
   padding-right: 60px;
   @media (max-width: 575.98px) {
     display: none;
+  }
+  > ${Button} {
+    display: none;
+    @media (max-width: 575.98px) {
+      display: block;
+    }
   }
 `;
 export const Notify = styled.button`
