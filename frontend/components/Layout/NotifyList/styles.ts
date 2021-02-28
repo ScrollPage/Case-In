@@ -32,7 +32,7 @@ export const Wrapper = styled.div`
       padding-top: 0;
     }
   }
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     position: fixed;
     left: 10px;
     right: 10px;
@@ -51,7 +51,7 @@ export const Close = styled.div`
   right: 15px;
   cursor: pointer;
   display: none;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     display: block;
   }
   &:after, &:before {
@@ -62,7 +62,7 @@ export const Close = styled.div`
     background-color: #000;
     top: 50%;
     left: 50%;
-    @media (max-width: 575.98px) {
+    @media (max-width: 900.98px) {
       height: 18px;
     }
   }

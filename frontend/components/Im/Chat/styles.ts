@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     position: fixed;
     top: 0;
     left: 0;

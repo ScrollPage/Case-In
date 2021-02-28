@@ -16,7 +16,7 @@ export const Header = styled.div`
   width: 100%;
   background-color: #FAFCFF;
   background-color: ${({ theme }) => theme.blueBgc};
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     height: 80px; 
   }
 `
@@ -30,7 +30,7 @@ export const Flex = styled.div`
   padding-top: 145px;
   display: flex;
   height: 100%;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     padding-top: 100px;
     height: calc(100vh);
   }
@@ -39,7 +39,7 @@ export const Flex = styled.div`
 export const Hero = styled.div`
   display: flex;
   align-items: center;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     display: none;
   }
 `;
@@ -65,7 +65,7 @@ export const HeaderMain = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-left: 40px;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     justify-content: flex-end;
   }
 `;
@@ -74,19 +74,19 @@ export const HeaderSide = styled.div`
   display: flex;
   align-items: center;
   > ${Button} {
-    @media (max-width: 575.98px) {
+    @media (max-width: 900.98px) {
       display: none;
     }
   }
   > ${Search} {
-    @media (max-width: 575.98px) {
+    @media (max-width: 900.98px) {
       display: none;
     }
   }
 `;
 
 export const Logo = styled.div`
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     > a > img {
     width: 172px;
     }
@@ -97,7 +97,7 @@ export const Main = styled.div`
   padding-bottom: 40px;
   height: calc(100vh - 145px);
   max-width: 100%;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     padding-bottom: 10px;
   }
 `;
@@ -129,7 +129,7 @@ export const SideBar = styled.div<{ isOpen: boolean }>`
   height: 100%;
   padding-right: 60px;
   transition: all 0.4s ease;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     padding-top: 100px;
     padding-right: 18px;
     align-items: flex-end;
@@ -144,7 +144,7 @@ export const SideBar = styled.div<{ isOpen: boolean }>`
   }
   > ${Button} {
     display: none;
-    @media (max-width: 575.98px) {
+    @media (max-width: 900.98px) {
       display: block;
     }
   }
@@ -162,7 +162,7 @@ export const Notify = styled.button`
   cursor: pointer;
   position: relative;
   margin-right: 30px;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     margin-right: 0px;
   }
 `;
@@ -202,7 +202,7 @@ export const MenuOpen = styled.div<{ isOpen: boolean }>`
       `}
     }
   }
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     display: flex;
   }
 `

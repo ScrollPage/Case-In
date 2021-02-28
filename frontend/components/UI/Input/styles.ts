@@ -4,7 +4,7 @@ export const Wrapper = styled.div<{ width?: string }>`
   position: relative;
   margin-bottom: 21px;
   width: ${({ width }) => width ? width : '300px'};
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     width: ${({ width }) => width ? width : '228px'};
     margin-bottom: 15px;
   }
@@ -13,7 +13,7 @@ export const Wrapper = styled.div<{ width?: string }>`
 export const Inner = styled.input <{ isShowError?: boolean }> `
   border: 1px solid ${({ isShowError }) => isShowError ? 'red' : "rgba(0, 0, 0, 0.1)"};
   padding: 14px 23px;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     padding: 12px 23px;
   }
   background-color: #fff;

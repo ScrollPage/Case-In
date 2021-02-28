@@ -13,7 +13,7 @@ export const Header = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     > img {
       width: 172px;
     }

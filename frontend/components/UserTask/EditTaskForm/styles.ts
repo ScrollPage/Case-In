@@ -24,12 +24,12 @@ export const Wrapper = styled.div`
 
 export const SelectWrapper = styled.div`
   width: 300px;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     width: 228px;
   }
   .ant-select {
     width: 100%;
-    @media (max-width: 575.98px) {
+    @media (max-width: 900.98px) {
       width: 228px;
       margin-bottom: 15px;
     }
@@ -38,7 +38,7 @@ export const SelectWrapper = styled.div`
 export const Inner = styled.div`
   display: flex;
   justify-content: space-between;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     flex-direction: column;
     align-items: center;
   }

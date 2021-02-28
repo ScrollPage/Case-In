@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
 export const Inner = styled.div`
   display: flex;
   margin-bottom: 20px;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     flex-direction: column;
   }
 `;
@@ -41,7 +41,7 @@ export const TextArea = styled.textarea`
     line-height: 16px;
     color: rgba(0, 0, 0, 0.4);
   } 
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     margin-bottom: 15px;
   }
 `;

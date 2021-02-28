@@ -19,7 +19,7 @@ export const Wrapper = styled.div`
   }
   .ant-picker {
     width: 218px;
-    @media (max-width: 575.98px) {
+    @media (max-width: 900.98px) {
       width: 228px;
     }
   }
@@ -27,7 +27,7 @@ export const Wrapper = styled.div`
 
 export const PickerWrapper = styled.div`
   flex: 1;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     margin-bottom: 15px;
   }
 `
@@ -36,7 +36,7 @@ export const Col = styled.div`
   flex-direction: column;
   ${Button} {
     margin-bottom: 21px;
-    @media (max-width: 575.98px) {
+    @media (max-width: 900.98px) {
       margin-bottom: 0px;
     }
   }
@@ -47,7 +47,7 @@ export const SelectWrapper = styled.div`
   .ant-select {
     width: 100%;
   }
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     width: 228px;
     margin-bottom: 15px;
   }
@@ -55,7 +55,7 @@ export const SelectWrapper = styled.div`
 export const Inner = styled.div`
   display: flex;
   justify-content: space-between;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     flex-direction: column;
     align-items: center;
   }

@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   .ant-select {
     width: 300px !important;
     margin-bottom: 21px;
-    @media (max-width: 575.98px) {
+    @media (max-width: 900.98px) {
       width: 228px !important;
       margin-bottom: 15px;
     }
@@ -28,7 +28,7 @@ export const Wrapper = styled.div`
     font-size: 12px;
     line-height: 15px;
   }
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     padding: 20px;
   }
 `;
@@ -40,7 +40,7 @@ export const Title = styled.h3`
   line-height: 29px;
   margin-bottom: 34px;
   margin-top: 10px;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     font-size: 18px;
     line-height: 22px;
   }

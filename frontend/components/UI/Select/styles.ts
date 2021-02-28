@@ -20,7 +20,7 @@ export const Wrapper = styled.div<{ width?: string }>`
   .ant-select-selection-item-content {
     white-space: pre-wrap !important;
   }
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     width: ${({ width }) => width ? width : '228px'};
     margin-bottom: 15px;
   }

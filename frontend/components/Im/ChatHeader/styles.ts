@@ -18,7 +18,7 @@ export const Name = styled.p`
   font-weight: 500;
   font-size: 32px;
   line-height: 39px;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     font-size: 18px;
     line-height: 22px;
   }
@@ -38,7 +38,7 @@ export const Close = styled.div`
   right: 20px;
   cursor: pointer;
   display: none;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     display: flex;
   }
   &:after, &:before {
@@ -49,7 +49,7 @@ export const Close = styled.div`
     background-color: #000;
     top: 50%;
     left: 50%;
-    @media (max-width: 575.98px) {
+    @media (max-width: 900.98px) {
       height: 18px;
     }
   }

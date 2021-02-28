@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   bottom: 20px;
   left: 20px;
   z-index: 100;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     left: 10px;
     top: 10px !important;
     right: 10px;
@@ -16,7 +16,7 @@ export const Wrapper = styled.div`
 export const Content = styled.div<{ type: typeOfType }>`
   position: relative;
   padding: 12px 50px 12px 20px;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     padding: 12px;
   }
   border-radius: 12px;
@@ -35,7 +35,7 @@ export const Text = styled.div`
   font-size: 18px;
   line-height: 22px;
   color: #FFFFFF;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     font-size: 15px;
   }
 `;

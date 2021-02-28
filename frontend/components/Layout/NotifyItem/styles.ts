@@ -5,7 +5,7 @@ export const Main = styled.div`
   align-items: center;
   justify-content:space-between;  
   width: 100%;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     flex-direction: column;
   }
 `
@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     flex-direction: column;
   }
 `;
@@ -36,7 +36,7 @@ export const Title = styled.p`
   font-size: 16px;
   margin: 0;
   margin-left: 32px;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     flex-direction: column;
     margin: 10px 0;
   }

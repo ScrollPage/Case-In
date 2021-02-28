@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Main = styled.div`
   display: flex;
   align-items: center;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     margin-bottom: 10px;
   }
 `;
@@ -19,7 +19,7 @@ export const Wrapper = styled.div`
   }
   transition: background-color .3s ease;
   margin-bottom: 20px;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     flex-direction: column;
     align-items: flex-start;
   }

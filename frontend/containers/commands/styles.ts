@@ -4,7 +4,7 @@ import { Wrapper as Input } from '@/components/UI/Input/styles';
 
 export const Wrapper = styled.div`
   display: flex;  
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     flex-direction: column;
   }
 `;
@@ -19,7 +19,7 @@ export const Main = styled.div`
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.05);
   border-radius: 20px;
   padding: 20px 30px;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     width: 100%; 
     margin-top: 20px;
     order: 1;
@@ -30,7 +30,7 @@ export const Side = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     order: 0;
     > ${Search} {
       margin-right: 0;

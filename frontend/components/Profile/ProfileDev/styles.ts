@@ -19,7 +19,7 @@ export const Title = styled.h2`
   font-weight: bold;
   font-size: 28px;
   line-height: 34px;
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     font-size: 18px;
     line-height: 22px;
   }
@@ -53,7 +53,7 @@ export const Wrapper = styled.div<{ percent: number }>`
     background-color: #E5E5E5;
     border-radius: 0 0 20px 20px;
   }
-  @media (max-width: 575.98px) {
+  @media (max-width: 900.98px) {
     margin-top: 20px;
   }
 `;

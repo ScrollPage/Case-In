@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
     transform: translateX(-50%);
     display: flex;
     justify-content: center;
-    @media (max-width: 575.98px) {
+    @media (max-width: 900.98px) {
         width: 90%;
         > div {
             padding: 40px 10px !important;
@@ -27,7 +27,7 @@ export const Wrapper = styled.div`
         overflow-y: scroll;
         &::-webkit-scrollbar {
         width: 5px;
-        @media (max-width: 575.98px) {
+        @media (max-width: 900.98px) {
             width: 0px;
         }
         }
@@ -55,7 +55,7 @@ export const Close = styled.div`
       background-color: #000;
       top: 50%;
       left: 50%;
-      @media (max-width: 575.98px) {
+      @media (max-width: 900.98px) {
         height: 18px;
       }
     }
@@ -65,7 +65,7 @@ export const Close = styled.div`
     &:before {
         transform: translateX(-50%) translateY(-50%) rotate(-45deg);
     }
-    @media (max-width: 575.98px) {
+    @media (max-width: 900.98px) {
         height: 13px;
         width: 13px;
         top: 15px;
