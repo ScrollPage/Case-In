@@ -19,6 +19,11 @@ export const mainLoyoutLinks = (userId: number): LinkType[] => {
       label: "Профиль",
     },
     {
+      href: `/achievement`,
+      pathname: "/achievement",
+      label: "Достижения",
+    },
+    {
       href: "/im",
       pathname: "/im",
       label: "Мессенджер",

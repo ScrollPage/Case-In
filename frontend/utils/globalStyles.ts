@@ -38,9 +38,12 @@ export const globalTheme = {
   blue: "#0099FF",
   lightBlue: "#CCEBFF",
   green: "#60CFBF",
+  greenBgc: "#D4FFC5",
   red: "#CF6060",
   yellow: "#CFBD60",
+  yellowBgc: "#FFF9C5",
   white: "#FFF",
   orange: "#E86900",
   blueBgc: "#FAFCFF",
+  grayBgc: "#F3F3F3",
 };
