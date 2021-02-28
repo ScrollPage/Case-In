@@ -55,14 +55,14 @@ class Worker(AbstractBaseUser, PermissionsMixin):
 
 class WorkerInfo(models.Model):
     '''Информация о пользователе'''
-    user = models.ForeignKey(
+    user = models.OneToOneField(
         Worker, verbose_name='Работник', 
         related_name='info', on_delete=models.CASCADE
     )
     phone_number = models.CharField('Номер телефона', max_length=11, default='')
     first_name = models.CharField(max_length=30, default='')
     last_name = models.CharField(max_length=30, default='')
-    birt_date = models.DateTimeField(null=True)
+    birth_date = models.DateField(null=True)
 
     class Meta:
         verbose_name = 'Информация о работнике'
@@ -88,4 +88,4 @@ class Review(models.Model):
 def create_instances(sender, instance=None, created=False, **kwargs):
     '''Создает необходимые сущности'''
     if created:
-        WorkerInfo.objects.create(user=instance)
+        WorkerInfo.objects.create(user=instance, id=instance.id)
