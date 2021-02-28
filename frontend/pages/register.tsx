@@ -11,7 +11,7 @@ const Register = ({}: RegisterProps) => {
   return (
     <AuthLayout>
       <Head>
-        <title>BNET / Регистрация</title>
+        <title>BNET / Инструкция</title>
       </Head>
       <RegisterContainer />
     </AuthLayout>

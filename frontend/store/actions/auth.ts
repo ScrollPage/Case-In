@@ -3,47 +3,9 @@ import { ThunkType } from '@/types/thunk';
 import Cookie from 'js-cookie';
 import { show } from './alert';
 import Router from 'next/router';
-import { RegisterFormValues } from '@/components/Auth/RegisterForm';
 import { LoginFormValues } from '@/components/Auth/LoginForm';
 import { ChangeFormValues } from '@/components/Auth/ChangeForm';
 import { trigger } from 'swr';
-
-export const authSignup = (values: RegisterFormValues): ThunkType => async dispatch => {
-  const isSteakholder = values.role === "1" || values.role === "2";
-  await instanceWithOutHeaders
-    .post('/auth/users/ ', {
-      first_name: values.firstName,
-      last_name: values.lastName,
-      email: values.email,
-      password: values.password,
-      phone_number: values.phone,
-      is_steakholder: isSteakholder,
-      // swap name and company
-      company: values.name,
-      name: values.company
-    })
-    .then(() => {
-      Router.push({ pathname: '/' }, undefined, { shallow: true });
-      dispatch(show('Вы успешно создали аккаунт! Подтвердите почту и войдите', 'success'));
-    })
-    .catch(() => {
-      Router.push({ pathname: '/register' }, undefined, { shallow: true });
-      dispatch(show('Пользователь с такими данными уже существует!', 'warning'));
-    });
-};
-
-export const emailActivate = (token: string): ThunkType => async dispatch => {
-  await instanceWithOutHeaders
-    .post('/api/activate/', {
-      token,
-    })
-    .then(() => {
-      dispatch(show('Активация прошла успешно!', 'success'));
-    })
-    .catch(() => {
-      dispatch(show('Ошибка активации!', 'warning'));
-    });
-};
 
 export const authLogin = (values: LoginFormValues): ThunkType => async dispatch => {
   await instanceWithOutHeaders
