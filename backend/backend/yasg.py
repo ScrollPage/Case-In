@@ -5,8 +5,8 @@ from drf_yasg import openapi
 
 schema_view = get_schema_view(
     openapi.Info(
-        title = 'Business-Social-Network',
-        default_version = 'v1',
+        title = 'Corp-Net',
+        default_version = 'v2',
         description = 'No description',
         license = openapi.License(name = 'BSD License'),
     ),

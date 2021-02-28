@@ -2,21 +2,21 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from backend.settings import pusher_client
-from initiative.models import Initiative
-from command.models import Command
+# from backend.settings import pusher_client
+from worker.models import Worker
+from department.models import Department
 
 class Chat(models.Model):
     '''Чатик'''
     name = models.CharField(max_length=50)
     members = models.ManyToManyField(
-        Initiative, verbose_name='Участники', 
+        Worker, verbose_name='Участники', 
         related_name='chats'
     )
     is_chat = models.BooleanField(default=True)
-    command = models.OneToOneField(
-        Command, verbose_name='Чат команды', null=True,
-        on_delete=models.CASCADE, related_name='command_chat',
+    depart = models.OneToOneField(
+        Department, verbose_name='Чат отдела', null=True,
+        on_delete=models.CASCADE, related_name='chat',
     )
 
     @property
@@ -35,8 +35,8 @@ class Message(models.Model):
         Chat, verbose_name='Чат', 
         on_delete=models.CASCADE, related_name='messages'
     )
-    initiative = models.ForeignKey(
-        Initiative, 
+    user = models.ForeignKey(
+        Worker, 
         verbose_name='Отправитель',
         null=True, 
         on_delete=models.SET_NULL
@@ -49,27 +49,27 @@ class Message(models.Model):
         verbose_name = 'Сообщение'
         verbose_name_plural = 'Сообщения'
 
-@receiver(post_save, sender=Message)
-def send_join_note(sender, instance=None, **kwargs):
-    '''Создает и отправляет уведомление о сообщении'''
-    from notifications.models import Notification
+# @receiver(post_save, sender=Message)
+# def send_join_note(sender, instance=None, **kwargs):
+#     '''Создает и отправляет уведомление о сообщении'''
+#     from notifications.models import Notification
 
-    members = instance.chat.members.exclude(id=instance.initiative.id)
-    list(map(lambda member:
-            pusher_client.trigger(
-                f'notifications{member.id}',
-                'new-message',
-                {
-                    'chat': {
-                        'is_chat': instance.chat.is_chat,
-                        'chat_name': instance.chat.name
-                    },
-                    'sender': {
-                        'sender_id': instance.initiative.id,
-                        'sender_company': instance.initiative.company
-                    }
-                }
-            ),
-            members
-        )
-    )
+#     members = instance.chat.members.exclude(id=instance.initiative.id)
+#     list(map(lambda member:
+#             pusher_client.trigger(
+#                 f'notifications{member.id}',
+#                 'new-message',
+#                 {
+#                     'chat': {
+#                         'is_chat': instance.chat.is_chat,
+#                         'chat_name': instance.chat.name
+#                     },
+#                     'sender': {
+#                         'sender_id': instance.initiative.id,
+#                         'sender_company': instance.initiative.company
+#                     }
+#                 }
+#             ),
+#             members
+#         )
+#     )

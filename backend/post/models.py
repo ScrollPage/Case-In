@@ -5,8 +5,8 @@ from django.db.models.functions import Trunc
 
 from datetime import timedelta
 
-from command.models import Command
-from initiative.models import Initiative
+from department.models import Department
+from worker.models import Worker
 
 class PostManager(models.Manager):
     '''Дополнительные методы'''
@@ -17,18 +17,12 @@ class PostManager(models.Manager):
 
 class Post(models.Model):
     '''Объявление'''
-    initiative = models.ForeignKey(
-        Initiative, 
-        verbose_name='Инициатива-создатель', 
-        on_delete=models.CASCADE,
-        related_name='posts'
-    )
-    command = models.ForeignKey(
-        Command, 
-        verbose_name='Команда-владелец', 
+    depart = models.ForeignKey(
+        Department, 
+        verbose_name='Отдел-создатель', 
         on_delete=models.CASCADE,
         null=True,
-        related_name='command_posts'
+        related_name='posts'
     )
     title = models.TextField(max_length=1000, null=True)
     picture = models.ImageField(upload_to='pictures/%Y/%m/%d', null=True)
@@ -56,8 +50,8 @@ class Comment(models.Model):
         Post, verbose_name='Пост', 
         on_delete=models.CASCADE, related_name='comments'
     )
-    initiative = models.ForeignKey(
-        Initiative, verbose_name='Создатель', 
+    user = models.ForeignKey(
+        Worker, verbose_name='Создатель', 
         on_delete=models.CASCADE
     )
     content = models.TextField('Контент', max_length=1000)

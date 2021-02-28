@@ -1,7 +1,7 @@
 from django.db import models
 
-from command.models import Command
-from initiative.models import Initiative
+from department.models import Department
+from worker.models import Worker 
 from chat.models import Chat
 
 class Doc(models.Model):
@@ -9,9 +9,9 @@ class Doc(models.Model):
     name = models.CharField(max_length=30)
     role = models.CharField(max_length=100)
     doc = models.FileField(upload_to='docs/%Y/%m/%d')
-    command = models.ForeignKey(
-        Command, 
-        verbose_name='Команда', 
+    depart = models.ForeignKey(
+        Department, 
+        verbose_name='Отдел', 
         on_delete=models.CASCADE,
         related_name='docs'
     )
@@ -31,8 +31,8 @@ class ChatDoc(models.Model):
         on_delete=models.CASCADE, 
         related_name='docs'
     )
-    initiative = models.ForeignKey(
-        Initiative, 
+    user = models.ForeignKey(
+        Worker, 
         verbose_name='Отправитель',
         null=True, 
         on_delete=models.SET_NULL
