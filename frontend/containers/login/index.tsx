@@ -18,9 +18,9 @@ export const LoginContainer = () => {
         <Header>
           <Title>Вход</Title>
           <SubTitle>
-            Нет аккаунта?{" "}
+            Не знаете как войти?{" "}
             <Link href="/register">
-              <a>Регистрация</a>
+              <a>Инструкция</a>
             </Link>
           </SubTitle>
         </Header>

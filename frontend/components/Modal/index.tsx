@@ -15,6 +15,7 @@ import { DeleteChat } from "./DeleteChat";
 import { ExitCommand } from "./ExitCommand";
 import { DeleteComment } from "./DeleteComment";
 import { DeleteReview } from "./DeleteReview";
+import { AddCalendlyEvent } from "./AddCalendlyEvent";
 
 const MODAL_COMPONENTS = {
   CHANGE_COMMAND: ChangeCommand,
@@ -28,6 +29,7 @@ const MODAL_COMPONENTS = {
   DELETE_CHAT: DeleteChat,
   DELETE_COMMENT: DeleteComment,
   DELETE_REVIEW: DeleteReview,
+  ADD_CALENDLY_EVENT: AddCalendlyEvent,
 };
 
 const RootModalComponent: React.FC = () => {

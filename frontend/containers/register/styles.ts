@@ -31,7 +31,13 @@ export const Header = styled.div`
     margin-bottom: 20px;
   }
 `;
-export const Main = styled.div``;
+export const Main = styled.div`
+  padding: 43px;
+  background: #ffffff;
+  box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  margin-bottom: 40px;
+`;
 
 export const Title = styled.h1`
   font-family: Montserrat;
@@ -60,4 +66,9 @@ export const SubTitle = styled.h2`
   }
 `;
 
-
+export const Text = styled.p`
+  font-family: Montserrat;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 26px;
+`

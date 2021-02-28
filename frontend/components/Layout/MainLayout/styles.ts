@@ -88,7 +88,7 @@ export const HeaderSide = styled.div`
 export const Logo = styled.div`
   @media (max-width: 900.98px) {
     > a > img {
-    width: 172px;
+    width: 130px;
     }
   }
 `;
@@ -119,6 +119,11 @@ export const SideLink = styled.div<{ isActive: boolean }>`
   transition: background-color 0.3s ease;
   > a {
     color: #000;
+  }
+  @media (max-width: 900.98px) {
+    margin-bottom: 12px;
+    padding: 6px;
+    font-size: 14px;
   }
 `;
 
