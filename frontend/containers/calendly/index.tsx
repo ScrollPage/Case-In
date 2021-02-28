@@ -1,5 +1,8 @@
 import { CalendlyItem } from "@/components/Calendly/CalendlyDay";
+import { AddCalendlyEventProps } from "@/components/Modal/AddCalendlyEvent";
+import { modalShow } from "@/store/actions/modal";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { AddEvent, Wrapper, Title, List, Week } from "./styles";
 
 const data: any = [
@@ -49,13 +52,19 @@ const renderCalendlyItems = (data: any) =>
   ));
 
 export const CalendlyContainer = () => {
+  const dispatch = useDispatch();
+
+  const handleOpen = () => {
+    dispatch(modalShow<AddCalendlyEventProps>("ADD_CALENDLY_EVENT", {}));
+  };
+
   return (
     <Wrapper>
       <Title>Календарь</Title>
       <Week>Текущая неделя</Week>
       {/* <List>{renderCalendlyItems(data)}</List> */}
       <List>{renderCalendlyItems(data)}</List>
-      <AddEvent />
+      <AddEvent onClick={handleOpen} />
     </Wrapper>
   );
 };

@@ -16,6 +16,7 @@ export type ModalNameType =
   'EXIT_COMMAND' |
   'DELETE_COMMENT' |
   'DELETE_REVIEW' |
+  'ADD_CALENDLY_EVENT' |
   null;
 
 export function modalShow<T>(modalName: ModalNameType, modalProps: T): ModalShowType<T> {
