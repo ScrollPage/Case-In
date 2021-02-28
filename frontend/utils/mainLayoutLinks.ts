@@ -24,6 +24,11 @@ export const mainLoyoutLinks = (userId: number): LinkType[] => {
       label: "Достижения",
     },
     {
+      href: `/calendly`,
+      pathname: "/calendly",
+      label: "Расписание",
+    },
+    {
       href: "/im",
       pathname: "/im",
       label: "Мессенджер",

@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-export const Wrapper = styled.button<{ myType: "outline" | "blue", width?: string }>`
+export const Wrapper = styled.button<{ myType: "outline" | "blue", width?: string, small?: boolean }>`
   outline: none;
   cursor: pointer;
   user-select: none;
@@ -11,13 +11,19 @@ export const Wrapper = styled.button<{ myType: "outline" | "blue", width?: strin
   position: relative;
   padding: 0 10px;
   border-radius: 10px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px; 
+
+  ${({ small }) => small && css`
+    border-radius: 5px;
+    height: 18px;
+    font-size: 8px;
+  `}
 
   ${({ myType, theme }) => myType === 'blue' && css`
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 17px;
     color: #fff;
     background-color: ${theme.blue};
     border: none;
@@ -47,11 +53,6 @@ export const Wrapper = styled.button<{ myType: "outline" | "blue", width?: strin
   `};
 
   ${({ myType, theme }) => myType === 'outline' && css`
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 22px;
     color: #000;
     background-color: #fff;
     border: 1px solid ${theme.blue};
