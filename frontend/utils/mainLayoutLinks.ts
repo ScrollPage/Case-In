@@ -1,4 +1,3 @@
-
 interface LinkType {
   href: string;
   pathname: string;
@@ -26,7 +25,12 @@ export const mainLoyoutLinks = (userId: number): LinkType[] => {
     {
       href: `/calendly`,
       pathname: "/calendly",
-      label: "Расписание",
+      label: "Календарь",
+    },
+    {
+      href: `/test`,
+      pathname: "/test",
+      label: "Тесты",
     },
     {
       href: "/im",
