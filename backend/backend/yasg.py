@@ -6,7 +6,7 @@ from drf_yasg import openapi
 schema_view = get_schema_view(
     openapi.Info(
         title = 'Corp-Net',
-        default_version = 'v2',
+        default_version = 'v1',
         description = 'No description',
         license = openapi.License(name = 'BSD License'),
     ),

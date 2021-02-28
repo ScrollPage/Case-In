@@ -5,4 +5,4 @@ from rest_framework.mixins import (
     DestroyModelMixin
 )
 
-from backend.core import PermissionMixin, SerializerMixin, FastResponseMixin 
+from backend.core import PermissionMixin, SerializerMixin, FastResponseMixin
