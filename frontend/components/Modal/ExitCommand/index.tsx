@@ -27,7 +27,7 @@ const ExitCommandComponent: React.FC<IExitCommand> = ({
 
   return (
     <Wrapper>
-      <Title>Вы действительно хотите выйти из команды?</Title>
+      <Title>Вы действительно хотите выйти из отдела?</Title>
       <Inner>
         <Button onClick={handleDelete} myType="outline">
           Выйти

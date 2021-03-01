@@ -51,7 +51,7 @@ const CommandsComponent = ({}: CommandsProps) => {
   }, [query]);
 
   const { data, error } = useSWR(
-    `/api/command/?${apiLink[0] === "&" ? apiLink.substr(1) : apiLink}`,
+    `/api/depart/?${apiLink[0] === "&" ? apiLink.substr(1) : apiLink}`,
     {
       initialData: deepEqual(query, serverQuery) ? commands : undefined,
     }

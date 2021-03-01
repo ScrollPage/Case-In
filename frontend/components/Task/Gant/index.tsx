@@ -30,7 +30,7 @@ const GantComponent = ({}: GantProps) => {
   const { query } = useRouter();
   const commandId = getAsString(query.ID);
 
-  const { error, data } = useSWR(`/api/command/${commandId}/diagram/`, {
+  const { error, data } = useSWR(`/api/depart/${commandId}/diagram/`, {
     initialData: tasks,
   });
 
@@ -41,7 +41,7 @@ const GantComponent = ({}: GantProps) => {
       ) : !data ? (
         <LoadingSpinner />
       ) : data?.tasks.length === 0 ? (
-        <EmptyMessage message="В вашей команде нет задач" />
+        <EmptyMessage message="В вашем отделе нет задач" />
       ) : (
         <Chart
           width={"100%"}

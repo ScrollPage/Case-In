@@ -15,7 +15,6 @@ export interface ICommand {
   membership_id: number;
   info: {
     id: number;
-    depart: string;
     description: string;
     motto: string;
   }

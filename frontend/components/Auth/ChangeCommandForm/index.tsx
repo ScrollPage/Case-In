@@ -10,17 +10,23 @@ import { Select } from "@/components/UI/Select";
 
 const validationSchema = object().shape({
   name: string()
-    .min(3, "Слишком короткое название компанни")
-    .max(50, "Слишком длинное название компании")
-    .required("Введите имя"),
+    .min(3, "Слишком короткое поле")
+    .max(50, "Слишком длинное поле")
+    .required("Поле пусток"),
+  description: string()
+    .min(3, "Слишком короткое поле")
+    .max(50, "Слишком длинное поле")
+    .required("Поле пусток"),
+  motto: string()
+    .min(3, "Слишком короткое поле")
+    .max(50, "Слишком длинное поле")
+    .required("Поле пусток"),
 });
 
 export interface ChangeCommandFormValues {
   name: string;
-  idea: string;
   description: string;
-  categories: number[];
-  requirenments: number[];
+  motto: string;
 }
 
 interface ChangeCommandFormProps {
@@ -32,24 +38,14 @@ const ChangeCommandFormComponent: React.FC<ChangeCommandFormProps> = ({
   handleSubmit,
   initialValues,
 }) => {
-  const format = useCallback(
-    (options?: IOption[]) => {
-      return options?.map((option) => {
-        return option.id;
-      });
-    },
-    [initialValues]
-  );
   return (
     <Wrapper>
-      <Title>Изменение / Дополнение команды</Title>
+      <Title>Изменение / Дополнение отдела</Title>
       <Formik
         initialValues={{
           name: initialValues?.name ?? "",
-          idea: initialValues?.info?.idea ?? "",
-          description: initialValues?.info?.description ?? "",
-          categories: format(initialValues?.info?.categories) ?? [],
-          requirenments: format(initialValues?.info?.requirenments) ?? [],
+          description: initialValues?.info.description ?? "",
+          motto: initialValues?.info.motto ?? "",
         }}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -59,29 +55,12 @@ const ChangeCommandFormComponent: React.FC<ChangeCommandFormProps> = ({
           resetForm();
         }}
       >
-        {({
-          dirty,
-          isValid,
-          setFieldValue,
-          values,
-        }: FormikProps<ChangeCommandFormValues>) => (
+        {({ dirty, isValid }: FormikProps<ChangeCommandFormValues>) => (
           <Form>
             <Inner>
-              <Input type="text" name="name" placeholder="Название команды" />
+              <Input type="text" name="name" placeholder="Название отдела" />
               <Input type="text" name="description" placeholder="Описание" />
-              <Input type="text" name="idea" placeholder="Идея" />
-              <Select
-                name="categories"
-                placeholder="Категории"
-                value={values.categories}
-                onChange={setFieldValue}
-              />
-              <Select
-                name="requirenments"
-                placeholder="Потребности"
-                value={values.requirenments}
-                onChange={setFieldValue}
-              />
+              <Input type="text" name="motto" placeholder="Девиз" />
               <Button
                 myType="outline"
                 type="submit"

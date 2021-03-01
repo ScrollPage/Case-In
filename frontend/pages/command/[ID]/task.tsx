@@ -20,7 +20,7 @@ export default function Task({ tasks, roles }: TaskProps) {
   return (
     <MainLayout>
       <Head>
-        <title>BNET / План команды</title>
+        <title>BNET / План отдела</title>
       </Head>
       <TaskContext.Provider value={{ tasks, roles }}>
         <TaskContainer />
@@ -37,7 +37,7 @@ export const getServerSideProps: GetServerSideProps<TaskProps> = async (
 
   let tasks: IDiagram | null = null;
   await instanceWithSSR(ctx)
-    .get(`/api/command/${pageCommandId}/diagram/`)
+    .get(`/api/depart/${pageCommandId}/diagram/`)
     .then((response) => {
       tasks = response?.data ?? null;
     })
@@ -47,7 +47,7 @@ export const getServerSideProps: GetServerSideProps<TaskProps> = async (
 
   let roles: IRole[] | null = null;
   await instanceWithSSR(ctx)
-    .get(`/api/command/${pageCommandId}/members/`)
+    .get(`/api/depart/${pageCommandId}/members/`)
     .then((response) => {
       roles = response?.data ?? null;
     })

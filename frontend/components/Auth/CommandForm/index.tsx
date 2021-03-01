@@ -4,7 +4,6 @@ import { object, string } from "yup";
 import { Formik, Form, FormikProps } from "formik";
 import { Input } from "@/components/UI/Input";
 import { Button } from "@/components/UI/Button";
-import { User } from "@/types/user";
 
 const validationSchema = object().shape({
   name: string()
@@ -19,19 +18,15 @@ export interface CommandFormValues {
 
 interface CommandFormProps {
   handleSubmit: (values: CommandFormValues) => void;
-  initialValues?: User;
 }
 
-const CommandFormComponent: React.FC<CommandFormProps> = ({
-  handleSubmit,
-  initialValues,
-}) => {
+const CommandFormComponent: React.FC<CommandFormProps> = ({ handleSubmit }) => {
   return (
     <Wrapper>
-      <Title>Создание команды</Title>
+      <Title>Создание отдела</Title>
       <Formik
         initialValues={{
-          name: initialValues?.name ?? "",
+          name: "",
         }}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -44,7 +39,7 @@ const CommandFormComponent: React.FC<CommandFormProps> = ({
         {({ dirty, isValid }: FormikProps<CommandFormValues>) => (
           <Form>
             <Inner>
-              <Input type="text" name="name" placeholder="Название команды" />
+              <Input type="text" name="name" placeholder="Название отдела" />
               <Button
                 myType="outline"
                 type="submit"

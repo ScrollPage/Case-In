@@ -55,7 +55,7 @@ const PostsComponent: React.FC<PostsProps> = ({ where, isAdmin, posts }) => {
       return [userId === query.ID, `/api/initiative/${query.ID}/post/`];
     }
     if (where === "command") {
-      return [isAdmin, `/api/command/${query.ID}/post/`];
+      return [isAdmin, `/api/depart/${query.ID}/post/`];
     }
     return [false, ""];
   }, [query, userId, where, isAdmin]);

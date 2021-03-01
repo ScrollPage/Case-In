@@ -45,7 +45,7 @@ export const mainLoyoutLinks = (userId: number): LinkType[] => {
     {
       href: "/command",
       pathname: "/command",
-      label: "Команды",
+      label: "Отделы",
     },
     {
       href: "/learn",

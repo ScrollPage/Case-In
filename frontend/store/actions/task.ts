@@ -24,7 +24,7 @@ export const addTask = (values: CreateTaskFormValues): ThunkType => async dispat
     .catch(() => {
       dispatch(show('Ошибка при добавлении задачи!', 'warning'));
     });
-  trigger(`/api/command/${pageCommandId}/diagram/`);
+  trigger(`/api/depart/${pageCommandId}/diagram/`);
 };
 
 export const addUserTask = (values: CreateUserTaskFormValues): ThunkType => async dispatch => {
@@ -57,7 +57,7 @@ export const editTask = (values: EditTaskFormValues): ThunkType => async dispatc
     .catch(() => {
       dispatch(show('Ошибка при изменении задачи!', 'warning'));
     });
-  trigger(`/api/command/${pageCommandId}/diagram/`);
+  trigger(`/api/depart/${pageCommandId}/diagram/`);
 };
 
 export const editUserTask = (values: EditTaskFormValues): ThunkType => async dispatch => {

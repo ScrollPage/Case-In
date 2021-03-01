@@ -31,7 +31,7 @@ export default function Command({
   return (
     <MainLayout>
       <Head>
-        <title>BNET / Команда</title>
+        <title>BNET / Отдел</title>
       </Head>
       <CommandContext.Provider value={{ command, posts, docs, members }}>
         <CommandContainer />
@@ -68,7 +68,7 @@ export const getServerSideProps: GetServerSideProps<CommandProps> = async (
 
   let posts: IPost[] | null = null;
   await instanceWithSSR(ctx)
-    .get(`/api/command/${pageCommandId}/post/`)
+    .get(`/api/depart/${pageCommandId}/post/`)
     .then((response) => {
       posts = response?.data ?? null;
     })
@@ -78,7 +78,7 @@ export const getServerSideProps: GetServerSideProps<CommandProps> = async (
 
   let docs: IDoc[] | null = null;
   await instanceWithSSR(ctx)
-    .get(`/api/command/${pageCommandId}/doc/`)
+    .get(`/api/depart/${pageCommandId}/doc/`)
     .then((response) => {
       docs = response?.data ?? null;
     })

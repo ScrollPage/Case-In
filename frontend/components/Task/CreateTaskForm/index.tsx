@@ -150,7 +150,7 @@ const InitiativeSelect: React.FC<InitiativeSelectProps> = ({
   const { query } = useRouter();
   const pageCommandId = query.ID;
 
-  const { error, data } = useSWR(`/api/command/${pageCommandId}/members/`, {
+  const { error, data } = useSWR(`/api/depart/${pageCommandId}/members/`, {
     initialData: roles,
   });
 

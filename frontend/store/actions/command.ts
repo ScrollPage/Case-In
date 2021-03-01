@@ -14,12 +14,12 @@ export const addCommand = (values: CommandFormValues): ThunkType => async dispat
       name: values.name
     })
     .then((res) => {
-      dispatch(show('Вы успешно создали команду!', 'success'));
+      dispatch(show('Вы успешно создали отдел!', 'success'));
       const commandId = res.data.info.id;
       Router.push({ pathname: `/command/${commandId}` }, undefined, { shallow: true });
     })
     .catch(() => {
-      dispatch(show('Ошибка при создании команды!', 'warning'));
+      dispatch(show('Ошибка при создании отдела!', 'warning'));
     });
 };
 
@@ -27,11 +27,11 @@ export const deleteCommand = (id: number): ThunkType => async dispatch => {
   await instance()
     .delete(`/api/depart/${id}`)
     .then((res) => {
-      dispatch(show('Вы успешно удалили команду!', 'success'));
+      dispatch(show('Вы успешно удалили отдел!', 'success'));
       Router.push({ pathname: `/command` }, undefined, { shallow: true });
     })
     .catch(() => {
-      dispatch(show('Ошибка при удалении команды!', 'warning'));
+      dispatch(show('Ошибка при удалении отдела!', 'warning'));
     });
 };
 
@@ -41,10 +41,10 @@ export const commandChange = (values: ChangeCommandFormValues, id: number): Thun
       name: values.name
     })
     .then((res) => {
-      dispatch(show('Вы успешно сменели данные о команде!', 'success'));
+      dispatch(show('Вы успешно сменели данные об отделе!', 'success'));
     })
     .catch(() => {
-      dispatch(show('Ошибка при смене данных о команде!', 'warning'));
+      dispatch(show('Ошибка при смене данных об отдела!', 'warning'));
     });
   trigger(`/api/depart/${id}/`);
 };
@@ -58,10 +58,10 @@ export const commandChangeInfo = (values: ChangeCommandFormValues, id: number): 
       requirenments: values.requirenments
     })
     .then((res) => {
-      dispatch(show('Вы успешно сменели данные о команде!', 'success'));
+      dispatch(show('Вы успешно сменели данные об отделе!', 'success'));
     })
     .catch(() => {
-      dispatch(show('Ошибка при смене данных о команде!', 'warning'));
+      dispatch(show('Ошибка при смене данных об отделе!', 'warning'));
     });
   trigger(`/api/depart/${id}/`);
 };
@@ -70,13 +70,13 @@ export const exitCommand = (commandId: number, membershipId: number): ThunkType 
   await instance()
     .delete(`/api/membership/${membershipId}/`)
     .then((res) => {
-      dispatch(show(`Вы успешно вышли из команды!`, 'success'));
+      dispatch(show(`Вы успешно вышли из отдела!`, 'success'));
     })
     .catch(() => {
-      dispatch(show(`Ошибка при выходе из команды!`, 'warning'));
+      dispatch(show(`Ошибка при выходе из отдела!`, 'warning'));
     });
-  trigger(`/api/command/${commandId}/`);
-  trigger(`/api/command/${commandId}/members/`);
+  trigger(`/api/depart/${commandId}/`);
+  trigger(`/api/depart/${commandId}/members/`);
 };
 
 export const addDocCommand = (values: DocFormValues): ThunkType => async dispatch => {
@@ -96,5 +96,5 @@ export const addDocCommand = (values: DocFormValues): ThunkType => async dispatc
     .catch(() => {
       dispatch(show('Ошибка при добавлении документа!', 'warning'));
     });
-  trigger(`/api/command/${pageCommandId}/doc/`);
+  trigger(`/api/depart/${pageCommandId}/doc/`);
 };

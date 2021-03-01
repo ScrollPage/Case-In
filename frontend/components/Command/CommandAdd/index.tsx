@@ -14,7 +14,7 @@ const CommandAddComponent = () => {
   return (
     <Wrapper>
       <Button onClick={handleOpen} width="100%" myType="outline">
-        Создать команду
+        Создать отдел
       </Button>
     </Wrapper>
   );

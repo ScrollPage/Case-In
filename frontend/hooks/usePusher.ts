@@ -20,7 +20,7 @@ export const usePusher = () => {
       channel.bind("access-request", function (data: IAccessNotify) {
         dispatch(
           show(
-            `Вам разрешили доступ к файлам команды ${data.command}!`,
+            `Вам разрешили доступ к файлам отдела ${data.command}!`,
             "success"
           )
         );
@@ -28,7 +28,7 @@ export const usePusher = () => {
       channel.bind("join-request", function (data: IJoinNotify) {
         dispatch(
           show(
-            `Вы приняты в команду ${data.command} на должность ${data.role}!`,
+            `Вы приняты в отдел ${data.command} на должность ${data.role}!`,
             "success"
           )
         );
@@ -37,7 +37,7 @@ export const usePusher = () => {
         const sender = data.chat.is_chat
           ? data.sender.sender_company
           : data.chat.chat_name;
-        const pre = data.chat.is_chat ? "от инициативы" : "в чате команды";
+        const pre = data.chat.is_chat ? "от инициативы" : "в чате отдела";
         dispatch(show(`У вас новое сообщение ${pre} ${sender}!`, "success"));
       });
     }

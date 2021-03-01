@@ -20,7 +20,7 @@ export default function Commands({ commands }: CommandsProps) {
   return (
     <MainLayout>
       <Head>
-        <title>BNET / Команды</title>
+        <title>BNET / Отделы</title>
       </Head>
       <CommandsContext.Provider value={{ commands }}>
         <CommandsContainer />
@@ -47,7 +47,7 @@ export const getServerSideProps: GetServerSideProps<CommandsProps> = async (
 
   let commands: ICommand[] | null = null;
   await instanceWithSSR(ctx)
-    .get(`/api/command/?${apiLink[0] === "&" ? apiLink.substr(1) : apiLink}`)
+    .get(`/api/depart/?${apiLink[0] === "&" ? apiLink.substr(1) : apiLink}`)
     .then((response) => {
       commands = response?.data ?? null;
     })
