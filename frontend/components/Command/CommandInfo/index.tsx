@@ -23,6 +23,7 @@ import {
 } from "./styles";
 import { ExitCommandProps } from "@/components/Modal/ExitCommand";
 import { useUser } from "@/hooks/useUser";
+import { AddMemberProps } from "@/components/Modal/AddMember";
 
 const renderButtons = (data: ICommand) => {
   const dispatch = useDispatch();
@@ -50,11 +51,7 @@ const renderButtons = (data: ICommand) => {
 
   const handleExit = () => {
     if (data) {
-      dispatch(
-        modalShow<ExitCommandProps>("EXIT_COMMAND", {
-          commandId: data.id,
-        })
-      );
+      dispatch(modalShow<ExitCommandProps>("EXIT_COMMAND", {}));
     }
   };
 
@@ -72,28 +69,35 @@ const renderButtons = (data: ICommand) => {
     });
   };
 
+  const handleAdd = () => {
+    dispatch(modalShow<AddMemberProps>("ADD_MEMBER", {}));
+  };
+
   return (
     <ButtonsWrapper>
       {Number(userId) === data.admin.id && (
         <>
+          <Button width="100%" myType="outline" onClick={handleAdd}>
+            Добавить участника
+          </Button>
           <Button width="100%" myType="outline" onClick={handleChange}>
             Редактировать
           </Button>
           <Button width="100%" myType="outline" onClick={handleDelete}>
-            Распустить отдел
+            Распустить
           </Button>
         </>
       )}
       {data.joined && Number(userId) !== data.admin.id && (
         <Button width="100%" myType="outline" onClick={handleExit}>
-          Покинуть отдел
+          Покинуть
         </Button>
       )}
       <Button width="100%" myType="outline" onClick={handleTask}>
-        План отдела
+        Задачи
       </Button>
       <Button width="100%" myType="outline" onClick={handleChat}>
-        Перейти к диалогу отдела
+        Беседа
       </Button>
     </ButtonsWrapper>
   );

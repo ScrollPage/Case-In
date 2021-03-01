@@ -65,8 +65,9 @@ export const commandChangeInfo = (values: ChangeCommandFormValues, id: number): 
   trigger(`/api/depart/${id}/`);
 };
 
-export const exitOrInviteCommand = (commandId: number): ThunkType => async dispatch => {
-  const userId = Cookie.get('userId');
+export const exitOrInviteCommand = (workerId?: number): ThunkType => async dispatch => {
+  const commandId = getAsString(Router.query.ID);
+  const userId = workerId ?? Cookie.get('userId');
   await instance()
     .post(`/api/depart/${commandId}/membertoggle/`, {
       user: userId
