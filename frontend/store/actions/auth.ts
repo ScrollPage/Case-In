@@ -124,7 +124,7 @@ export const setUserRate = (id: number, rate: number): ThunkType => async dispat
   await instance()
     .post(`/api/rating/`, {
       star: rate,
-      initiative: id
+      user: id
     })
     .then((res) => {
       dispatch(show('Ваш голос засчитан!', 'success'));

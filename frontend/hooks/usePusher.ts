@@ -37,7 +37,7 @@ export const usePusher = () => {
         const sender = data.chat.is_chat
           ? data.sender.sender_company
           : data.chat.chat_name;
-        const pre = data.chat.is_chat ? "от инициативы" : "в чате отдела";
+        const pre = data.chat.is_chat ? "от сотрудника" : "в чате отдела";
         dispatch(show(`У вас новое сообщение ${pre} ${sender}!`, "success"));
       });
     }
