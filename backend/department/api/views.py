@@ -11,7 +11,7 @@ from .serializers import (
     DepMembershipSerializer, MembersSerializer
 )
 from department.models import Department, DepartmentInfo, DepMembership
-from .permissions import IsSuperUser, IsDepOwner
+from .permissions import IsSuperUser, IsDepOwner, IsDepOwnerInfo
 
 from worker.models import Worker
 
@@ -51,6 +51,11 @@ class DepartmentViewSet(SPFCreateUpdateDeleteRetrieveViewSet):
         '''Работники отдела'''
         return self.fast_response('workers')
 
+    @action(detail=True)
+    def worker(self, request, *args, **kwargs):
+        '''Документы отдела'''
+        return self.fast_response('docs')
+
     def get_queryset(self):
         queryset = Department.objects.all()
         if self.action != 'retrieve':
@@ -68,8 +73,8 @@ class DepartmentViewSet(SPFCreateUpdateDeleteRetrieveViewSet):
     def perform_create(self, serializer):
         serializer.save(admin=self.request.user)
 
-class DepartmentInfo(UpdateAPIView):
+class DepartmentInfoView(UpdateAPIView):
     '''Обновление информации об отделе'''
     serializer_class = DepartmentInfoSerializer
-    permission_classes = [permissions.IsAuthenticated, IsDepOwner]
+    permission_classes = [permissions.IsAuthenticated, IsDepOwnerInfo]
     queryset = DepartmentInfo.objects.all()

@@ -7,7 +7,6 @@ from chat.models import Chat
 class Doc(models.Model):
     '''Документ'''
     name = models.CharField(max_length=30)
-    role = models.CharField(max_length=100)
     doc = models.FileField(upload_to='docs/%Y/%m/%d')
     depart = models.ForeignKey(
         Department, 

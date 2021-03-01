@@ -9,6 +9,11 @@ class IsSuperUser(BasePermission):
         return request.user.is_superuser
 
 class IsDepOwner(BasePermission):
-    '''Явлсяется ли суперпользователем'''
+    '''Явлсяется ли админом'''
     def has_object_permission(self, request, view, obj):
         return obj.admin == request.user
+
+class IsDepOwnerInfo(BasePermission):
+    '''Явлсяется ли админом'''
+    def has_object_permission(self, request, view, obj):
+        return obj.depart.admin == request.user
