@@ -35,9 +35,9 @@ export const authInfo = (): ThunkType => async dispatch => {
   await instance()
     .get('/auth/users/me/')
     .then(res => {
-      const { first_name, last_name, id } = res.data;
+      const { first_name, last_name } = res.data.info;
 
-      Cookie.set('userId', id);
+      Cookie.set('userId', res.data.id);
       Cookie.set('firstName', first_name);
       Cookie.set('lastName', last_name);
       // if (first_login) {

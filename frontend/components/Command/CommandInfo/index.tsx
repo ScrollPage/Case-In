@@ -128,7 +128,7 @@ const CommandInfoComponent = () => {
             <Avatar size={80} />
             <Title>{data.name}</Title>
             <SubTitle>
-              Участников: <span>{data.num_members}</span>
+              Участников: <span>{data.num_workers}</span>
             </SubTitle>
           </Inner>
           <Rating defaultRate={data.rate ?? "0"} disabled />

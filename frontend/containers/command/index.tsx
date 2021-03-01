@@ -6,6 +6,7 @@ import { CommandContext, CommandProps } from "@/pages/command/[ID]";
 import { Posts } from "@/components/Post/Posts";
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import { Members } from "@/components/Command/Members";
 
 export const CommandContainer = () => {
   const { posts, command } = useContext(CommandContext) as CommandProps;
@@ -28,6 +29,7 @@ export const CommandContainer = () => {
       </Main>
       <Side>
         <CommandInfo />
+        <Members />
       </Side>
     </Wrapper>
   );

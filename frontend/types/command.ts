@@ -1,12 +1,15 @@
+import { UserInfo } from './user';
 export interface ICommand {
   id: number;
-  admin: number;
+  admin: {
+    id: number;
+    info: UserInfo;
+  }
   name: string;
-  members: any[];
 
   is_initiator: boolean;
   rate?: string;
-  num_members: number;
+  num_workers: number;
   joined: boolean;
   chat_id: number;
   membership_id: number;
