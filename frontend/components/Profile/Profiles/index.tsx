@@ -49,7 +49,7 @@ const ProfilesComponent = ({}: ProfilesProps) => {
   }, [query]);
 
   const { data, error } = useSWR(
-    `/api/initiative/?${apiLink[0] === "&" ? apiLink.substr(1) : apiLink}`,
+    `/api/worker/?${apiLink[0] === "&" ? apiLink.substr(1) : apiLink}`,
     {
       initialData: deepEqual(query, serverQuery) ? profiles : undefined,
     }

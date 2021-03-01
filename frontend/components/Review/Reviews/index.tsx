@@ -38,12 +38,10 @@ const ReviewsComponent: React.FC<ReviewsProps> = () => {
   const { query } = useRouter();
   const isYourPage = useIsYour();
 
-  const { error, data } = useSWR<IReview[]>(
-    `/api/initiative/${query.ID}/review/`
-  );
+  const { error, data } = useSWR<IReview[]>(`/api/worker/${query.ID}/review/`);
 
   const { data: userData, error: userError } = useSWR(
-    `/api/initiative/${query.ID}/`,
+    `/api/worker/${query.ID}/`,
     {
       initialData: user,
     }

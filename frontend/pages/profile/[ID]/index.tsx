@@ -37,7 +37,7 @@ export const getServerSideProps: GetServerSideProps<ProfileProps> = async (
 
   let user: User | null = null;
   await instanceWithSSR(ctx)
-    .get(`/api/initiative/${pageUserId}/`)
+    .get(`/api/worker/${pageUserId}/`)
     .then((response) => {
       user = response?.data ?? null;
     })

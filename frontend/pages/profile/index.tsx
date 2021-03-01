@@ -47,7 +47,7 @@ export const getServerSideProps: GetServerSideProps<ProfilesProps> = async (
 
   let profiles: User[] | null = null;
   await instanceWithSSR(ctx)
-    .get(`/api/initiative/?${apiLink[0] === "&" ? apiLink.substr(1) : apiLink}`)
+    .get(`/api/worker/?${apiLink[0] === "&" ? apiLink.substr(1) : apiLink}`)
     .then((response) => {
       profiles = response?.data ?? null;
     })

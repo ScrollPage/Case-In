@@ -30,7 +30,7 @@ export const addTask = (values: CreateTaskFormValues): ThunkType => async dispat
 export const addUserTask = (values: CreateUserTaskFormValues): ThunkType => async dispatch => {
   const pageUserId = Number(getAsString(Router.query.ID));
   await instance()
-    .post(`/api/initiativetask/`, {
+    .post(`/api/workertask/`, {
       begin_time: values.beginDate,
       end_time: values.endDate,
       name: values.name,
@@ -42,7 +42,7 @@ export const addUserTask = (values: CreateUserTaskFormValues): ThunkType => asyn
     .catch(() => {
       dispatch(show('Ошибка при добавлении задачи!', 'warning'));
     });
-  trigger(`/api/initiative/${pageUserId}/diagram/`);
+  trigger(`/api/worker/${pageUserId}/diagram/`);
 };
 
 export const editTask = (values: EditTaskFormValues): ThunkType => async dispatch => {
@@ -63,7 +63,7 @@ export const editTask = (values: EditTaskFormValues): ThunkType => async dispatc
 export const editUserTask = (values: EditTaskFormValues): ThunkType => async dispatch => {
   const pageUserId = Number(getAsString(Router.query.ID));
   await instance()
-    .patch(`/api/initiativetask/${values.name}/`, {
+    .patch(`/api/workertask/${values.name}/`, {
       percentage: Number(values.percentage)
     })
     .then((res) => {
@@ -72,5 +72,5 @@ export const editUserTask = (values: EditTaskFormValues): ThunkType => async dis
     .catch(() => {
       dispatch(show('Ошибка при изменении задачи!', 'warning'));
     });
-  trigger(`/api/initiative/${pageUserId}/diagram/`);
+  trigger(`/api/worker/${pageUserId}/diagram/`);
 };
