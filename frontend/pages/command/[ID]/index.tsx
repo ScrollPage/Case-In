@@ -7,13 +7,11 @@ import { instanceWithSSR } from "@/api";
 import { getAsString } from "@/utils/getAsString";
 import { ICommand } from "@/types/command";
 import { createContext } from "react";
-import { IRole } from "@/types/member";
 import { IPost } from "@/types/post";
 import { IDoc } from "@/types/doc";
 
 export interface CommandProps {
   command: ICommand | null;
-  roles: IRole[] | null;
   posts: IPost[] | null;
   docs: IDoc[] | null;
 }
@@ -22,13 +20,13 @@ export const CommandContext = createContext<CommandProps | undefined>(
   undefined
 );
 
-export default function Command({ command, roles, posts, docs }: CommandProps) {
+export default function Command({ command, posts, docs }: CommandProps) {
   return (
     <MainLayout>
       <Head>
         <title>BNET / Команда</title>
       </Head>
-      <CommandContext.Provider value={{ command, roles, posts, docs }}>
+      <CommandContext.Provider value={{ command, posts, docs }}>
         <CommandContainer />
       </CommandContext.Provider>
     </MainLayout>
@@ -43,19 +41,9 @@ export const getServerSideProps: GetServerSideProps<CommandProps> = async (
 
   let command: ICommand | null = null;
   await instanceWithSSR(ctx)
-    .get(`/api/command/${pageCommandId}/`)
+    .get(`/api/depart/${pageCommandId}/`)
     .then((response) => {
       command = response?.data ?? null;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-
-  let roles: IRole[] | null = null;
-  await instanceWithSSR(ctx)
-    .get(`/api/command/${pageCommandId}/members/`)
-    .then((response) => {
-      roles = response?.data ?? null;
     })
     .catch((error) => {
       console.log(error);
@@ -84,7 +72,6 @@ export const getServerSideProps: GetServerSideProps<CommandProps> = async (
   return {
     props: {
       command,
-      roles,
       posts,
       docs,
     },

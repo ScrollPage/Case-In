@@ -11,7 +11,7 @@ const CommandCardComponent = () => {
   const { command } = useContext(CommandContext) as CommandProps;
   const { query } = useRouter();
 
-  const { data, error } = useSWR(`/api/command/${query.ID}/`, {
+  const { data, error } = useSWR(`/api/depart/${query.ID}/`, {
     initialData: command,
   });
 
@@ -32,24 +32,18 @@ const CommandCardComponent = () => {
   } else {
     return (
       <Wrapper>
-        {data.info.description && (
-          <Stroke>
-            <SubTitle>Описание</SubTitle>
-            <Label>{data.info.description}</Label>
-          </Stroke>
-        )}
-        {data.info.depart && (
-          <Stroke>
-            <SubTitle>Отдел</SubTitle>
-            <Label>{data.info.depart}</Label>
-          </Stroke>
-        )}
-        {data.info.motto && (
-          <Stroke>
-            <SubTitle>Отдел</SubTitle>
-            <Label>{data.info.motto}</Label>
-          </Stroke>
-        )}
+        <Stroke>
+          <SubTitle>Отдел</SubTitle>
+          <Label>{data.info.depart || "Отсутствует"}</Label>
+        </Stroke>
+        <Stroke>
+          <SubTitle>Описание</SubTitle>
+          <Label>{data.info.description || "Отсутствует"}</Label>
+        </Stroke>
+        <Stroke>
+          <SubTitle>Девиз</SubTitle>
+          <Label>{data.info.motto || "Отсутствует"}</Label>
+        </Stroke>
         <Stroke>
           <SubTitle>Документы</SubTitle>
           {data.joined ? <Docs /> : <Label>У вас нет доступа</Label>}

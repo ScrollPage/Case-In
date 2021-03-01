@@ -102,7 +102,7 @@ const CommandInfoComponent = () => {
   const { command } = useContext(CommandContext) as CommandProps;
   const { query } = useRouter();
 
-  const { data, error } = useSWR(`/api/command/${query.ID}/`, {
+  const { data, error } = useSWR(`/api/depart/${query.ID}/`, {
     initialData: command,
   });
 

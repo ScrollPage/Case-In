@@ -9,7 +9,6 @@ import { ChangeCommand } from "./ChangeCommand";
 import { DeletePost } from "./DeletePost";
 import { DeleteCommand } from "./DeleteCommand";
 import { AddCommand } from "./AddCommand";
-import { JoinCommand } from "./JoinCommand";
 import { AddDoc } from "./AddDoc";
 import { DeleteChat } from "./DeleteChat";
 import { ExitCommand } from "./ExitCommand";
@@ -22,7 +21,6 @@ const MODAL_COMPONENTS = {
   DELETE_COMMAND: DeleteCommand,
   EXIT_COMMAND: ExitCommand,
   ADD_COMMAND: AddCommand,
-  JOIN_COMMAND: JoinCommand,
   CHANGE_PROFILE: ChangeProfile,
   DELETE_POST: DeletePost,
   ADD_DOC: AddDoc,

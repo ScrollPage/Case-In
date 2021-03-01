@@ -15,7 +15,5 @@ export interface ICommand {
     depart: string;
     description: string;
     motto: string;
-
-    end_time?: string;
   }
 }
