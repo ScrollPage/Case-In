@@ -4,22 +4,17 @@ import { useDispatch } from "react-redux";
 import { Wrapper, Inner, Title } from "./styles";
 import { exitOrInviteCommand } from "@/store/actions/command";
 
-export interface ExitCommandProps {
-  commandId: number;
-}
+export interface ExitCommandProps {}
 
 interface IExitCommand extends ExitCommandProps {
   setClose: () => void;
 }
 
-const ExitCommandComponent: React.FC<IExitCommand> = ({
-  setClose,
-  commandId,
-}) => {
+const ExitCommandComponent: React.FC<IExitCommand> = ({ setClose }) => {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
-    dispatch(exitOrInviteCommand(commandId));
+    dispatch(exitOrInviteCommand());
     setClose();
   };
 

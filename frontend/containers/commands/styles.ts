@@ -30,9 +30,13 @@ export const Side = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
+  > ${Search} {
+    display: none;
+  }
   @media (max-width: 900.98px) {
     order: 0;
     > ${Search} {
+      display: block;
       margin-right: 0;
       ${Input} {
         width: 100%;

@@ -1,12 +1,10 @@
-import React, { memo, useCallback } from "react";
+import React, { memo } from "react";
 import { Wrapper, Inner, Title } from "./styles";
 import { object, string } from "yup";
 import { Formik, Form, FormikProps } from "formik";
 import { Input } from "@/components/UI/Input";
 import { Button } from "@/components/UI/Button";
 import { ICommand } from "@/types/command";
-import { IOption } from "@/types/option";
-import { Select } from "@/components/UI/Select";
 
 const validationSchema = object().shape({
   name: string()

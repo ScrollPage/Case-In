@@ -20,7 +20,7 @@ export default function Task({ tasks, roles }: TaskProps) {
   return (
     <MainLayout>
       <Head>
-        <title>BNET / План отдела</title>
+        <title>BNET / Задачи отдела</title>
       </Head>
       <TaskContext.Provider value={{ tasks, roles }}>
         <TaskContainer />
