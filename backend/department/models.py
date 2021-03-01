@@ -1,14 +1,15 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from worker.models import Worker
 
 class Department(models.Model):
     '''Отдел'''
-    admin = models.OneToOneField(
+    admin = models.ForeignKey(
         Worker, verbose_name='Глава отдела', related_name='admin_depart', 
         null=True, on_delete=models.SET_NULL
     )
-    members = models.ManyToManyField(Worker, verbose_name='Учатники')
     name = models.CharField(max_length=100)
 
     class Meta:
@@ -27,3 +28,25 @@ class DepartmentInfo(models.Model):
     class Meta:
         verbose_name = 'Информация о отделе'
         verbose_name_plural = 'Информация об отделах'
+
+class DepMembership(models.Model):
+    '''Членство в отделе'''
+    user = models.ForeignKey(
+        Worker, verbose_name='Работник', 
+        related_name='departments', on_delete=models.DO_NOTHING
+    )
+    depart = models.ForeignKey(
+        Department, verbose_name='Отдел', 
+        related_name='workers', on_delete=models.CASCADE
+    )
+
+    class Meta:
+        verbose_name = 'Членство в отделе'
+        verbose_name_plural = 'Членства в отделе'
+
+@receiver(post_save, sender=Department)
+def create_instances(sender, instance=None, created=False, **kwargs):
+    '''Создает необходимые сущности'''
+    if created:
+        DepartmentInfo.objects.create(depart=instance, id=instance.id)
+        DepMembership.objects.create(user=instance.admin, depart=instance)

@@ -1,11 +1,31 @@
 from rest_framework.generics import UpdateAPIView
 from rest_framework import permissions
+from rest_framework.decorators import action
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
-from worker.models import WorkerInfo
+from worker.models import WorkerInfo, Worker
 from .serializers import WorkerInfoSerializer
 from .permissions import IsRightUser
+from .service import SPFViewSet 
 
+from achieve.api.serializers import AchievementSerializer
 
+class WorkerViewSet(SPFViewSet):
+    '''Все про пользователей'''
+    serializer_class = AchievementSerializer
+    serializer_class_by_action = {
+        
+    }
+    permission_classes = [permissions.IsAuthenticated]
+    permission_classes_by_action = {
+
+    }
+    queryset = Worker.objects.all()
+
+    @action(detail=True, methods=['get'])
+    def achievement(self, request, *args, **kwargs):
+        return self.fast_response('achievements')
 
 class WorkerInfoUpdateView(UpdateAPIView):
     '''Обновление информации о сотруднике'''

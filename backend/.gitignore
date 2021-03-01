@@ -148,4 +148,4 @@ media/
 !**/migrations
 !**/migrations/__init__.py
 
-local.*
+local.py
