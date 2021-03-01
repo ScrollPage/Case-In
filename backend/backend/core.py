@@ -1,4 +1,4 @@
-from rest_framework import status
+from rest_framework import status, serializers
 from rest_framework.response import Response
 
 class PermissionMixin:
@@ -32,3 +32,7 @@ class FastResponseMixin:
         instances = getattr(getattr(instance, field), filtering)()
         serializer = self.get_serializer(instances, many=True)
         return Response(serializer.data, status=status)
+
+class EmptySerializer(serializers.Serializer):
+    '''Пустой сериализатор'''
+    pass

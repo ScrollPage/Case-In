@@ -2,25 +2,30 @@ from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.generics import UpdateAPIView
 from rest_framework.decorators import action
-from django.db.models import Count, Subquery, OuterRef, Q, Exists
+from django.db.models import Count, Subquery, OuterRef, Q, Exists, Avg
 from django.shortcuts import get_object_or_404
 
-from .service import SPFCreateUpdateDeleteRetrieveViewSet
+from .service import SPFModelViewSet
 from .serializers import (
     DepartmentSerializer, DepartmentInfoSerializer, 
     DepMembershipSerializer, MembersSerializer
 )
 from department.models import Department, DepartmentInfo, DepMembership
-from .permissions import IsSuperUser, IsDepOwner, IsDepOwnerInfo
+from .permissions import (
+    IsSuperUser, IsDepOwner, IsDepOwnerInfo, 
+    IsAdmin, IsDepartMember
+)
 
 from worker.models import Worker
+from calendly.api.serializers import CalendlySerializer
 
-class DepartmentViewSet(SPFCreateUpdateDeleteRetrieveViewSet):
+class DepartmentViewSet(SPFModelViewSet):
     '''Все про отделы'''
     serializer_class = DepartmentSerializer
     serializer_class_by_action = {
         'membertoggle': DepMembershipSerializer,
-        'worker': MembersSerializer
+        'worker': MembersSerializer,
+        'calendlytask': CalendlySerializer
     }
     permission_classes = [permissions.IsAuthenticated]
     permission_classes_by_action = {
@@ -28,6 +33,7 @@ class DepartmentViewSet(SPFCreateUpdateDeleteRetrieveViewSet):
         'update': [permissions.IsAuthenticated, IsDepOwner],
         'partial_update': [permissions.IsAuthenticated, IsDepOwner],
         'membertoggle': [permissions.IsAuthenticated, IsDepOwner],
+        'mentor': [permissions.IsAuthenticated, IsAdmin]
     }
 
     @action(detail=True, methods=['post'])
@@ -52,13 +58,18 @@ class DepartmentViewSet(SPFCreateUpdateDeleteRetrieveViewSet):
         return self.fast_response('workers')
 
     @action(detail=True)
-    def worker(self, request, *args, **kwargs):
+    def doc(self, request, *args, **kwargs):
         '''Документы отдела'''
         return self.fast_response('docs')
 
+    @action(detail=True)
+    def calendlytask(self, request, *args, **kwargs):
+        '''Календарь отдела'''
+        return self.fast_response('calendly_tasks')
+
     def get_queryset(self):
         queryset = Department.objects.all()
-        if self.action != 'retrieve':
+        if self.action != 'retrieve' and self.action != 'list':
             return queryset
         return queryset \
             .annotate(num_workers=Count('workers', distinct=True)) \
@@ -68,8 +79,9 @@ class DepartmentViewSet(SPFCreateUpdateDeleteRetrieveViewSet):
                         user=self.request.user
                     )
                 )
-            )
-
+            ). \
+            annotate(rate=Avg('workers__user__rating__star__value')) \
+                
     def perform_create(self, serializer):
         serializer.save(admin=self.request.user)
 

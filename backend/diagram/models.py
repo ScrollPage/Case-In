@@ -6,7 +6,7 @@ class DiagramTask(models.Model):
     '''Задания на диаграмме Ганта'''
     user = models.ForeignKey(
         Worker, verbose_name='Исполняющий', 
-        on_delete=models.CASCADE, related_name='tasks'
+        on_delete=models.CASCADE, related_name='diagram_tasks'
     )
     begin_time = models.DateField()
     end_time = models.DateField()

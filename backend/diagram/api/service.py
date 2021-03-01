@@ -6,3 +6,12 @@ from rest_framework.mixins import (
 )
 
 from backend.core import PermissionMixin, SerializerMixin, FastResponseMixin
+
+class UpdateCreateDestoyViewSet(
+    CreateModelMixin, UpdateModelMixin, DestroyModelMixin, 
+    GenericViewSet
+):
+    '''
+    Переопределение методов сериализатора и прав доступа
+    '''
+    pass

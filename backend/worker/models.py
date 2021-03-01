@@ -41,6 +41,7 @@ class Worker(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
+    ready = models.BooleanField(default=False)
     mentor = models.ForeignKey(
         'self', verbose_name='Наставник', related_name='padawans', 
         on_delete=models.SET_NULL, null=True

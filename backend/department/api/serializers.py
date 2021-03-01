@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from department.models import Department, DepartmentInfo, DepMembership
+
 from worker.api.serializers import ShortWorkerSerializer
 
 class DepartmentInfoSerializer(serializers.ModelSerializer):
@@ -16,6 +17,7 @@ class DepartmentSerializer(serializers.ModelSerializer):
     num_workers = serializers.IntegerField(read_only=True)
     admin = ShortWorkerSerializer(read_only=True)
     joined = serializers.BooleanField(read_only=True)
+    rate = serializers.DecimalField(max_digits=3, decimal_places=2, read_only=True)
 
     class Meta:
         model = Department
