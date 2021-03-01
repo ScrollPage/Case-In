@@ -8,9 +8,8 @@ from rest_framework.mixins import (
 from backend.core import PermissionMixin, SerializerMixin, FastResponseMixin
 
 class SPFCreateUpdateDeleteRetrieveViewSet(
-    GenericViewSet, PermissionMixin, 
-    SerializerMixin, FastResponseMixin,
-    CreateModelMixin, UpdateModelMixin, 
+    PermissionMixin, SerializerMixin, FastResponseMixin,
+    GenericViewSet, CreateModelMixin, UpdateModelMixin, 
     RetrieveModelMixin, DestroyModelMixin
 ):
     '''

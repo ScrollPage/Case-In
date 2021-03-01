@@ -10,12 +10,13 @@ from .permissions import IsRightUser
 from .service import SPFViewSet 
 
 from achieve.api.serializers import AchievementSerializer
+from department.api.serializers import MembersSerializer
 
 class WorkerViewSet(SPFViewSet):
     '''Все про пользователей'''
     serializer_class = AchievementSerializer
     serializer_class_by_action = {
-        
+        'depart': MembersSerializer
     }
     permission_classes = [permissions.IsAuthenticated]
     permission_classes_by_action = {
@@ -23,7 +24,12 @@ class WorkerViewSet(SPFViewSet):
     }
     queryset = Worker.objects.all()
 
-    @action(detail=True, methods=['get'])
+    @action(detail=True)
+    def depart(self, request, *args, **kwargs):
+        '''Отделы пользователя'''
+        return self.fast_response('departments')
+
+    @action(detail=True)
     def achievement(self, request, *args, **kwargs):
         return self.fast_response('achievements')
 

@@ -8,8 +8,8 @@ from rest_framework.mixins import (
 from backend.core import PermissionMixin, SerializerMixin, FastResponseMixin
 
 class SPFViewSet(
-    GenericViewSet, PermissionMixin, 
-    SerializerMixin, FastResponseMixin
+    PermissionMixin, SerializerMixin, FastResponseMixin,
+    GenericViewSet
 ):
     '''
     Переопределение методов сериализатора и прав доступа

@@ -11,4 +11,4 @@ class IsSuperUser(BasePermission):
 class IsDepOwner(BasePermission):
     '''Явлсяется ли суперпользователем'''
     def has_object_permission(self, request, view, obj):
-        return obj.admin == self.request.user
+        return obj.admin == request.user
