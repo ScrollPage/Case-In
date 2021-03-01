@@ -52,10 +52,10 @@ const PostsComponent: React.FC<PostsProps> = ({ where, isAdmin, posts }) => {
       return [false, `/api/post/feed/`];
     }
     if (where === "profile") {
-      return [userId === query.ID, `/api/initiative/${query.ID}/post/`];
+      return [userId === query.ID, `/api/worker/${query.ID}/post/`];
     }
     if (where === "command") {
-      return [isAdmin, `/api/command/${query.ID}/post/`];
+      return [isAdmin, `/api/depart/${query.ID}/post/`];
     }
     return [false, ""];
   }, [query, userId, where, isAdmin]);

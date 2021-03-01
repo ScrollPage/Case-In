@@ -1,3 +1,4 @@
+import Cookie from 'js-cookie';
 import { instance } from '@/api';
 import { ThunkType } from '@/types/thunk';
 import { trigger } from 'swr';
@@ -14,12 +15,12 @@ export const addCommand = (values: CommandFormValues): ThunkType => async dispat
       name: values.name
     })
     .then((res) => {
-      dispatch(show('Вы успешно создали команду!', 'success'));
-      const commandId = res.data.info.id;
+      dispatch(show('Вы успешно создали отдел!', 'success'));
+      const commandId = res.data.id;
       Router.push({ pathname: `/command/${commandId}` }, undefined, { shallow: true });
     })
     .catch(() => {
-      dispatch(show('Ошибка при создании команды!', 'warning'));
+      dispatch(show('Ошибка при создании отдела!', 'warning'));
     });
 };
 
@@ -27,11 +28,11 @@ export const deleteCommand = (id: number): ThunkType => async dispatch => {
   await instance()
     .delete(`/api/depart/${id}`)
     .then((res) => {
-      dispatch(show('Вы успешно удалили команду!', 'success'));
+      dispatch(show('Вы успешно удалили отдел!', 'success'));
       Router.push({ pathname: `/command` }, undefined, { shallow: true });
     })
     .catch(() => {
-      dispatch(show('Ошибка при удалении команды!', 'warning'));
+      dispatch(show('Ошибка при удалении отдела!', 'warning'));
     });
 };
 
@@ -41,10 +42,10 @@ export const commandChange = (values: ChangeCommandFormValues, id: number): Thun
       name: values.name
     })
     .then((res) => {
-      dispatch(show('Вы успешно сменели данные о команде!', 'success'));
+      dispatch(show('Вы успешно сменели данные об отделе!', 'success'));
     })
     .catch(() => {
-      dispatch(show('Ошибка при смене данных о команде!', 'warning'));
+      dispatch(show('Ошибка при смене данных об отдела!', 'warning'));
     });
   trigger(`/api/depart/${id}/`);
 };
@@ -52,41 +53,40 @@ export const commandChange = (values: ChangeCommandFormValues, id: number): Thun
 export const commandChangeInfo = (values: ChangeCommandFormValues, id: number): ThunkType => async dispatch => {
   await instance()
     .patch(`/api/depart/info/${id}/`, {
-      idea: values.idea,
       description: values.description,
-      categories: values.categories,
-      requirenments: values.requirenments
+      motto: values.motto,
     })
     .then((res) => {
-      dispatch(show('Вы успешно сменели данные о команде!', 'success'));
+      dispatch(show('Вы успешно сменели данные об отделе!', 'success'));
     })
     .catch(() => {
-      dispatch(show('Ошибка при смене данных о команде!', 'warning'));
+      dispatch(show('Ошибка при смене данных об отделе!', 'warning'));
     });
   trigger(`/api/depart/${id}/`);
 };
 
-export const exitCommand = (commandId: number, membershipId: number): ThunkType => async dispatch => {
+export const exitOrInviteCommand = (commandId: number): ThunkType => async dispatch => {
+  const userId = Cookie.get('userId');
   await instance()
-    .delete(`/api/membership/${membershipId}/`)
+    .post(`/api/depart/${commandId}/membertoggle/`, {
+      user: userId
+    })
     .then((res) => {
-      dispatch(show(`Вы успешно вышли из команды!`, 'success'));
+      dispatch(show(`Вы успешно вышли из отдела!`, 'success'));
     })
     .catch(() => {
-      dispatch(show(`Ошибка при выходе из команды!`, 'warning'));
+      dispatch(show(`Ошибка при выходе из отдела!`, 'warning'));
     });
-  trigger(`/api/command/${commandId}/`);
-  trigger(`/api/command/${commandId}/members/`);
+  trigger(`/api/depart/${commandId}/`);
+  trigger(`/api/depart/${commandId}/worker/`);
 };
 
 export const addDocCommand = (values: DocFormValues): ThunkType => async dispatch => {
   const pageCommandId = getAsString(Router.query.ID);
   let form_data = new FormData();
-  form_data.append('doc', values.file, values.file.name);
-  form_data.append('name', values.file.name);
-  form_data.append('role', values.role.join(','));
+  form_data.append('name', values.file, values.file.name);
   if (pageCommandId) {
-    form_data.append('command', pageCommandId);
+    form_data.append('depart', pageCommandId);
   }
   await instance()
     .post(`/api/doc/`, form_data)
@@ -96,5 +96,5 @@ export const addDocCommand = (values: DocFormValues): ThunkType => async dispatc
     .catch(() => {
       dispatch(show('Ошибка при добавлении документа!', 'warning'));
     });
-  trigger(`/api/command/${pageCommandId}/doc/`);
+  trigger(`/api/depart/${pageCommandId}/doc/`);
 };

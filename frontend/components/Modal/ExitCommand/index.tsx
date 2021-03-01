@@ -2,11 +2,10 @@ import { Button } from "@/components/UI/Button";
 import React, { memo } from "react";
 import { useDispatch } from "react-redux";
 import { Wrapper, Inner, Title } from "./styles";
-import { exitCommand } from "@/store/actions/command";
+import { exitOrInviteCommand } from "@/store/actions/command";
 
 export interface ExitCommandProps {
   commandId: number;
-  membershipId: number;
 }
 
 interface IExitCommand extends ExitCommandProps {
@@ -16,18 +15,17 @@ interface IExitCommand extends ExitCommandProps {
 const ExitCommandComponent: React.FC<IExitCommand> = ({
   setClose,
   commandId,
-  membershipId,
 }) => {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
-    dispatch(exitCommand(commandId, membershipId));
+    dispatch(exitOrInviteCommand(commandId));
     setClose();
   };
 
   return (
     <Wrapper>
-      <Title>Вы действительно хотите выйти из команды?</Title>
+      <Title>Вы действительно хотите выйти из отдела?</Title>
       <Inner>
         <Button onClick={handleDelete} myType="outline">
           Выйти

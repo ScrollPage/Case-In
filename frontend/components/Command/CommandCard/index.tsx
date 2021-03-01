@@ -18,7 +18,7 @@ const CommandCardComponent = () => {
   if (error) {
     return (
       <Wrapper>
-        <ErrorMessage message="Ошибка загрузки информации о команде" />
+        <ErrorMessage message="Ошибка загрузки информации об отделе" />
       </Wrapper>
     );
   }
@@ -32,10 +32,6 @@ const CommandCardComponent = () => {
   } else {
     return (
       <Wrapper>
-        <Stroke>
-          <SubTitle>Отдел</SubTitle>
-          <Label>{data.info.depart || "Отсутствует"}</Label>
-        </Stroke>
         <Stroke>
           <SubTitle>Описание</SubTitle>
           <Label>{data.info.description || "Отсутствует"}</Label>

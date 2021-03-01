@@ -7,17 +7,6 @@ export const Wrapper = styled.div`
   border-radius: 20px;
   padding: 20px 30px;
 `;
-export const Span = styled.span`
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 15px;
-  opacity: 0.5;
-  cursor: pointer;
-  text-align: center;
-  display: block;
-`
 export const TopMain = styled.div`
   display: flex;
   align-items: center;

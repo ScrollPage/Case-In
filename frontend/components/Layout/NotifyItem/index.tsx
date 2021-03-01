@@ -19,9 +19,9 @@ const NotifyItemComponent: React.FC<NotifyItemProps> = ({
 }) => {
   const text = useMemo(() => {
     if (note === 1) {
-      return `Вас приняли в команду`;
+      return `Вас приняли в отдел`;
     } else {
-      return `Вам разрешили доступ к документам команды`;
+      return `Вам разрешили доступ к документам отдела`;
     }
   }, [note]);
 

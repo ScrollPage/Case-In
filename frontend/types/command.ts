@@ -12,10 +12,8 @@ export interface ICommand {
   num_workers: number;
   joined: boolean;
   chat_id: number;
-  membership_id: number;
   info: {
     id: number;
-    depart: string;
     description: string;
     motto: string;
   }

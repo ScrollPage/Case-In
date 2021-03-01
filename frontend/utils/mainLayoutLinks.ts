@@ -40,12 +40,12 @@ export const mainLoyoutLinks = (userId: number): LinkType[] => {
     {
       href: "/profile",
       pathname: "/profile",
-      label: "Инициативы",
+      label: "Сотрудники",
     },
     {
       href: "/command",
       pathname: "/command",
-      label: "Команды",
+      label: "Отделы",
     },
     {
       href: "/learn",

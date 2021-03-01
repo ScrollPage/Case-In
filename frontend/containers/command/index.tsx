@@ -13,7 +13,7 @@ export const CommandContainer = () => {
 
   const { query } = useRouter();
 
-  const { data, error } = useSWR(`/api/command/${query.ID}/`, {
+  const { data, error } = useSWR(`/api/depart/${query.ID}/`, {
     initialData: command,
   });
 

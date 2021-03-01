@@ -26,12 +26,7 @@ const ChangeCommandComponent: React.FC<IChangCommande> = ({
 
   const onSubmit = (values: ChangeCommandFormValues) => {
     dispatch(commandChange(values, id));
-    if (
-      values.description ||
-      values.idea ||
-      values.categories ||
-      values.requirenments
-    ) {
+    if (values.description || values.motto) {
       dispatch(commandChangeInfo(values, id));
     }
     setClose();

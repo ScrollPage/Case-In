@@ -89,16 +89,12 @@ export const authCheckState = (): ThunkType => dispatch => {
 export const authChange = (values: ChangeFormValues): ThunkType => async dispatch => {
   const userId = Cookie.get('userId');
   await instance()
-    .patch(`/api/initiative/${userId}/`, {
-      email: values.email,
-      first_name: values.firstName,
+    .patch(`/api/worker/info/${userId}/`, {
+      firtst_name: values.firstName,
       last_name: values.lastName,
-      company: values.company,
-      phone_number: values.phone,
-      name: values.name
+      phone_number: values.phone
     })
     .then((res) => {
-      Cookie.set('company', res.data.company);
       Cookie.set('firstName', values.firstName);
       Cookie.set('lastName', values.lastName);
       dispatch(show('Вы успешно сменели данные!', 'success'));
@@ -106,13 +102,13 @@ export const authChange = (values: ChangeFormValues): ThunkType => async dispatc
     .catch(() => {
       dispatch(show('Ошибка при смене информации о пользователе!', 'warning'));
     });
-  trigger(`/api/initiative/${userId}/`);
+  trigger(`/api/worker/${userId}/`);
 };
 
 export const authFirstLogin = (): ThunkType => async dispatch => {
   const userId = Cookie.get('userId');
   await instance()
-    .patch(`/api/initiative/${userId}/`, {
+    .patch(`/api/worker/${userId}/`, {
       first_login: false
     })
     .then((res) => {
@@ -124,28 +120,11 @@ export const authFirstLogin = (): ThunkType => async dispatch => {
     });
 };
 
-export const authChangeInfo = (values: ChangeFormValues): ThunkType => async dispatch => {
-  const userId = Cookie.get('userId');
-  await instance()
-    .patch(`/api/initiative/info/${userId}/`, {
-      description: values.description,
-      categories: values.categories,
-      requirenments: values.requirenments
-    })
-    .then((res) => {
-      dispatch(show('Вы успешно сменели данные!', 'success'));
-    })
-    .catch(() => {
-      dispatch(show('Ошибка при смене информации о пользователе!', 'warning'));
-    });
-  trigger(`/api/initiative/${userId}/`);
-};
-
 export const setUserRate = (id: number, rate: number): ThunkType => async dispatch => {
   await instance()
     .post(`/api/rating/`, {
       star: rate,
-      initiative: id
+      user: id
     })
     .then((res) => {
       dispatch(show('Ваш голос засчитан!', 'success'));
@@ -153,7 +132,7 @@ export const setUserRate = (id: number, rate: number): ThunkType => async dispat
     .catch(() => {
       dispatch(show('Ошибка в добавлении рейтинга!', 'warning'));
     });
-  trigger(`/api/initiative/${id}/`);
+  trigger(`/api/worker/${id}/`);
 };
 
 export const authChangeDev = (stage: string, value: string): ThunkType => async dispatch => {
@@ -168,7 +147,7 @@ export const authChangeDev = (stage: string, value: string): ThunkType => async 
     .catch(() => {
       dispatch(show('Ошибка при описании этапа!', 'warning'));
     });
-  trigger(`/api/initiative/${userId}/construct/`);
+  trigger(`/api/worker/${userId}/construct/`);
 };
 
 

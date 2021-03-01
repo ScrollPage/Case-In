@@ -1,5 +1,5 @@
 import { ChangeForm, ChangeFormValues } from "@/components/Auth/ChangeForm";
-import { authChange, authChangeInfo } from "@/store/actions/auth";
+import { authChange } from "@/store/actions/auth";
 import { User } from "@/types/user";
 import React, { memo } from "react";
 import { useDispatch } from "react-redux";
@@ -21,9 +21,6 @@ const ChangeProfileComponent: React.FC<IChangeProfile> = ({
 
   const onSubmit = (values: ChangeFormValues) => {
     dispatch(authChange(values));
-    if (values.description || values.categories || values.requirenments) {
-      dispatch(authChangeInfo(values));
-    }
     setClose();
   };
 

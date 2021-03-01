@@ -37,7 +37,7 @@ export const getServerSideProps: GetServerSideProps<UserTaskProps> = async (
 
   let tasks: ITask[] | null = null;
   await instanceWithSSR(ctx)
-    .get(`/api/initiative/${pageUserId}/diagram/`)
+    .get(`/api/worker/${pageUserId}/diagram/`)
     .then((response) => {
       tasks = response?.data ?? null;
     })

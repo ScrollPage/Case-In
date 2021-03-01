@@ -30,7 +30,7 @@ const GantComponent = ({}: GantProps) => {
   const { query } = useRouter();
   const pageUserId = getAsString(query.ID);
 
-  const { error, data } = useSWR(`/api/initiative/${pageUserId}/diagram/`, {
+  const { error, data } = useSWR(`/api/worker/${pageUserId}/diagram/`, {
     initialData: tasks,
   });
 

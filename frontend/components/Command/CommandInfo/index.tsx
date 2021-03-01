@@ -22,15 +22,17 @@ import {
   Inner,
 } from "./styles";
 import { ExitCommandProps } from "@/components/Modal/ExitCommand";
+import { useUser } from "@/hooks/useUser";
 
 const renderButtons = (data: ICommand) => {
   const dispatch = useDispatch();
   const { push, query } = useRouter();
+  const { userId } = useUser();
 
   const handleDelete = () => {
     if (data) {
       dispatch(
-        modalShow<DeleteCommandProps>("DELETE_COMMAND", { id: data.info.id })
+        modalShow<DeleteCommandProps>("DELETE_COMMAND", { id: data.id })
       );
     }
   };
@@ -39,7 +41,7 @@ const renderButtons = (data: ICommand) => {
     if (data) {
       dispatch(
         modalShow<ChangeCommandProps>("CHANGE_COMMAND", {
-          id: data.info.id,
+          id: data.id,
           command: data,
         })
       );
@@ -50,8 +52,7 @@ const renderButtons = (data: ICommand) => {
     if (data) {
       dispatch(
         modalShow<ExitCommandProps>("EXIT_COMMAND", {
-          commandId: data.info.id,
-          membershipId: data.membership_id,
+          commandId: data.id,
         })
       );
     }
@@ -73,26 +74,26 @@ const renderButtons = (data: ICommand) => {
 
   return (
     <ButtonsWrapper>
-      {data.is_initiator && (
+      {Number(userId) === data.admin.id && (
         <>
           <Button width="100%" myType="outline" onClick={handleChange}>
             Редактировать
           </Button>
           <Button width="100%" myType="outline" onClick={handleDelete}>
-            Распустить команду
+            Распустить отдел
           </Button>
         </>
       )}
-      {data.joined && (
+      {data.joined && Number(userId) !== data.admin.id && (
         <Button width="100%" myType="outline" onClick={handleExit}>
-          Покинуть команду
+          Покинуть отдел
         </Button>
       )}
       <Button width="100%" myType="outline" onClick={handleTask}>
-        План команды
+        План отдела
       </Button>
       <Button width="100%" myType="outline" onClick={handleChat}>
-        Перейти к диалогу команды
+        Перейти к диалогу отдела
       </Button>
     </ButtonsWrapper>
   );
@@ -109,7 +110,7 @@ const CommandInfoComponent = () => {
   if (error) {
     return (
       <Wrapper>
-        <ErrorMessage message="Ошибка загрузки информации о команде" />
+        <ErrorMessage message="Ошибка загрузки информации об отделе" />
       </Wrapper>
     );
   }

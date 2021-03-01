@@ -8,7 +8,6 @@ import { Wrapper, Main, Label, Title } from "./styles";
 interface CommandItemProps {
   id: number;
   rate: string;
-  company: string;
   name: string;
   numMembers: number;
 }
@@ -16,7 +15,6 @@ interface CommandItemProps {
 const CommandItemComponent = ({
   id,
   rate,
-  company,
   name,
   numMembers,
 }: CommandItemProps) => {
@@ -31,7 +29,6 @@ const CommandItemComponent = ({
           </Link>
         </Title>
         <Rating defaultRate={rate} disabled />
-        <Label>Инициатор: {company}</Label>
         <Label>Участников: {numMembers}</Label>
       </Main>
     </Wrapper>

@@ -22,7 +22,7 @@ const DeleteCommandComponent: React.FC<IDeleteCommand> = ({ setClose, id }) => {
 
   return (
     <Wrapper>
-      <Title>Вы действительно хотите удалить команду?</Title>
+      <Title>Вы действительно хотите удалить отдел?</Title>
       <Inner>
         <Button onClick={handleDelete} myType="outline">
           Удалить

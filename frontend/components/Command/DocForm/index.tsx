@@ -4,10 +4,7 @@ import { Formik, Form, FormikProps } from "formik";
 import { Button } from "@/components/UI/Button";
 import { Select } from "antd";
 
-const { Option } = Select;
-
 export interface DocFormValues {
-  role: string[];
   file: any;
 }
 
@@ -21,7 +18,6 @@ const DocFormComponent: React.FC<DocFormProps> = ({ handleSubmit }) => {
       <Title>Загрузка документа</Title>
       <Formik
         initialValues={{
-          role: ["Администратор"],
           file: null,
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -48,22 +44,6 @@ const DocFormComponent: React.FC<DocFormProps> = ({ handleSubmit }) => {
                   setFieldValue("file", event.currentTarget.files[0]);
                 }}
               />
-              <Select
-                mode="multiple"
-                size="large"
-                value={values.role}
-                style={{ width: 300, marginBottom: "34px" }}
-                onChange={(value) => {
-                  setFieldValue("role", value);
-                }}
-                placeholder="Предназначен для..."
-              >
-                <Option value="Стейкхолдер">Стейкхолдер</Option>
-                <Option value="Администратор">Администратор</Option>
-                <Option value="Помощник">Помощник</Option>
-                <Option value="Куратор">Куратор</Option>
-                <Option value="Заказчик">Заказчик</Option>
-              </Select>
               <Button
                 myType="outline"
                 type="submit"

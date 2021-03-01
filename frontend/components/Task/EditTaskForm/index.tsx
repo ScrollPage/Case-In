@@ -86,7 +86,7 @@ const InitiativeSelect: React.FC<InitiativeSelectProps> = ({ ...props }) => {
   const { query } = useRouter();
   const commandId = getAsString(query.ID);
 
-  const { error, data } = useSWR(`/api/command/${commandId}/diagram/`, {
+  const { error, data } = useSWR(`/api/depart/${commandId}/diagram/`, {
     initialData: tasks,
   });
 

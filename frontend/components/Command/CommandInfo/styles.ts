@@ -10,6 +10,9 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media (max-width: 900.98px) {
+    margin-bottom: 15px;
+  }
 `;
 export const Main = styled.div`
   width: 100%;

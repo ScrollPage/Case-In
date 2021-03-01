@@ -30,7 +30,7 @@ const DocsComponent = () => {
   const { docs } = useContext(CommandContext) as CommandProps;
   const { query } = useRouter();
 
-  const { data, error } = useSWR(`/api/command/${query.ID}/doc/`, {
+  const { data, error } = useSWR(`/api/depart/${query.ID}/doc/`, {
     initialData: docs,
   });
 

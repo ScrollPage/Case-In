@@ -18,8 +18,8 @@ export const addReview = (text: string): ThunkType => async dispatch => {
     .catch(() => {
       dispatch(show('Ошибка при добавлении отзыва!', 'warning'));
     });
-  trigger(`/api/initiative/${pageUserId}/review/`);
-  trigger(`/api/initiative/${pageUserId}/`);
+  trigger(`/api/worker/${pageUserId}/review/`);
+  trigger(`/api/worker/${pageUserId}/`);
 };
 
 export const deleteReview = (reviewId: number): ThunkType => async dispatch => {
@@ -32,6 +32,6 @@ export const deleteReview = (reviewId: number): ThunkType => async dispatch => {
     .catch(() => {
       dispatch(show('Ошибка при удалении отзыва!', 'warning'));
     });
-  trigger(`/api/initiative/${pageUserId}/review/`);
-  trigger(`/api/initiative/${pageUserId}/`);
+  trigger(`/api/worker/${pageUserId}/review/`);
+  trigger(`/api/worker/${pageUserId}/`);
 };
