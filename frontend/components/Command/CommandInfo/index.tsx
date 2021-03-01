@@ -32,7 +32,7 @@ const renderButtons = (data: ICommand) => {
   const handleDelete = () => {
     if (data) {
       dispatch(
-        modalShow<DeleteCommandProps>("DELETE_COMMAND", { id: data.info.id })
+        modalShow<DeleteCommandProps>("DELETE_COMMAND", { id: data.id })
       );
     }
   };
@@ -41,7 +41,7 @@ const renderButtons = (data: ICommand) => {
     if (data) {
       dispatch(
         modalShow<ChangeCommandProps>("CHANGE_COMMAND", {
-          id: data.info.id,
+          id: data.id,
           command: data,
         })
       );
@@ -52,8 +52,7 @@ const renderButtons = (data: ICommand) => {
     if (data) {
       dispatch(
         modalShow<ExitCommandProps>("EXIT_COMMAND", {
-          commandId: data.info.id,
-          membershipId: data.membership_id,
+          commandId: data.id,
         })
       );
     }
@@ -85,7 +84,7 @@ const renderButtons = (data: ICommand) => {
           </Button>
         </>
       )}
-      {data.joined && (
+      {data.joined && Number(userId) !== data.admin.id && (
         <Button width="100%" myType="outline" onClick={handleExit}>
           Покинуть отдел
         </Button>

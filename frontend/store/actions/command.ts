@@ -1,3 +1,4 @@
+import Cookie from 'js-cookie';
 import { instance } from '@/api';
 import { ThunkType } from '@/types/thunk';
 import { trigger } from 'swr';
@@ -15,7 +16,7 @@ export const addCommand = (values: CommandFormValues): ThunkType => async dispat
     })
     .then((res) => {
       dispatch(show('Вы успешно создали отдел!', 'success'));
-      const commandId = res.data.info.id;
+      const commandId = res.data.id;
       Router.push({ pathname: `/command/${commandId}` }, undefined, { shallow: true });
     })
     .catch(() => {
@@ -52,10 +53,8 @@ export const commandChange = (values: ChangeCommandFormValues, id: number): Thun
 export const commandChangeInfo = (values: ChangeCommandFormValues, id: number): ThunkType => async dispatch => {
   await instance()
     .patch(`/api/depart/info/${id}/`, {
-      idea: values.idea,
       description: values.description,
-      categories: values.categories,
-      requirenments: values.requirenments
+      motto: values.motto,
     })
     .then((res) => {
       dispatch(show('Вы успешно сменели данные об отделе!', 'success'));
@@ -66,9 +65,12 @@ export const commandChangeInfo = (values: ChangeCommandFormValues, id: number): 
   trigger(`/api/depart/${id}/`);
 };
 
-export const exitCommand = (commandId: number, membershipId: number): ThunkType => async dispatch => {
+export const exitOrInviteCommand = (commandId: number): ThunkType => async dispatch => {
+  const userId = Cookie.get('userId');
   await instance()
-    .delete(`/api/membership/${membershipId}/`)
+    .post(`/api/depart/${commandId}/membertoggle/`, {
+      user: userId
+    })
     .then((res) => {
       dispatch(show(`Вы успешно вышли из отдела!`, 'success'));
     })
@@ -76,7 +78,7 @@ export const exitCommand = (commandId: number, membershipId: number): ThunkType 
       dispatch(show(`Ошибка при выходе из отдела!`, 'warning'));
     });
   trigger(`/api/depart/${commandId}/`);
-  trigger(`/api/depart/${commandId}/members/`);
+  trigger(`/api/depart/${commandId}/worker/`);
 };
 
 export const addDocCommand = (values: DocFormValues): ThunkType => async dispatch => {
