@@ -4,7 +4,7 @@ from django.urls import path
 from .views import WorkerInfoUpdateView, WorkerViewSet
 
 urlpatterns = [
-    path('info/<int:pk>/', WorkerInfoUpdateView.as_view(), name='info-update')
+    path('worker/info/<int:pk>/', WorkerInfoUpdateView.as_view(), name='info-update')
 ]
 
 r = DefaultRouter()
