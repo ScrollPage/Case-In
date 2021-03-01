@@ -12,6 +12,15 @@ class WorkerInfoSerializer(serializers.ModelSerializer):
 class WorkerSerializer(serializers.ModelSerializer):
     '''Сериализация работника'''
     info = WorkerInfoSerializer(read_only=True)
+
     class Meta:
         model = Worker
         exclude = ['password', 'groups', 'user_permissions']
+
+class ShortWorkerSerializer(serializers.ModelSerializer):
+    '''Сериализация работника'''
+    info = WorkerInfoSerializer(read_only=True)
+    
+    class Meta:
+        model = Worker
+        fields = ['id', 'info']

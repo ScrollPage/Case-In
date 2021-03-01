@@ -21,4 +21,5 @@ class Achievement(models.Model):
     stage = models.CharField(max_length=100, choices=CHOICES)
 
     class Meta:
-        verbose_name = 'Достижения'
+        verbose_name = 'Достижение'
+        verbose_name_plural = 'Достижения'
