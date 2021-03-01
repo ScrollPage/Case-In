@@ -1,12 +1,8 @@
-export interface IRole {
-  role: string;
-  initiative: {
+import { UserInfo } from './user';
+
+export interface IMember {
+  user: {
     id: number;
-    name: string;
-    company: string;
-  },
-  command: {
-    id: number;
-    name: string;
+    info: UserInfo;
   }
 }
