@@ -1,6 +1,5 @@
 import { CommandCard } from "@/components/Command/CommandCard";
 import { CommandInfo } from "@/components/Command/CommandInfo";
-import { Roles } from "@/components/Command/Roles";
 import React, { useContext } from "react";
 import { Wrapper, Main, Side } from "./styles";
 import { CommandContext, CommandProps } from "@/pages/command/[ID]";
@@ -29,7 +28,6 @@ export const CommandContainer = () => {
       </Main>
       <Side>
         <CommandInfo />
-        <Roles />
       </Side>
     </Wrapper>
   );

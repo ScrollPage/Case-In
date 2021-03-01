@@ -1,23 +1,11 @@
 import { ErrorMessage } from "@/components/UI/ErrorMessage";
 import { LoadingSpinner } from "@/components/UI/LoadingSpinner";
 import React, { memo, useContext } from "react";
-import { Wrapper, Stroke, SubTitle, Options, Label, Option } from "./styles";
+import { Wrapper, Stroke, SubTitle, Label } from "./styles";
 import { CommandContext, CommandProps } from "@/pages/command/[ID]";
 import { useRouter } from "next/router";
 import useSWR from "swr";
-import { IOption } from "@/types/option";
 import { Docs } from "../Docs";
-
-const renderOptions = (options: IOption[]) => {
-  return options.map((option, index) => {
-    return (
-      <Option key={`OptionItem__key__${option.id}`}>
-        {option.name}
-        {index + 1 !== options.length && ", "}
-      </Option>
-    );
-  });
-};
 
 const CommandCardComponent = () => {
   const { command } = useContext(CommandContext) as CommandProps;
@@ -50,31 +38,21 @@ const CommandCardComponent = () => {
             <Label>{data.info.description}</Label>
           </Stroke>
         )}
-        {data.info.idea && (
+        {data.info.depart && (
           <Stroke>
-            <SubTitle>Идея</SubTitle>
-            <Label>{data.info.idea}</Label>
+            <SubTitle>Отдел</SubTitle>
+            <Label>{data.info.depart}</Label>
           </Stroke>
         )}
-        {data.info.categories.length !== 0 && (
+        {data.info.motto && (
           <Stroke>
-            <SubTitle>Категории</SubTitle>
-            {renderOptions(data.info.categories)}
-          </Stroke>
-        )}
-        {data.info.requirenments.length !== 0 && (
-          <Stroke>
-            <SubTitle>Необходимости</SubTitle>
-            {renderOptions(data.info.requirenments)}
+            <SubTitle>Отдел</SubTitle>
+            <Label>{data.info.motto}</Label>
           </Stroke>
         )}
         <Stroke>
           <SubTitle>Документы</SubTitle>
-          {data.can_downolad || data.joined ? (
-            <Docs />
-          ) : (
-            <Label>У вас нет доступа</Label>
-          )}
+          {data.joined ? <Docs /> : <Label>У вас нет доступа</Label>}
         </Stroke>
       </Wrapper>
     );

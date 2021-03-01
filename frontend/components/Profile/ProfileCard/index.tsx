@@ -19,68 +19,25 @@ import {
   Stroke,
   Label,
   Info,
-  Roles,
-  SubTitle,
   Change,
-  Option,
-  Options,
   Hide,
   Span,
 } from "./styles";
 import { modalShow } from "@/store/actions/modal";
-import { IRole } from "@/types/member";
-import { EmptyMessage } from "@/components/UI/EmptyMessage";
-import Link from "next/link";
-import { IOption } from "@/types/option";
 import { Button } from "@/components/UI/Button";
 import { createChat } from "@/store/actions/chat";
-import { useUser } from "@/hooks/useUser";
-
-const renderRoles = (roles: IRole[]) => {
-  return roles.map((role, index) => {
-    return (
-      <Stroke key={`roleitem__key__${index}`}>
-        <Label>
-          <Link href={`/command/${role.command.id}`}>
-            <a>{role.command.name}</a>
-          </Link>
-        </Label>
-        <Info>{role.role}</Info>
-      </Stroke>
-    );
-  });
-};
-
-const renderOptions = (options: IOption[]) => {
-  return options.map((option, index) => {
-    return (
-      <>
-        <Option key={`OptionItem__key__${option.id}`}>{option.name}</Option>
-        {index + 1 !== options.length && ", "}
-      </>
-    );
-  });
-};
 
 const ProfileCardComponent = () => {
   const dispatch = useDispatch();
-  const { user, roles } = useContext(ProfileContext) as ProfileProps;
+  const { user } = useContext(ProfileContext) as ProfileProps;
   const { query, push } = useRouter();
   const [isShow, setIsShow] = useState(false);
-  const { isSteakholder } = useUser();
   const isYourPage = useIsYour();
 
   const { data: userData, error: userError } = useSWR(
     `/api/initiative/${query.ID}/`,
     {
       initialData: user,
-    }
-  );
-
-  const { data: rolesData, error: rolesError } = useSWR(
-    `/api/initiative/${query.ID}/command/`,
-    {
-      initialData: roles,
     }
   );
 
@@ -110,12 +67,6 @@ const ProfileCardComponent = () => {
     });
   };
 
-  const handleDev = () => {
-    push({ pathname: `/profile/${query.ID}/dev` }, undefined, {
-      shallow: true,
-    });
-  };
-
   const hanldeShowInfo = () => {
     setIsShow(true);
   };
@@ -141,7 +92,7 @@ const ProfileCardComponent = () => {
           <TopMain>
             <Avatar size={60} href={`/profile/${userData.id}`} />
             <Header>
-              <Title>{userData.company}</Title>
+              <Title>{`${userData.info.first_name} ${userData.info.last_name}`}</Title>
               <Rating
                 defaultRate={userData.rate ?? "0"}
                 disabled={isYourPage}
@@ -161,59 +112,24 @@ const ProfileCardComponent = () => {
             </Button>
           )}
           <Button onClick={handleTask} width="100%" myType="outline">
-            План проекта
+            Задачи
           </Button>
-          <Button onClick={handleDev} width="100%" myType="outline">
-            Проработка
-          </Button>
-          <Stroke>
-            <Label>Предприятие</Label>
-            <Info>{userData.name}</Info>
-          </Stroke>
-          <Stroke>
-            <Label>Владелец</Label>
-            <Info>{`${userData.first_name} ${userData.last_name}`}</Info>
-          </Stroke>
           {!isShow && <Span onClick={hanldeShowInfo}>Развернуть</Span>}
         </Main>
         {isShow && (
           <Hide>
             <Stroke>
-              <Label>Описание</Label>
-              <Info>{userData.info.description}</Info>
+              <Label>E-mail</Label>
+              <Info>{userData.email}</Info>
             </Stroke>
             <Stroke>
               <Label>Номер телефона</Label>
-              <Info>{userData.phone_number}</Info>
+              <Info>{userData.info.phone_number}</Info>
             </Stroke>
             <Stroke>
-              <Label>E - mail</Label>
-              <Info>{userData.email}</Info>
+              <Label>Дата рождения</Label>
+              <Info>{userData.info.phone_number}</Info>
             </Stroke>
-            <Roles>
-              <SubTitle>Роли в командах</SubTitle>
-              {rolesError ? (
-                <ErrorMessage message="Ошибка загрузки ролей пользователя" />
-              ) : !rolesData ? (
-                <LoadingSpinner />
-              ) : rolesData.length === 0 ? (
-                <EmptyMessage message="У вас нет команд" />
-              ) : (
-                renderRoles(rolesData)
-              )}
-            </Roles>
-            {userData.info.categories.length !== 0 && (
-              <Options>
-                <SubTitle>Категории</SubTitle>
-                {renderOptions(userData.info.categories)}
-              </Options>
-            )}
-            {userData.info.requirenments.length !== 0 && (
-              <Options>
-                <SubTitle>Необходимости</SubTitle>
-                {renderOptions(userData.info.requirenments)}
-              </Options>
-            )}
           </Hide>
         )}
       </Wrapper>

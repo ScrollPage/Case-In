@@ -52,18 +52,11 @@ export const Main = styled.div`
     }
   }
 `;
-export const Options = styled.div``;
 export const Stroke = styled.div`
   display: flex;
   margin-bottom: 10px;
 `;
-export const Option = styled.p`
-  font-family: Montserrat;
-  font-style: normal;
-  font-size: 16px;
-  line-height: 22px;
-  display: inline-block;
-`;
+
 export const Change = styled.div`
   cursor: pointer;
 `;
@@ -88,17 +81,4 @@ export const Info = styled.p`
   font-size: 16px;
   line-height: 22px;
   flex: 0.6;
-`;
-export const Roles = styled.div``;
-export const SubTitle = styled.h3`
-  font-family: Play;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 28px;
-  margin-bottom: 20px;
-  @media (max-width: 900.98px) {
-    font-size: 18px;
-    line-height: 22px;
-  }
 `;
