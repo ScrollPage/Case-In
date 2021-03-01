@@ -4,7 +4,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.db.models import Avg
+from django.db.models import Avg, Prefetch
+from django.db.models.query import QuerySet
 
 from worker.models import WorkerInfo, Worker
 from .serializers import WorkerInfoSerializer, WorkerSerializer
@@ -13,7 +14,9 @@ from .service import SPFListRetrieveViewSet
 
 from achieve.api.serializers import AchievementSerializer
 from department.api.serializers import MembersSerializer
-
+from diagram.api.serializers import TaskSerializer
+from calendly.api.serializers import CalendlySerializer
+from calendly.models import CalendlyTask
 from backend.core import EmptySerializer
 
 class WorkerViewSet(SPFListRetrieveViewSet):
@@ -23,12 +26,15 @@ class WorkerViewSet(SPFListRetrieveViewSet):
         'depart': MembersSerializer,
         'achiebement': AchievementSerializer,
         'mentor': EmptySerializer,
-        'donementor': EmptySerializer
+        'donementor': EmptySerializer,
+        'diagramtask': TaskSerializer,
+        'calendlytask': CalendlySerializer
     }
     permission_classes = [permissions.IsAuthenticated]
     permission_classes_by_action = {
         'donementor': [permissions.IsAuthenticated, RightMentor],
-        'diagramtask': [permissions.IsAuthenticated, RightMentor]
+        'diagramtask': [permissions.IsAuthenticated, RightMentor],
+        'calendlytask': [permissions.IsAuthenticated, IsRightUser]
     }
 
     def get_queryset(self):
@@ -36,7 +42,7 @@ class WorkerViewSet(SPFListRetrieveViewSet):
         if self.request.method != 'GET':
             return queryset
         return queryset \
-            .annotate(avg_rating=Avg('rating__star'))
+            .annotate(rate=Avg('rating__star'))
             
     @action(detail=True, methods=['post'])
     def donementor(self, request, *args, **kwargs):
@@ -57,11 +63,23 @@ class WorkerViewSet(SPFListRetrieveViewSet):
         user.save()
         return Response(status=status.HTTP_200_OK)
     
-    @action(detail=False, methods=['get'])
+    @action(detail=False)
     def me(self, request, *args, **kwargs):
         '''Вывод собственной страницы'''
         user = self.get_queryset().get(id=self.request.user.id)
         serializer = self.get_serializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=True)
+    def calendlytask(self, request, *args, **kwargs):
+        '''Все задачи из календаря'''
+        queryset = CalendlyTask.objects.none()
+        user = self.get_object()
+        memberships = user.departments.all() \
+            .select_related('depart')
+        departs = [membership.depart for membership in memberships]
+        queryset = CalendlyTask.objects.filter(depart__in=departs).order_by('-datetime')
+        serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(detail=True)

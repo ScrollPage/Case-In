@@ -18,6 +18,7 @@ from .permissions import (
 
 from worker.models import Worker
 from calendly.api.serializers import CalendlySerializer
+from post.api.serializers import PostSerializer
 
 class DepartmentViewSet(SPFModelViewSet):
     '''Все про отделы'''
@@ -25,7 +26,8 @@ class DepartmentViewSet(SPFModelViewSet):
     serializer_class_by_action = {
         'membertoggle': DepMembershipSerializer,
         'worker': MembersSerializer,
-        'calendlytask': CalendlySerializer
+        'calendlytask': CalendlySerializer,
+        'post': PostSerializer
     }
     permission_classes = [permissions.IsAuthenticated]
     permission_classes_by_action = {
@@ -51,6 +53,19 @@ class DepartmentViewSet(SPFModelViewSet):
         else:
             ship.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
+
+    @action(detail=True)
+    def post(self, request, *args, **kwargs):
+        '''Посты отдела'''
+        posts = self.fast_response('posts', pre_return=True)
+        posts = posts \
+            .annotate(num_likes=Count('likes', distinct=True)) \
+            .annotate(is_liked=Count('likes', filter=Q(
+                likes__user=request.user), distinct=True
+                )
+            )
+        serializer = self.get_serializer(posts, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(detail=True)
     def worker(self, request, *args, **kwargs):

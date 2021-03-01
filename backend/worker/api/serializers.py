@@ -12,7 +12,7 @@ class WorkerInfoSerializer(serializers.ModelSerializer):
 class WorkerSerializer(serializers.ModelSerializer):
     '''Сериализация работника'''
     info = WorkerInfoSerializer(read_only=True)
-    avg_rating = serializers.DecimalField(max_digits=3, decimal_places=2)
+    rate = serializers.DecimalField(max_digits=3, decimal_places=2)
 
     class Meta:
         model = Worker
