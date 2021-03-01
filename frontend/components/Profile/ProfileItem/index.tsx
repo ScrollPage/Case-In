@@ -8,21 +8,15 @@ interface ProfileItemProps {
   id: number;
   fullName: string;
   rate: string;
-  company: string;
 }
 
-const ProfileItemComponent = ({
-  id,
-  rate,
-  company,
-  fullName,
-}: ProfileItemProps) => (
+const ProfileItemComponent = ({ id, rate, fullName }: ProfileItemProps) => (
   <Wrapper>
     <Main>
       <Avatar size={50} href={`/profile/${id}`} />
       <Title>
         <Link href={`/profile/${id}`}>
-          <a>{company}</a>
+          <a>{fullName}</a>
         </Link>
       </Title>
     </Main>

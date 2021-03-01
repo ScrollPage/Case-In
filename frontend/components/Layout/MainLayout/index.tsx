@@ -37,7 +37,7 @@ const MainLayoutComponent: React.FC<MainLayoutProps> = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const { pathname } = useRouter();
-  const { userId, company } = useUser();
+  const { userId, fullName } = useUser();
   const [isShowNotify, setIsShowNotify] = useState(false);
   const [disabled, setDisabled] = useState(false);
 
@@ -97,7 +97,7 @@ const MainLayoutComponent: React.FC<MainLayoutProps> = ({ children }) => {
                 <Avatar href={`/profile/${userId}`} />
                 <Name>
                   <Link href={`/profile/${userId}`}>
-                    <a>{company}</a>
+                    <a>{fullName}</a>
                   </Link>
                 </Name>
               </Hero>
@@ -107,7 +107,7 @@ const MainLayoutComponent: React.FC<MainLayoutProps> = ({ children }) => {
                   <img src="/notify.svg" alt="Запросы команды" />
                   {isShowNotify && <NotifyList onClose={handleClose} />}
                 </Notify>
-                <MenuOpen onClick={() => setIsOpen((e) => !e)} isOpen={isOpen} >
+                <MenuOpen onClick={() => setIsOpen((e) => !e)} isOpen={isOpen}>
                   <div />
                   <div />
                 </MenuOpen>

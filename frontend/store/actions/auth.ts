@@ -18,7 +18,6 @@ export const authLogin = (values: LoginFormValues): ThunkType => async dispatch 
 
       Cookie.set('token', res.data.access);
       Cookie.set('expirationDate', expirationDate);
-
       dispatch(checkAuthTimeout(24 * 3600 * 1000));
       await dispatch(authInfo());
 
@@ -34,20 +33,17 @@ export const authLogin = (values: LoginFormValues): ThunkType => async dispatch 
 
 export const authInfo = (): ThunkType => async dispatch => {
   await instance()
-    .get('/api/initiative/me/')
+    .get('/auth/users/me/')
     .then(res => {
-      const { first_name, last_name, id, name, company, is_steakholder, first_login } = res.data;
+      const { first_name, last_name, id } = res.data;
 
       Cookie.set('userId', id);
       Cookie.set('firstName', first_name);
       Cookie.set('lastName', last_name);
-      Cookie.set('name', name);
-      Cookie.set('company', company);
-      Cookie.set('isSteakholder', is_steakholder);
-      if (first_login) {
-        dispatch(authFirstLogin());
-        Router.push({ pathname: `/learn` }, undefined, { shallow: true });
-      }
+      // if (first_login) {
+      //   dispatch(authFirstLogin());
+      //   Router.push({ pathname: `/learn` }, undefined, { shallow: true });
+      // }
 
       console.log('Информация успешно занесена в куки');
     })
