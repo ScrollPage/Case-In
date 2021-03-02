@@ -9,23 +9,11 @@ import useSWR from "swr";
 import { Members } from "@/components/Command/Members";
 
 export const CommandContainer = () => {
-  const { posts, command } = useContext(CommandContext) as CommandProps;
-
-  const { query } = useRouter();
-
-  const { data, error } = useSWR(`/api/depart/${query.ID}/`, {
-    initialData: command,
-  });
-
   return (
     <Wrapper>
       <Main>
         <CommandCard />
-        <Posts
-          posts={posts}
-          where="command"
-          isAdmin={!error && data ? data.is_initiator : false}
-        />
+        <Posts />
       </Main>
       <Side>
         <CommandInfo />

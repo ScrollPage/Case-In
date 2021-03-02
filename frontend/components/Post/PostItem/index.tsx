@@ -11,7 +11,6 @@ import React, { memo, useCallback, useContext, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { CommentIcon } from "../CommentIcon";
 import { Like } from "../Like";
-import { PostsContext, PostsContextProps } from "../Posts";
 import {
   Wrapper,
   Inner,
@@ -25,32 +24,25 @@ import {
   LastComment,
 } from "./styles";
 
-interface PostItemProps extends IPost {}
+interface PostItemProps extends IPost {
+  isAdmin: boolean;
+}
 
 const PostItemComponent: React.FC<PostItemProps> = ({
   id,
   title,
-  initiative,
+  depart,
   picture,
   num_likes,
   is_liked,
-  post_time,
+  timestamp,
+  isAdmin,
   last_comment,
   num_comments,
 }) => {
   const dispatch = useDispatch();
-  const { userId } = useUser();
-  const { triggerUrl } = useContext(PostsContext) as PostsContextProps;
   const [isShowText, setIsShowText] = useState(!((title?.length ?? 0) > 125));
   const [isShowComment, setIsShowComment] = useState(false);
-
-  const isCanDelete = useMemo(() => {
-    if (Number(userId) == initiative.id) {
-      return true;
-    } else {
-      return false;
-    }
-  }, [initiative, userId]);
 
   const handleOpen = () => {
     setIsShowText(true);
@@ -58,7 +50,7 @@ const PostItemComponent: React.FC<PostItemProps> = ({
 
   const handleDelete = () => {
     dispatch(
-      modalShow<DeletePostProps>("DELETE_POST", { id, triggerUrl })
+      modalShow<DeletePostProps>("DELETE_POST", { id })
     );
   };
 
@@ -70,14 +62,14 @@ const PostItemComponent: React.FC<PostItemProps> = ({
     <>
       <Wrapper>
         <Hero>
-          <Avatar href={`/profile/${initiative.id}`} />
+          <Avatar href={`/command/${depart.id}`} />
           <Title>
             <Name>
-              <Link href={`/profile/${initiative.id}`}>
-                <a>{initiative.company}</a>
+              <Link href={`/command/${depart.id}`}>
+                <a>{depart.name}</a>
               </Link>
             </Name>
-            <Time>{renderTimestamp(post_time)}</Time>
+            <Time>{renderTimestamp(timestamp)}</Time>
           </Title>
         </Hero>
         <Inner>
@@ -93,20 +85,18 @@ const PostItemComponent: React.FC<PostItemProps> = ({
               )}
             </Text>
           )}
-          {picture && (
-            <img alt={title ? title : initiative.company} src={picture} />
-          )}
+          {picture && <img alt={title ? title : depart.name} src={picture} />}
           <Bottom>
             <Like id={id} amount={num_likes} isLiked={is_liked} />
-            <CommentIcon
+            {/* <CommentIcon
               amount={num_comments}
               isShow={isShowComment}
               onShow={handleShowComment}
-            />
+            /> */}
           </Bottom>
         </Inner>
-        {isCanDelete && <Close onClick={handleDelete} />}
-        {isShowComment && <Comments postId={id} />}
+        {isAdmin && <Close onClick={handleDelete} />}
+        {/* {isShowComment && <Comments postId={id} />}
         {last_comment && !isShowComment && (
           <LastComment>
             <CommentItem
@@ -119,7 +109,7 @@ const PostItemComponent: React.FC<PostItemProps> = ({
               isLast={true}
             />
           </LastComment>
-        )}
+        )} */}
       </Wrapper>
     </>
   );

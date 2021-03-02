@@ -6,22 +6,17 @@ import { Wrapper, Inner, Title } from "./styles";
 
 export interface DeletePostProps {
   id: number;
-  triggerUrl: string;
 }
 
 interface IDeletePost extends DeletePostProps {
   setClose: () => void;
 }
 
-const DeletePostComponent: React.FC<IDeletePost> = ({
-  setClose,
-  id,
-  triggerUrl,
-}) => {
+const DeletePostComponent: React.FC<IDeletePost> = ({ setClose, id }) => {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
-    dispatch(deletePost(triggerUrl, id));
+    dispatch(deletePost(id));
     setClose();
   };
 
