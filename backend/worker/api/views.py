@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.db.models import Avg, Prefetch, Count
+from django.db.models import Avg, Prefetch, Count, Q, Avg
 from django.db.models.query import QuerySet
 
 from worker.models import WorkerInfo, Worker, Review
@@ -21,6 +21,7 @@ from diagram.api.serializers import TaskSerializer
 from calendly.api.serializers import CalendlySerializer
 from chat.api.serializers import ChatSerializer
 from calendly.models import CalendlyTask
+from control.api.serializers import TestSerializer
 from backend.core import EmptySerializer
 
 class WorkerViewSet(SPFListRetrieveViewSet):
@@ -35,11 +36,13 @@ class WorkerViewSet(SPFListRetrieveViewSet):
         'calendlytask': CalendlySerializer,
         'chat': ChatSerializer,
         'review': ReviewSerializer,
+        'test': TestSerializer
     }
     permission_classes = [permissions.IsAuthenticated]
     permission_classes_by_action = {
         'donementor': [permissions.IsAuthenticated, RightMentor],
         'diagramtask': [permissions.IsAuthenticated, RightMentor],
+        'test': [permissions.IsAuthenticated, IsRightUser]
     }
 
     def get_queryset(self):
@@ -48,7 +51,24 @@ class WorkerViewSet(SPFListRetrieveViewSet):
             return queryset
         return queryset \
             .annotate(rate=Avg('rating__star')) \
-            .annotate(num_reviews=Count('reviews', distinct=True))
+            .annotate(num_reviews=Count('reviews', distinct=True)) \
+            .annotate(has_chat=Count(
+                    'chats', 
+                    filter=Q(
+                        chats__members__in=[self.request.user], 
+                        chats__is_chat=True
+                    ), 
+                    distinct=True
+                )
+            ) \
+            .annotate(chat_id=Avg(
+                    'chats__id', 
+                    filter=Q(
+                        chats__members__in=[self.request.user], 
+                        chats__is_chat=True
+                    ), 
+                )
+            ) \
             
     @action(detail=True, methods=['post'])
     def donementor(self, request, *args, **kwargs):
@@ -73,6 +93,16 @@ class WorkerViewSet(SPFListRetrieveViewSet):
     def me(self, request, *args, **kwargs):
         '''Вывод собственной страницы'''
         user = self.get_queryset().get(id=self.request.user.id)
+        user.num_tests = user.tests.aggregate(
+            num_tests=Count(
+                'id', filter=Q(is_passed=False)
+            )
+        )['num_tests']
+        # user.num_notes = user.notifcations.aggregate(
+        #     num_notes=Count(
+        #         'id', filter=Q(seen=False)
+        #     )
+        # )['num_notes']
         serializer = self.get_serializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -104,6 +134,11 @@ class WorkerViewSet(SPFListRetrieveViewSet):
     def depart(self, request, *args, **kwargs):
         '''Отделы пользователя'''
         return self.fast_response('departments')
+
+    @action(detail=True)
+    def test(self, request, *args, **kwargs):
+        '''Отделы пользователя'''
+        return self.fast_response('tests')
 
     @action(detail=True)
     def review(self, request, *args, **kwargs):

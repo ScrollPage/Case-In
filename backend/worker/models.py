@@ -96,6 +96,9 @@ class Review(models.Model):
 
 @receiver(post_save, sender=Worker)
 def create_instances(sender, instance=None, created=False, **kwargs):
+    from control.models import Test
     '''Создает необходимые сущности'''
     if created:
         WorkerInfo.objects.create(user=instance, id=instance.id)
+        for i in range(4):
+            Test.objects.create(user=instance, category=i+1)

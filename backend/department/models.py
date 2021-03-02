@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 
 from worker.models import Worker
@@ -47,6 +47,22 @@ class DepMembership(models.Model):
 @receiver(post_save, sender=Department)
 def create_instances(sender, instance=None, created=False, **kwargs):
     '''Создает необходимые сущности'''
+    from chat.models import Chat
     if created:
         DepartmentInfo.objects.create(depart=instance, id=instance.id)
+        Chat.objects.create(depart=instance, is_chat=False)
         DepMembership.objects.create(user=instance.admin, depart=instance)
+        
+
+@receiver(post_save, sender=DepMembership)
+def add_to_chat(sender, instance=None, created=False, **kwargs):
+    '''Удаляет из чата, выедшего из отдела'''
+    if created:
+        chat = instance.depart.chat
+        chat.members.add(instance.user)
+
+@receiver(pre_delete, sender=DepMembership)
+def remove_from_chat(sender, instance=None, created=False, **kwargs):
+    '''Удаляет из чата, выедшего из отдела'''
+    chat = instance.depart.chat
+    chat.members.remove (instance.user)

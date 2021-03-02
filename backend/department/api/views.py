@@ -63,7 +63,8 @@ class DepartmentViewSet(SPFModelViewSet):
             .annotate(is_liked=Count('likes', filter=Q(
                 likes__user=request.user), distinct=True
                 )
-            )
+            ) \
+            .annotate(num_comments=Count('comments', distinct=True))
         serializer = self.get_serializer(posts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
