@@ -61,9 +61,9 @@ class ChatConsumer(WebsocketConsumer):
     def message_to_json(self, message):
         return {
             'id': message.id,
-            'initiative': {
-                'id': message.initiative.id,
-                'company': message.initiative.name,
+            'user': {
+                'id': message.user.id,
+                'company': message.user.name,
             },
             'url': message.url,
             'content': message.content,
