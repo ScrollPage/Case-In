@@ -15,6 +15,7 @@ class WorkerSerializer(serializers.ModelSerializer):
     rate = serializers.DecimalField(max_digits=3, decimal_places=2)
     num_reviews = serializers.IntegerField(read_only=True)
     num_tests = serializers.IntegerField(read_only=True)
+    code = serializers.CharField(read_only=True)
 
     class Meta:
         model = Worker

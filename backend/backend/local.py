@@ -9,3 +9,6 @@ SQL_PORT = 5432
 # REDIS
 REDIS_HOST = '127.0.0.1'
 REDIS_PORT = 6379
+
+# Chat-bot
+CHAT_BOT_TOKEN = 'asdgasdkajhsgdkjahsgdakjshgd'

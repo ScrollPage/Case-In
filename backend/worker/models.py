@@ -8,6 +8,8 @@ from django.contrib.auth.models import (
     PermissionsMixin
 )
 
+from .service import create_code
+
 class WorkerManager(BaseUserManager):
     '''Мэнэджер кастомного пользователя'''
 
@@ -65,6 +67,9 @@ class Worker(AbstractBaseUser, PermissionsMixin):
         verbose_name = 'Работник'
         verbose_name_plural = 'Работники'
 
+    def get_full_name(self):
+        return f'{self.first_name} {self.last_name}'
+
 class WorkerInfo(models.Model):
     '''Информация о пользователе'''
     user = models.OneToOneField(
@@ -94,11 +99,33 @@ class Review(models.Model):
         verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы'
 
+class TGBotCode(models.Model):
+    '''Код бота телеграмма'''
+    code = models.CharField(max_length=6)
+    user = models.ForeignKey(
+        Worker, verbose_name='Работник', 
+        on_delete=models.CASCADE,
+        related_name='tg_code'
+    )
+    chat_id = models.CharField(max_length=50, null=True)
+
+    @classmethod
+    def create_unique_code(cls, user):
+        code = create_code()
+        while cls.objects.filter(code=code):
+            code = create_code()
+        cls.objects.create(code=code, user=user)
+
+    class Meta:
+        verbose_name = 'Токен для телеграм бота'
+        verbose_name_plural = 'Токены для телеграм бота'
+
 @receiver(post_save, sender=Worker)
 def create_instances(sender, instance=None, created=False, **kwargs):
     from control.models import Test
     '''Создает необходимые сущности'''
     if created:
         WorkerInfo.objects.create(user=instance, id=instance.id)
+        TGBotCode.create_unique_code(instance)
         for i in range(4):
             Test.objects.create(user=instance, category=i+1)
