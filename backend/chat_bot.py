@@ -48,7 +48,7 @@ def callback_inline(call):
             if queryset:
                 res = 'Your nearest tasks:\n'
                 res += ''.join(
-                    f'{i}) You have a task in {task.depart} at {task.datetime}; {task.description.capitalize()}\n' \
+                    f'{i}) You have a task in {task.depart} depart at {task.datetime}; {task.description.capitalize()}\n' \
                         for i, task in enumerate(queryset)
                 )
             else:
@@ -105,10 +105,20 @@ def get_various_messages(message):
             )
 
     elif message.text == 'О компании':
-        pass
+        menu = get_menu(message)
+        bot.send_message(
+            message.chat.id, 
+            'pass', 
+            reply_markup=menu
+        )
 
     elif message.text == 'Моя информация'
-        pass
+        menu = get_menu(message)
+        bot.send_message(
+            message.chat.id, 
+            'pass', 
+            reply_markup=menu
+        )
 
     elif message.text == 'Выход':
         code = TGBotCode.objects.get(chat_id=message.chat.id)
