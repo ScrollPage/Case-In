@@ -36,7 +36,7 @@ class DepMembership(models.Model):
     '''Членство в отделе'''
     user = models.ForeignKey(
         Worker, verbose_name='Работник', 
-        related_name='departments', on_delete=models.DO_NOTHING
+        related_name='departments', on_delete=models.CASCADE
     )
     depart = models.ForeignKey(
         Department, verbose_name='Отдел', 
@@ -68,4 +68,4 @@ def add_to_chat(sender, instance=None, created=False, **kwargs):
 def remove_from_chat(sender, instance=None, created=False, **kwargs):
     '''Удаляет из чата, выедшего из отдела'''
     chat = instance.depart.chat
-    chat.members.remove (instance.user)
+    chat.members.remove(instance.user)

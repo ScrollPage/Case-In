@@ -103,7 +103,7 @@ class WorkerViewSet(SPFListRetrieveViewSet):
         #         'id', filter=Q(seen=False)
         #     )
         # )['num_notes']
-        user.code = user.tg_code.code
+        user.code = user.tg_code.get().code
         serializer = self.get_serializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

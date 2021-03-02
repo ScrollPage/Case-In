@@ -11,4 +11,4 @@ REDIS_HOST = '127.0.0.1'
 REDIS_PORT = 6379
 
 # Chat-bot
-CHAT_BOT_TOKEN = 'asdgasdkajhsgdkjahsgdakjshgd'
+CHAT_BOT_TOKEN = '1645389505:AAFmMxB16xTgLwfxnWmlACo8HahSqUhS6pA'
