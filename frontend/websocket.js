@@ -62,7 +62,7 @@ class WebSocketService {
 			command: 'new_message',
 			chat: message.chatId,
 			content: message.content,
-			initiative: message.initiative,
+			user: message.initiative,
 			url: message?.url
 		});
 	}

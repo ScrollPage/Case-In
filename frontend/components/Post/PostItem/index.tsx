@@ -88,16 +88,16 @@ const PostItemComponent: React.FC<PostItemProps> = ({
           {picture && <img alt={title ? title : depart.name} src={picture} />}
           <Bottom>
             <Like id={id} amount={num_likes} isLiked={is_liked} />
-            {/* <CommentIcon
+            <CommentIcon
               amount={num_comments}
               isShow={isShowComment}
               onShow={handleShowComment}
-            /> */}
+            />
           </Bottom>
         </Inner>
         {isAdmin && <Close onClick={handleDelete} />}
-        {/* {isShowComment && <Comments postId={id} />}
-        {last_comment && !isShowComment && (
+        {isShowComment && <Comments postId={id} />}
+        {/* {last_comment && !isShowComment && (
           <LastComment>
             <CommentItem
               id={last_comment.id}

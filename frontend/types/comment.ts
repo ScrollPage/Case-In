@@ -2,9 +2,9 @@ export interface IComment {
   id: number;
   timestamp: string;
   content: string;
-  initiative: {
+  user: {
     id: number;
-    name: string;
-    company: string;
+    first_name: string;
+    last_name: string;
   }
 }

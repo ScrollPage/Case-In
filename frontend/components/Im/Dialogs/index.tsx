@@ -25,7 +25,7 @@ export const renderDialogs = (chats: IChat[]) => {
 const DialogsComponent = () => {
   const { chats } = useContext(ImContext) as ImProps;
 
-  const { error, data } = useSWR("/api/chat", {
+  const { error, data } = useSWR("/api/chat/", {
     initialData: chats,
   });
 

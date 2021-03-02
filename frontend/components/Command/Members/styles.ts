@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Stroke = styled.div`
   display: flex;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   flex-direction: column;
 `;
 export const Wrapper = styled.div`

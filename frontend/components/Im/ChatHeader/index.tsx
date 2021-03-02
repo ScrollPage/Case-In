@@ -27,19 +27,19 @@ const ChatHeaderComponent = () => {
       if (data.is_chat) {
         if (Number(userId) === data.members[0].id) {
           return {
-            name: data.members[1].company,
+            name: `${data.members[1].first_name} ${data.members[1].last_name}`,
             id: data.members[1].id,
           };
         } else {
           return {
-            name: data.members[0].company,
+            name: `${data.members[0].first_name} ${data.members[0].last_name}`,
             id: data.members[0].id,
           };
         }
       } else {
         return {
           name: data.name,
-          id: data.command,
+          id: data.depart,
         };
       }
     } else {

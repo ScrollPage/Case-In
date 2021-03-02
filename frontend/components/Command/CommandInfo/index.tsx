@@ -63,12 +63,6 @@ const renderButtons = (data: ICommand) => {
     }
   };
 
-  const handleTask = () => {
-    push({ pathname: `/command/${query.ID}/task` }, undefined, {
-      shallow: true,
-    });
-  };
-
   const handleAdd = () => {
     dispatch(modalShow<AddMemberProps>("ADD_MEMBER", {}));
   };
@@ -93,9 +87,6 @@ const renderButtons = (data: ICommand) => {
           Покинуть
         </Button>
       )}
-      <Button width="100%" myType="outline" onClick={handleTask}>
-        Задачи
-      </Button>
       <Button width="100%" myType="outline" onClick={handleChat}>
         Беседа
       </Button>

@@ -16,8 +16,8 @@ export const renderComments = (comments: IComment[], postId: number) => {
       <CommentItem
         key={`commentItem__key__${comment.id}`}
         id={comment.id}
-        name={comment.initiative.company}
-        commentUserId={comment.initiative.id}
+        name={`${review.user.first_name} ${review.user.last_name}`}
+        commentUserId={comment.user.id}
         timestamp={comment.timestamp}
         content={comment.content}
         postId={postId}
