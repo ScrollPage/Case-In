@@ -8,6 +8,7 @@ import Router from 'next/router';
 import { ChangeCommandFormValues } from '@/components/Auth/ChangeCommandForm';
 import { DocFormValues } from '@/components/Command/DocForm';
 import { getAsString } from '@/utils/getAsString';
+import { CalendlyFormValues } from '@/components/Calendly/CalendlyForm';
 
 export const addCommand = (values: CommandFormValues): ThunkType => async dispatch => {
   await instance()
@@ -99,3 +100,20 @@ export const addDocCommand = (values: DocFormValues): ThunkType => async dispatc
     });
   trigger(`/api/depart/${pageCommandId}/doc/`);
 };
+
+export const addCalendly = (values: CalendlyFormValues): ThunkType => async dispatch => {
+  const pageCommandId = getAsString(Router.query.ID);
+  await instance()
+    .post(`/api/calendlytask/`, {
+      datetime: values.time,
+      description: values.name,
+      depart: pageCommandId
+    })
+    .then((res) => {
+      dispatch(show('Вы успешно добавили мероприятие!', 'success'));
+    })
+    .catch(() => {
+      dispatch(show('Ошибка при добавлении мероприятия!', 'warning'));
+    });
+};
+

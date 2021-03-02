@@ -4,17 +4,6 @@ export const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-export const Week = styled.h3`
-  text-align: center;
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 20px;
-  color: #000000;
-  margin-bottom: 30px;
-`
-
 export const Title = styled.h1`
   font-family: Montserrat;
   font-style: normal;

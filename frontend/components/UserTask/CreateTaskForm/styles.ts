@@ -24,6 +24,10 @@ export const Wrapper = styled.div`
 
 export const PickerWrapper = styled.div`
   flex: 1;
+  .ant-picker {
+    border-radius: 10px !important;
+    height: 40.4px !important;
+  }
   @media (max-width: 900.98px) {
     margin-bottom: 15px;
   }

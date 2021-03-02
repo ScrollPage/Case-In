@@ -20,7 +20,7 @@ const validationSchema = object().shape({
 
 export interface EditTaskFormValues {
   name: string;
-  percentage: string;
+  percentage?: string;
 }
 
 interface EditTaskFormProps {}
@@ -33,7 +33,7 @@ const EditTaskFormComponent: React.FC<EditTaskFormProps> = ({}) => {
       <Formik
         initialValues={{
           name: "",
-          percentage: "0",
+          percentage: undefined,
         }}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -47,7 +47,7 @@ const EditTaskFormComponent: React.FC<EditTaskFormProps> = ({}) => {
           return (
             <Form>
               <Inner>
-                <InitiativeSelect name="name" />
+                <InitiativeSelect name="name" placeholder="Выберите задачу" />
                 <Input
                   type="text"
                   name="percentage"
@@ -69,14 +69,18 @@ const EditTaskFormComponent: React.FC<EditTaskFormProps> = ({}) => {
     </Wrapper>
   );
 };
-
+  
 export const EditTaskForm = memo(EditTaskFormComponent);
 
 interface InitiativeSelectProps {
   name: string;
+  placeholder: string;
 }
 
-const InitiativeSelect: React.FC<InitiativeSelectProps> = ({ ...props }) => {
+const InitiativeSelect: React.FC<InitiativeSelectProps> = ({
+  placeholder,
+  ...props
+}) => {
   const { tasks } = useContext(UserTaskContext) as UserTaskProps;
   const { setFieldValue } = useFormikContext();
   const [field] = useField({
@@ -100,7 +104,7 @@ const InitiativeSelect: React.FC<InitiativeSelectProps> = ({ ...props }) => {
         onChange={(value) => setFieldValue("name", value)}
         optionFilterProp="children"
         showSearch
-        placeholder="Задача"
+        placeholder={placeholder}
       >
         {tasksData.map((task) => (
           <Option key={`taskItem__key__${task.id}`} value={task.id}>

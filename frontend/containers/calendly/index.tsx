@@ -1,70 +1,42 @@
 import { CalendlyItem } from "@/components/Calendly/CalendlyDay";
-import { AddCalendlyEventProps } from "@/components/Modal/AddCalendlyEvent";
-import { modalShow } from "@/store/actions/modal";
+import { EmptyMessage } from "@/components/UI/EmptyMessage";
+import { ErrorMessage } from "@/components/UI/ErrorMessage";
+import { LoadingSpinner } from "@/components/UI/LoadingSpinner";
+import { ICalendly } from "@/types/calendly";
 import React from "react";
-import { useDispatch } from "react-redux";
-import { AddEvent, Wrapper, Title, List, Week } from "./styles";
+import useSWR from "swr";
+import { Wrapper, Title, List } from "./styles";
 
-const data: any = [
-  {
-    id: 1,
-    day: "Пн",
-    events: [
-      { id: 1, time: "11:30", name: "Чаепитие", isGo: true },
-      { id: 2, time: "15:00", name: "Собрание отдела", isGo: false },
-    ],
-  },
-  {
-    id: 2,
-    day: "Вт",
-    events: [],
-  },
-  {
-    id: 3,
-    day: "Ср",
-    events: [],
-  },
-  {
-    id: 4,
-    day: "Чт",
-    events: [{ id: 3, time: "18:00", name: "Корпоратив", isGo: true }],
-  },
-  {
-    id: 5,
-    day: "Пт",
-    events: [],
-  },
-  {
-    id: 6,
-    day: "Сб",
-    events: [],
-  },
-  {
-    id: 7,
-    day: "Вс",
-    events: [],
-  },
-];
-
-const renderCalendlyItems = (data: any) =>
+const renderCalendlyItems = (data: ICalendly[]) =>
   data.map((item: any) => (
     <CalendlyItem key={`Calendly__item__key__${item.id}`} calendly={item} />
   ));
 
-export const CalendlyContainer = () => {
-  const dispatch = useDispatch();
+export interface CalendlyContainerProps {
+  calendly: ICalendly[] | null;
+}
 
-  const handleOpen = () => {
-    dispatch(modalShow<AddCalendlyEventProps>("ADD_CALENDLY_EVENT", {}));
-  };
+export const CalendlyContainer: React.FC<CalendlyContainerProps> = ({
+  calendly,
+}) => {
+  const { data, error } = useSWR(`/api/worker/calendlytask/`, {
+    initialData: calendly,
+  });
 
   return (
     <Wrapper>
       <Title>Календарь</Title>
-      <Week>Текущая неделя</Week>
-      {/* <List>{renderCalendlyItems(data)}</List> */}
-      <List>{renderCalendlyItems(data)}</List>
-      <AddEvent onClick={handleOpen} />
+      <List>
+        {error ? (
+          <ErrorMessage message="Ошибка загрузки мероприятий" />
+        ) : !data ? (
+          <LoadingSpinner />
+        ) : data.length === 0 ? (
+          <EmptyMessage message="Нет мероприятий" />
+        ) : (
+          renderCalendlyItems(data)
+        )}
+      </List>
     </Wrapper>
   );
 };

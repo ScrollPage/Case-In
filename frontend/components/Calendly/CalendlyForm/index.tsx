@@ -4,9 +4,8 @@ import { object, string } from "yup";
 import { Formik, Form, FormikProps } from "formik";
 import { Input } from "@/components/UI/Input";
 import { Button } from "@/components/UI/Button";
-import { TimePicker } from "antd";
-import moment from "moment";
-import { format } from "prettier";
+import { DatePicker } from "antd";
+import moment, { Moment } from "moment";
 
 const validationSchema = object().shape({
   time: string().required("Введите время"),
@@ -18,7 +17,7 @@ const validationSchema = object().shape({
 
 export interface CalendlyFormValues {
   name: string;
-  time: string;
+  time: Moment;
 }
 
 interface CalendlyFormProps {
@@ -34,7 +33,7 @@ const CalendlyFormComponent: React.FC<CalendlyFormProps> = ({
       <Formik
         initialValues={{
           name: "",
-          time: "12:00",
+          time: moment(new Date(), "DD/MM/YYYY HH:mm"),
         }}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -54,9 +53,11 @@ const CalendlyFormComponent: React.FC<CalendlyFormProps> = ({
             <Form>
               <Inner>
                 <Input type="text" name="name" placeholder="Название" />
-                <TimePicker
-                  value={moment(values.time, "HH:mm")}
+                <DatePicker
+                  showTime
+                  value={moment(values.time, "DD/MM/YYYY HH:mm")}
                   onChange={(value) => setFieldValue("time", value)}
+                  placeholder="Выберите дату мероприятия"
                 />
                 <Button
                   myType="outline"

@@ -34,6 +34,7 @@ export const TestLabel = styled.p<{ isActive: boolean }>`
   font-size: 12px;
   line-height: 15px;
   opacity: ${({ isActive }) => isActive ? "1" : "0.5"};
+  cursor: pointer;
 `
 export const List = styled.div`
   display: flex;

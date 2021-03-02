@@ -24,10 +24,11 @@ import {
 import { ExitCommandProps } from "@/components/Modal/ExitCommand";
 import { useUser } from "@/hooks/useUser";
 import { AddMemberProps } from "@/components/Modal/AddMember";
+import { AddCalendlyEventProps } from "@/components/Modal/AddCalendlyEvent";
 
 const renderButtons = (data: ICommand) => {
   const dispatch = useDispatch();
-  const { push, query } = useRouter();
+  const { push } = useRouter();
   const { userId } = useUser();
 
   const handleDelete = () => {
@@ -67,6 +68,10 @@ const renderButtons = (data: ICommand) => {
     dispatch(modalShow<AddMemberProps>("ADD_MEMBER", {}));
   };
 
+  const handleCalendly = () => {
+    dispatch(modalShow<AddCalendlyEventProps>("ADD_CALENDLY_EVENT", {}));
+  };
+
   return (
     <ButtonsWrapper>
       {Number(userId) === data.admin.id && (
@@ -79,6 +84,9 @@ const renderButtons = (data: ICommand) => {
           </Button>
           <Button width="100%" myType="outline" onClick={handleDelete}>
             Распустить
+          </Button>
+          <Button width="100%" myType="outline" onClick={handleCalendly}>
+            Добавить мероприятие
           </Button>
         </>
       )}
