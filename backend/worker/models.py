@@ -36,6 +36,7 @@ class WorkerManager(BaseUserManager):
         user.is_superuser = True
         user.is_active = True
         user.is_staff = True
+        user.ready = True
 
         user.save(using=self._db)
         return user

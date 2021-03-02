@@ -14,4 +14,4 @@ class IsAdmin(BasePermission):
         return request.user == get_object_or_404(Department, id=depart).admin
 
     def has_object_permission(self, request, view, obj):
-        return obj.admin == request.user
+        return obj.depart.admin == request.user

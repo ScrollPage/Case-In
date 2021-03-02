@@ -79,6 +79,12 @@ class WorkerViewSet(SPFListRetrieveViewSet):
         user.save()
         return Response(status=status.HTTP_200_OK)
 
+    @action(detail=False)
+    def padawan(self, request, *args, **kwargs):
+        padawans = self.get_queryset().filter(mentor=None, ready=False)
+        serializer = self.get_serializer(padawans, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     @action(detail=True, methods=['post'])
     def mentor(self, request, *args, **kwargs):
         '''Стать ментором'''
@@ -103,7 +109,7 @@ class WorkerViewSet(SPFListRetrieveViewSet):
         #         'id', filter=Q(seen=False)
         #     )
         # )['num_notes']
-        user.code = user.tg_code.code
+        user.code = user.tg_code.get().code
         serializer = self.get_serializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

@@ -7,10 +7,13 @@ from aiogram.types import ReplyKeyboardRemove, \
 import os
 import django
 
+from backend import local
 from worker.models import Worker, TGBotCode
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
 django.setup()
+
+bot = telebot.TeleBot(local.CHAT_BOT_TOKEN)
 
 def auth(message):
     msg = bot.send_message(message.chat.id, 'Введите код: ')
@@ -42,6 +45,7 @@ def get_menu(message):
         TGBotCode.objects.get(chat_id=message.chat.id)
     except TGBotCode.DoesNotExist:
         menu.row('Авторизация')
+        menu.row('О компании', 'Моя информация')
     else:
         menu.row('Выход')
         menu.row('О компании', 'Моя информация', 'Мероприятия')
