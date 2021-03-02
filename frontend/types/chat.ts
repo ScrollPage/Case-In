@@ -1,7 +1,10 @@
+import { UserInfo } from "./user";
+
 export interface IChatMember {
   id: number;
-  name: string;
-  company: string;
+  first_name: string;
+  last_name: string;
+  info: UserInfo;
 }
 
 export interface IChat {
@@ -9,5 +12,5 @@ export interface IChat {
   members: IChatMember[];
   name: string;
   is_chat: boolean;
-  command: number;
+  depart: number;
 }

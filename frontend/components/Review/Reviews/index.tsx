@@ -20,8 +20,8 @@ export const renderReviews = (reviews: IReview[]) => {
       <ReviewItem
         key={`reviewItem__key__${review.id}`}
         id={review.id}
-        name={review.initiative.company}
-        commentUserId={review.initiative.id}
+        name={String(review.estimated)}
+        commentUserId={review.estimated}
         timestamp={review.timestamp}
         content={review.content}
       />

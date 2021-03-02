@@ -1,4 +1,3 @@
-import { DeleteCommentProps } from "@/components/Modal/DeleteComment";
 import { DeleteReviewProps } from "@/components/Modal/DeleteReview";
 import { Avatar } from "@/components/UI/Avatar";
 import { useUser } from "@/hooks/useUser";

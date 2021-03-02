@@ -39,9 +39,9 @@ const DialogItemComponent: React.FC<DialogItemProps> = ({
   const dialogName = useMemo(() => {
     if (isChat) {
       if (Number(userId) === members[0].id) {
-        return members[1].company;
+        return `${members[1].first_name} ${members[1].last_name}`;
       } else {
-        return members[0].company;
+        return `${members[1].first_name} ${members[1].last_name}`;
       }
     } else {
       return name;
