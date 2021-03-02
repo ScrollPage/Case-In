@@ -76,7 +76,7 @@ class WorkerViewSet(SPFListRetrieveViewSet):
         serializer = self.get_serializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    @action(detail=True)
+    @action(detail=False)
     def calendlytask(self, request, *args, **kwargs):
         '''Все задачи из календаря'''
         user = request.user
