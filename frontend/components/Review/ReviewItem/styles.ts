@@ -42,7 +42,7 @@ export const Close = styled.div`
   position: absolute;
   height: 25px;
   width: 25px;
-  top: 10px;
+  top: -5px;
   right: 10px;
   cursor: pointer;
   &:hover {

@@ -41,4 +41,7 @@ export const Wrapper = styled.div`
   box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.05);
   border-radius: 20px;
   padding: 40px;
+  @media (max-width: 900.98px) {
+    padding: 20px;
+  }
 `;
