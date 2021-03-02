@@ -100,14 +100,15 @@ const ProfileCardComponent = () => {
           )}
         </Top>
         <Main>
-          {!isYourPage && (
+          {isYourPage ? (
+            <Button onClick={handleTask} width="100%" myType="outline">
+              Задачи
+            </Button>
+          ) : (
             <Button onClick={handleMessage} width="100%" myType="outline">
               Написать сообщение
             </Button>
           )}
-          <Button onClick={handleTask} width="100%" myType="outline">
-            Задачи
-          </Button>
         </Main>
         <Hide>
           <Stroke>

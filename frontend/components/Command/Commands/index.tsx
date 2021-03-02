@@ -19,7 +19,7 @@ const renderCommands = (commands: ICommand[]) => {
     return (
       <CommandItem
         key={`commanditem__key__${command.info.id}`}
-        id={command.info.id}
+        id={command.id}
         name={command.name}
         rate={command.rate ?? "0"}
         numMembers={command.num_workers}
