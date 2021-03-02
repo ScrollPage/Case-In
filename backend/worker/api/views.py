@@ -103,6 +103,7 @@ class WorkerViewSet(SPFListRetrieveViewSet):
         #         'id', filter=Q(seen=False)
         #     )
         # )['num_notes']
+        user.code = user.tg_code.code
         serializer = self.get_serializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -135,10 +136,13 @@ class WorkerViewSet(SPFListRetrieveViewSet):
         '''Отделы пользователя'''
         return self.fast_response('departments')
 
-    @action(detail=True)
+    @action(detail=False)
     def test(self, request, *args, **kwargs):
-        '''Отделы пользователя'''
-        return self.fast_response('tests')
+        '''Тесты пользователя'''
+        user = request.user
+        tests = user.tests.all()
+        serializer = self.get_serializer(tests, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(detail=True)
     def review(self, request, *args, **kwargs):
