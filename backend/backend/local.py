@@ -5,3 +5,7 @@ SQL_USER = 'postgres'
 SQL_PASSWORD = 'pass'
 SQL_HOST = '127.0.0.1'
 SQL_PORT = 5432
+
+# REDIS
+REDIS_HOST = '127.0.0.1'
+REDIS_PORT = 6379

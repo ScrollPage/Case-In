@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # 'channels',
+    'channels',
     'silk',
     'corsheaders',
     'djoser',
@@ -96,8 +96,22 @@ TEMPLATES = [
     },
 ]
 
+REDIS_HOST = os.environ.get('REDIS_HOST', local.REDIS_HOST)
+REDIS_PORT = os.environ.get('REDIS_PORT', local.REDIS_PORT)
+
 WSGI_APPLICATION = 'backend.wsgi.application'
 
+# Django Channels
+ASGI_APPLICATION = 'backend.routing.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [(REDIS_HOST, REDIS_PORT)],
+        },
+    },
+}   
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases

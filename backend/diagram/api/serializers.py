@@ -11,7 +11,8 @@ class TaskSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DiagramTask
-        exclude = ['percentage']
+        fields = '__all__'
+        read_only_fields = ['percentage']
 
     def validate(self, validated_data):
         try:
@@ -21,6 +22,7 @@ class TaskSerializer(serializers.ModelSerializer):
         except ValueError:
             raise ParseError(f'Percentage must be int not {type(percentage)}.')
         else:
-            if  percentage > 100 or percentage < 0:
+            if percentage > 100 or percentage < 0:
                 raise ParseError('Percentage must be <= 100 and >= 0.')
-            return super().validate(instance, vaidated_data)
+        finally:
+            return super().validate(validated_data)

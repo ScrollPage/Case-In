@@ -11,9 +11,11 @@ from django.contrib.auth.models import (
 class WorkerManager(BaseUserManager):
     '''Мэнэджер кастомного пользователя'''
 
-    def create_user(self, email, password=None):
+    def create_user(self, email, first_name, last_name, password=None):
         user = self.model(
             email=self.normalize_email(email),
+            first_name=first_name,
+            last_name=last_name,
         )
         user.set_password(password)
  
@@ -21,9 +23,11 @@ class WorkerManager(BaseUserManager):
 
         return user
 
-    def create_superuser(self, email, password=None):
+    def create_superuser(self, email, first_name, last_name, password=None):
         user = self.model(
             email=self.normalize_email(email),
+            first_name=first_name,
+            last_name=last_name,
         )
         user.set_password(password)
 
