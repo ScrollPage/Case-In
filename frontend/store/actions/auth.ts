@@ -35,9 +35,9 @@ export const authInfo = (): ThunkType => async dispatch => {
   await instance()
     .get('/api/worker/me/')
     .then(res => {
-      const { first_name, last_name } = res.data.info;
+      const { first_name, last_name, id } = res.data;
 
-      Cookie.set('userId', res.data.id);
+      Cookie.set('userId', id);
       Cookie.set('firstName', first_name);
       Cookie.set('lastName', last_name);
       // if (first_login) {
@@ -61,9 +61,6 @@ export const logout = (isRedirect: boolean): ThunkType => () => {
   Cookie.remove('firstName');
   Cookie.remove('lastName');
   Cookie.remove('userId');
-  Cookie.remove('name');
-  Cookie.remove('company');
-  Cookie.remove('isSteakholder');
 };
 
 export const checkAuthTimeout = (expirationTime: number): ThunkType => dispatch =>

@@ -11,12 +11,12 @@ import { Wrapper, Title, Stroke, Info } from "./styles";
 
 const renderMembers = (members: IMember[]) => {
   return members.map((member, index) => {
-    const { id, info } = member.user;
+    const { id, first_name, last_name} = member.user;
     return (
       <Stroke key={`membersitem__key__${index}`}>
         <Info>
           <Link href={`/profile/${id}`}>
-            <a>{`${info.first_name} ${info.last_name}`}</a>
+            <a>{`${first_name} ${last_name}`}</a>
           </Link>
         </Info>
       </Stroke>

@@ -28,7 +28,7 @@ import { createChat } from "@/store/actions/chat";
 
 const ProfileCardComponent = () => {
   const dispatch = useDispatch();
-  const { user } = useContext(ProfileContext) as ProfileProps;
+  const { user, depart } = useContext(ProfileContext) as ProfileProps;
   const { query, push } = useRouter();
   const isYourPage = useIsYour();
 
@@ -36,6 +36,13 @@ const ProfileCardComponent = () => {
     `/api/worker/${query.ID}/`,
     {
       initialData: user,
+    }
+  );
+
+  const { data: departData, error: departError } = useSWR(
+    `/api/worker/${query.ID}/depart/`,
+    {
+      initialData: depart,
     }
   );
 
@@ -65,7 +72,7 @@ const ProfileCardComponent = () => {
     });
   };
 
-  if (userError) {
+  if (userError || departError) {
     return (
       <Wrapper>
         <ErrorMessage message="Ошибка загрузки информации о пользователе" />
@@ -73,7 +80,7 @@ const ProfileCardComponent = () => {
     );
   }
 
-  if (!userData) {
+  if (!userData || !departData) {
     return (
       <Wrapper>
         <LoadingSpinner />
@@ -86,7 +93,7 @@ const ProfileCardComponent = () => {
           <TopMain>
             <Avatar size={60} href={`/profile/${userData.id}`} />
             <Header>
-              <Title>{`${userData.info.first_name} ${userData.info.last_name}`}</Title>
+              <Title>{`${userData.first_name} ${userData.last_name}`}</Title>
               <Rating
                 defaultRate={userData.rate ?? "0"}
                 disabled={isYourPage}
@@ -115,10 +122,20 @@ const ProfileCardComponent = () => {
             <Label>E-mail</Label>
             <Info>{userData.email}</Info>
           </Stroke>
-          <Stroke>
-            <Label>Номер телефона</Label>
-            <Info>{userData.info.phone_number}</Info>
-          </Stroke>
+          {userData.info.phone_number && (
+            <Stroke>
+              <Label>Номер телефона</Label>
+              <Info>{userData.info.phone_number}</Info>
+            </Stroke>
+          )}
+          {departData.map((depart) => (
+            <Stroke>
+              <Label>Отдел</Label>
+              <Info key={`depart__item__key__${depart.id}`}>
+                {depart.depart.name}
+              </Info>
+            </Stroke>
+          ))}
         </Hide>
       </Wrapper>
     );

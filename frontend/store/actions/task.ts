@@ -23,7 +23,7 @@ export const addUserTask = (values: CreateUserTaskFormValues): ThunkType => asyn
     .catch(() => {
       dispatch(show('Ошибка при добавлении задачи!', 'warning'));
     });
-  trigger(`/api/worker/${pageUserId}/diagram/`);
+  trigger(`/api/worker/${pageUserId}/diagramtask/`);
 };
 
 
@@ -39,5 +39,5 @@ export const editUserTask = (values: EditTaskFormValues): ThunkType => async dis
     .catch(() => {
       dispatch(show('Ошибка при изменении задачи!', 'warning'));
     });
-  trigger(`/api/worker/${pageUserId}/diagram/`);
+  trigger(`/api/worker/${pageUserId}/diagramtask/`);
 };
