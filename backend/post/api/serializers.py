@@ -1,7 +1,8 @@
 from rest_framework import serializers
 
-from post.models import Post
+from post.models import Post, Comment
 
+from worker.api.serializers import ShortWorkerSerializer
 from department.api.serializers import DepartmentSerializer
 
 class PostSerializer(serializers.ModelSerializer):
@@ -12,4 +13,22 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        exclude = ['timestamp']
+        fields = '__all__'
+        read_only_fields = ['timestamp']
+
+class PostCreateSerializer(serializers.ModelSerializer):
+    '''Сериализация создания поста'''
+
+    class Meta:
+        model = Post
+        fields = '__all__'
+        read_only_fields = ['timestamp']
+
+class CommentSerializer(serializers.ModelSerializer):
+    '''Сериализация комеентария'''
+    user = ShortWorkerSerializer(read_only=True)
+
+    class Meta:
+        model = Comment
+        fields = '__all__'
+

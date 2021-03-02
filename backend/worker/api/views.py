@@ -10,7 +10,7 @@ from django.db.models.query import QuerySet
 from worker.models import WorkerInfo, Worker, Review
 from .serializers import (
     WorkerInfoSerializer, WorkerSerializer, 
-    ReviewSerializer
+    ReviewSerializer, ReviewSerializer
 )
 from .permissions import IsRightUser, RightMentor, CanUpdateReview, CanDestroyReview
 from .service import SPFListRetrieveViewSet, PCreateUpdateDestroy
@@ -33,7 +33,8 @@ class WorkerViewSet(SPFListRetrieveViewSet):
         'donementor': EmptySerializer,
         'diagramtask': TaskSerializer,
         'calendlytask': CalendlySerializer,
-        'chat': ChatSerializer
+        'chat': ChatSerializer,
+        'review': ReviewSerializer,
     }
     permission_classes = [permissions.IsAuthenticated]
     permission_classes_by_action = {

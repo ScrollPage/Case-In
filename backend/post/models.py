@@ -31,7 +31,7 @@ class Post(models.Model):
     objects = PostManager()
 
     def __str__(self):
-        return f'{self.initiative} post'
+        return f'{self.depart} post'
 
     class Meta:
         verbose_name = 'Объявление'
