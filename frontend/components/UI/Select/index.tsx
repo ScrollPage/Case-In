@@ -10,7 +10,7 @@ const renderOptions = (options: User[]) => {
   return options.map((option) => {
     return (
       <Option key={`categoryOption__key__${option.id}`} value={option.id}>
-        {`${option.info.first_name} ${option.info.first_name}`}
+        {`${option.first_name} ${option.first_name}`}
       </Option>
     );
   });

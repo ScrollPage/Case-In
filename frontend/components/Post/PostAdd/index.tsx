@@ -3,16 +3,12 @@ import FileUpload from "@/components/UI/FileUpload";
 import { addPost } from "@/store/actions/post";
 import React, { memo, useContext, useState } from "react";
 import { useDispatch } from "react-redux";
-import { PostsContext, PostsContextProps } from "../Posts";
 import { Wrapper, TextArea, Inner } from "./styles";
 
-interface PostAddProps {
-  where: "command" | "profile";
-}
+interface PostAddProps {}
 
-const PostAddComponent: React.FC<PostAddProps> = ({ where }) => {
+const PostAddComponent: React.FC<PostAddProps> = ({}) => {
   const dispatch = useDispatch();
-  const { triggerUrl } = useContext(PostsContext) as PostsContextProps;
   const [text, setText] = useState("");
   const [image, setImage] = useState(null);
   const [currentImage, setCurrentImage] = useState(undefined);
@@ -20,7 +16,7 @@ const PostAddComponent: React.FC<PostAddProps> = ({ where }) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (text.trim() !== "" || image) {
-      dispatch(addPost(triggerUrl, where, text, image));
+      dispatch(addPost(text, image));
       setImage(null);
       setCurrentImage(undefined);
       setText("");

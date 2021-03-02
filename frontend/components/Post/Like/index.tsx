@@ -1,8 +1,7 @@
 import { likePost } from "@/store/actions/post";
-import React, { memo, useContext } from "react";
+import React, { memo } from "react";
 import { useDispatch } from "react-redux";
 import { Wrapper, Main, Amount } from "./styles";
-import { PostsContext, PostsContextProps } from "../Posts";
 
 interface LikeProps {
   amount: number;
@@ -12,10 +11,9 @@ interface LikeProps {
 
 const LikeComponent: React.FC<LikeProps> = ({ amount, isLiked, id }) => {
   const dispatch = useDispatch();
-  const { triggerUrl } = useContext(PostsContext) as PostsContextProps;
 
   const handleChange = () => {
-    dispatch(likePost(triggerUrl, id));
+    dispatch(likePost(id));
   };
 
   return (

@@ -73,10 +73,10 @@ export const exitOrInviteCommand = (workerId?: number): ThunkType => async dispa
       user: userId
     })
     .then((res) => {
-      dispatch(show(`Вы успешно вышли из отдела!`, 'success'));
+      dispatch(show(workerId ? `Вы успешно добавили сотрудника в отдел!` : `Вы успешно вышли из отдела!`, 'success'));
     })
     .catch(() => {
-      dispatch(show(`Ошибка при выходе из отдела!`, 'warning'));
+      dispatch(show(workerId ? `Ошибка при добавлении сотрудника в отдел!` : `Ошибка при выходе из отдела!`, 'warning'));
     });
   trigger(`/api/depart/${commandId}/`);
   trigger(`/api/depart/${commandId}/worker/`);

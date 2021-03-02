@@ -5,7 +5,8 @@ import { show } from './alert';
 import Router from 'next/router';
 import { getAsString } from '@/utils/getAsString';
 
-export const addPost = (triggerUrl: string, where: 'profile' | 'command', title?: string, image?: any): ThunkType => async dispatch => {
+export const addPost = (title?: string, image?: any): ThunkType => async dispatch => {
+  const commandId = getAsString(Router.query.ID);
   let form_data = new FormData();
   if (title) {
     form_data.append('title', title);
@@ -13,13 +14,8 @@ export const addPost = (triggerUrl: string, where: 'profile' | 'command', title?
   if (image) {
     form_data.append('picture', image, image.name);
   }
-  if (where === 'command') {
-    const commandId = getAsString(Router.query.ID);
-    if (commandId) {
-      form_data.append('command', commandId);
-    }
-  } else {
-    form_data.append('command', "");
+  if (commandId) {
+    form_data.append('depart', commandId);
   }
   await instance()
     .post(`/api/post/`, form_data)
@@ -29,10 +25,11 @@ export const addPost = (triggerUrl: string, where: 'profile' | 'command', title?
     .catch(() => {
       dispatch(show('Ошибка при добавлении поста!', 'warning'));
     });
-  trigger(triggerUrl);
+  trigger(`/api/depart/${commandId}/post/`);
 };
 
-export const deletePost = (triggerUrl: string, id: number): ThunkType => async dispatch => {
+export const deletePost = (id: number): ThunkType => async dispatch => {
+  const commandId = getAsString(Router.query.ID);
   await instance()
     .delete(`/api/post/${id}`)
     .then(async (res) => {
@@ -41,10 +38,11 @@ export const deletePost = (triggerUrl: string, id: number): ThunkType => async d
     .catch(() => {
       dispatch(show('Ошибка при удалении поста!', 'warning'));
     });
-  trigger(triggerUrl);
+  trigger(`/api/depart/${commandId}/post/`);
 };
 
-export const likePost = (triggerUrl: string, id: number): ThunkType => async dispatch => {
+export const likePost = (id: number): ThunkType => async dispatch => {
+  const commandId = getAsString(Router.query.ID);
   await instance()
     .post(`/api/post/${id}/like/`, {})
     .then(async (res) => {
@@ -53,6 +51,6 @@ export const likePost = (triggerUrl: string, id: number): ThunkType => async dis
     .catch(() => {
       dispatch(show('Ошибка при добавлении лайка!', 'warning'));
     });
-  trigger(triggerUrl);
+  trigger(`/api/depart/${commandId}/post/`);
 };
 

@@ -6,6 +6,9 @@ export const Wrapper = styled.div`
   border-radius: 20px;
   padding: 20px 30px;
   margin-bottom: 24px;
+  > form {
+    width: 100%;
+  }
 `;
 
 export const Inner = styled.div`
