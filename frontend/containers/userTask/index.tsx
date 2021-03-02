@@ -1,15 +1,13 @@
 import { Button } from "@/components/UI/Button";
 import { Gant } from "@/components/UserTask/Gant";
 import { TaskMain } from "@/components/UserTask/TaskMain";
-import { useIsYour } from "@/hooks/useIsYour";
 import { useRouter } from "next/router";
 import React from "react";
-import { Wrapper } from "../task/styles";
+import { Wrapper } from "./styles";
 
 export interface UserTaskContainerProps {}
 
 export const UserTaskContainer: React.FC<UserTaskContainerProps> = ({}) => {
-  const isYourPage = useIsYour();
   const { push, query } = useRouter();
 
   const handleTask = () => {
@@ -24,7 +22,7 @@ export const UserTaskContainer: React.FC<UserTaskContainerProps> = ({}) => {
         Назад
       </Button>
       <Gant />
-      {isYourPage && <TaskMain />}
+      <TaskMain />
     </Wrapper>
   );
 };

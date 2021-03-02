@@ -1,9 +1,9 @@
+import { UserInfo } from './user';
 export interface ITask {
   id: number;
-  initiative: {
+  user: {
     id: number;
-    name: string;
-    company: string;
+    info: UserInfo;
   }
   begin_time: string;
   end_time: string;

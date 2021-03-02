@@ -33,7 +33,7 @@ export const authLogin = (values: LoginFormValues): ThunkType => async dispatch 
 
 export const authInfo = (): ThunkType => async dispatch => {
   await instance()
-    .get('/auth/users/me/')
+    .get('/api/worker/me/')
     .then(res => {
       const { first_name, last_name } = res.data.info;
 
