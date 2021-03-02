@@ -79,6 +79,12 @@ class WorkerViewSet(SPFListRetrieveViewSet):
         user.save()
         return Response(status=status.HTTP_200_OK)
 
+    @action(detail=False)
+    def padawan(self, request, *args, **kwargs):
+        padawans = self.get_queryset().filter(mentor=None, ready=False)
+        serializer = self.get_serializer(padawans, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     @action(detail=True, methods=['post'])
     def mentor(self, request, *args, **kwargs):
         '''Стать ментором'''
