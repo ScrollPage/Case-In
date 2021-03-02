@@ -16,9 +16,11 @@ class SPFListRetrieveViewSet(
     '''
     pass
 
-# def union_qs(depart, queryset):
-    
-#     def _union(instances, queryset):
-#         return queryset.union(instances)
-    
-#     return list(map(lambda instances:_union(instances, queryset)))
+class PCreateUpdateDestroy(
+    PermissionMixin, CreateModelMixin, UpdateModelMixin,
+    DestroyModelMixin, GenericViewSet
+):
+    '''
+    Переопределение методов сериализатора и прав доступа
+    '''
+    pass

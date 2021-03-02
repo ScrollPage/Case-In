@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'department',
     'doc',
     'feed',
+    'notifications',
     'diagram',
     'post',
     'worker',

@@ -1,6 +1,6 @@
 from rest_framework import serializers 
 
-from worker.models import Worker, WorkerInfo
+from worker.models import Worker, WorkerInfo, Review
 
 class WorkerInfoSerializer(serializers.ModelSerializer):
     '''Сериализация информации о работнике'''
@@ -25,3 +25,10 @@ class ShortWorkerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Worker
         fields = ['id', 'info']
+
+class ReviewSerializer(serializers.ModelSerializer):
+    '''Сериализация отзыва'''
+
+    class Meta:
+        model = Review
+        exclude = ['user']

@@ -38,6 +38,8 @@ class Worker(AbstractBaseUser, PermissionsMixin):
     '''Кастомная модель пользователя'''
     email = models.EmailField('Почта', max_length=60, unique=True)
     registered = models.DateTimeField(auto_now_add=True)
+    first_name = models.CharField(max_length=30, default='')
+    last_name = models.CharField(max_length=30, default='')
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
@@ -48,6 +50,7 @@ class Worker(AbstractBaseUser, PermissionsMixin):
     )
     
     USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['first_name', 'last_name']
 
     objects = WorkerManager()
 
@@ -65,8 +68,6 @@ class WorkerInfo(models.Model):
         related_name='info', on_delete=models.CASCADE
     )
     phone_number = models.CharField('Номер телефона', max_length=11, default='')
-    first_name = models.CharField(max_length=30, default='')
-    last_name = models.CharField(max_length=30, default='')
     birth_date = models.DateField(null=True)
 
     class Meta:
