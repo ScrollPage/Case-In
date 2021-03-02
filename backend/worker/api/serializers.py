@@ -29,7 +29,11 @@ class ShortWorkerSerializer(serializers.ModelSerializer):
 
 class ReviewSerializer(serializers.ModelSerializer):
     '''Сериализация отзыва'''
+    user = ShortWorkerSerializer(read_only=True)
 
     class Meta:
         model = Review
-        exclude = ['user']
+        fields = '__all__'
+        extra_kwargs = {
+            'estimated': {'write_only': True}
+        }

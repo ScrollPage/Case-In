@@ -1,21 +1,30 @@
-from rest_framework import permissions
+from rest_framework import permissions, status
+from rest_framework.response import Response
 from rest_framework.decorators import action
 
 from .serializers import PostSerializer, CommentSerializer, PostCreateSerializer
-from .service import UpdateCreateDestoyViewSet
+from .service import SPFUpdateCreateDestoyViewSet, PUpdateCreateDestoyViewSet
 from .permissions import IsAdmin, IsCommentAuthor
 from post.models import Post, Comment
 
-from backend.core import PermissionMixin, FastResponseMixin, SerializerMixin
+from backend.core import (
+    PermissionMixin, FastResponseMixin, 
+    SerializerMixin, EmptySerializer
+)
+from feed.models import Like
 
-class PostViewSet(FastResponseMixin, SerializerMixin, UpdateCreateDestoyViewSet):
+class PostViewSet(SPFUpdateCreateDestoyViewSet):
     '''Создание, удаление, обновление поста'''
     serializer_class = PostSerializer
     serializer_class_by_action = {
         'comment': CommentSerializer,
-        'create': PostCreateSerializer
+        'create': PostCreateSerializer,
+        'like': EmptySerializer
     }
     permission_classes = [permissions.IsAuthenticated, IsAdmin]
+    permission_classes_by_action = {
+        'like': [permissions.IsAuthenticated]
+    }
     queryset = Post.objects.all()
 
     @action(detail=True)
@@ -23,7 +32,18 @@ class PostViewSet(FastResponseMixin, SerializerMixin, UpdateCreateDestoyViewSet)
         '''Комментарии поста'''
         return self.fast_response('comments')
 
-class CommentViewSet(PermissionMixin, UpdateCreateDestoyViewSet):
+    @action(detail=True, methods=['post'])
+    def like(self, request, *args, **kwargs):
+        '''Лайк к посту'''
+        post = self.get_object()
+        like, fl = Like.objects.get_or_create(post=post, user=request.user)
+        if fl:
+            return Response(status=status.HTTP_201_CREATED)
+        else:
+            like.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+
+class CommentViewSet(PUpdateCreateDestoyViewSet):
     '''Создание, удаление, изменение комментария'''
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticated, IsCommentAuthor]

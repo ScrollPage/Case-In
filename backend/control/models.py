@@ -16,7 +16,6 @@ class Test(models.Model):
         related_name='tests', on_delete=models.CASCADE
     )
     category = models.CharField(max_length=1, choices=CHOICES, default='')
-    name = models.CharField(max_length=100, default='')
     value = models.SmallIntegerField(default=0)
     is_passed = models.BooleanField(default=False)
 
