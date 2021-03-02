@@ -20,7 +20,7 @@ const renderRoles = (profiles: User[]) => {
       <ProfileItem
         key={`profileItem__key__${profile.id}`}
         id={profile.id}
-        fullName={`${profile.info.first_name} ${profile.info.last_name}`}
+        fullName={`${profile.first_name} ${profile.last_name}`}
         rate={profile.rate ?? "0"}
       />
     );

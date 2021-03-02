@@ -41,8 +41,8 @@ const ChangeFormComponent: React.FC<ChangeFormProps> = ({
       <Title>Информация о себе</Title>
       <Formik
         initialValues={{
-          firstName: initialValues?.info.first_name ?? "",
-          lastName: initialValues?.info.last_name ?? "",
+          firstName: initialValues?.first_name ?? "",
+          lastName: initialValues?.last_name ?? "",
           phone: initialValues?.info.phone_number ?? "",
         }}
         validationSchema={validationSchema}
