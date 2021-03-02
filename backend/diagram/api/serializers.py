@@ -12,7 +12,6 @@ class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = DiagramTask
         fields = '__all__'
-        read_only_fields = ['percentage']
 
     def validate(self, validated_data):
         try:

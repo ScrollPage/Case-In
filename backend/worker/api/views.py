@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.db.models import Avg, Prefetch
+from django.db.models import Avg, Prefetch, Count
 from django.db.models.query import QuerySet
 
 from worker.models import WorkerInfo, Worker, Review
@@ -19,6 +19,7 @@ from achieve.api.serializers import AchievementSerializer
 from department.api.serializers import MembersSerializer
 from diagram.api.serializers import TaskSerializer
 from calendly.api.serializers import CalendlySerializer
+from chat.api.serializers import ChatSerializer
 from calendly.models import CalendlyTask
 from backend.core import EmptySerializer
 
@@ -31,7 +32,8 @@ class WorkerViewSet(SPFListRetrieveViewSet):
         'mentor': EmptySerializer,
         'donementor': EmptySerializer,
         'diagramtask': TaskSerializer,
-        'calendlytask': CalendlySerializer
+        'calendlytask': CalendlySerializer,
+        'chat': ChatSerializer
     }
     permission_classes = [permissions.IsAuthenticated]
     permission_classes_by_action = {
@@ -44,7 +46,8 @@ class WorkerViewSet(SPFListRetrieveViewSet):
         if self.request.method != 'GET':
             return queryset
         return queryset \
-            .annotate(rate=Avg('rating__star'))
+            .annotate(rate=Avg('rating__star')) \
+            .annotate(num_reviews=Count('reviews', distinct=True))
             
     @action(detail=True, methods=['post'])
     def donementor(self, request, *args, **kwargs):
@@ -83,6 +86,14 @@ class WorkerViewSet(SPFListRetrieveViewSet):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @action(detail=False)
+    def chat(self, request, *args, **kwargs):
+        '''Все задачи из календаря'''
+        user = request.user
+        chats = user.chats.all()
+        serializer = self.get_serializer(chats, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     @action(detail=True)
     def diagramtask(self, request, *args, **kwargs):
         '''Все задачи на диаграмме ганта пользователя'''
@@ -118,3 +129,6 @@ class ReviewViewSet(PCreateUpdateDestroy):
         'destroy': [permissions.IsAuthenticated, CanDestroyReview]
     }
     queryset = Review.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
