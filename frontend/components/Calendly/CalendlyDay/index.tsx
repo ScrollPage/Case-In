@@ -1,45 +1,25 @@
-import { Button } from "@/components/UI/Button";
+import { ICalendly } from "@/types/calendly";
 import React from "react";
-import { Wrapper, Day, Inner, Title, Info, Event } from "./styles";
+import { Title, Info, Wrapper } from "./styles";
 
 interface Props {
-  calendly: any;
+  calendly: ICalendly;
 }
+
+const monthsData =
+  "января,февраля,марта,апреля,мая,июня,июля,августа,сентября,октября,ноября,декабря";
 
 export const CalendlyItem: React.FC<Props> = ({ calendly }) => {
+  const date = new Date(calendly.datetime);
+  const months = monthsData.split(",")[date.getMonth()];
+  const day = date.getDay();
+  const hours = date.getHours();
+  const minutes =
+    date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
   return (
     <Wrapper>
-      <Day>
-        <Title>{calendly.day}</Title>
-      </Day>
-      <Inner>
-        {calendly.events.length === 0 ? (
-          <Info>Нет мероприятий</Info>
-        ) : (
-          calendly.events.map((event: any) => (
-            <CalendlyEvent
-              key={`Calendly__event__key__${event.id}`}
-              event={event}
-            />
-          ))
-        )}
-      </Inner>
+      <Title>{`${day} ${months} в ${hours} : ${minutes}`}</Title>
+      <Info>{calendly.description}</Info>
     </Wrapper>
-  );
-};
-
-interface EventProps {
-  event: any;
-}
-
-const CalendlyEvent: React.FC<EventProps> = ({ event }) => {
-  return (
-    <Event>
-      <Title>{event.time}</Title>
-      <Info>{event.name}</Info>
-      <Button small myType={event.isGo ? "outline" : "blue"} width="60px">
-        {event.isGo ? "Отменить" : "Пойти"}
-      </Button>
-    </Event>
   );
 };

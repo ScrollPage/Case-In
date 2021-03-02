@@ -2,6 +2,7 @@ import {
   CalendlyForm,
   CalendlyFormValues,
 } from "@/components/Calendly/CalendlyForm";
+import { addCalendly } from "@/store/actions/command";
 import React, { memo } from "react";
 import { useDispatch } from "react-redux";
 import { Wrapper } from "./styles";
@@ -18,8 +19,7 @@ const AddCalendlyEventComponent: React.FC<IAddCalendlyEvent> = ({
   const dispatch = useDispatch();
 
   const onSubmit = (values: CalendlyFormValues) => {
-    // dispatch(AddCalendlyEvent(values));
-    console.log(values);
+    dispatch(addCalendly(values));
     setClose();
   };
 
