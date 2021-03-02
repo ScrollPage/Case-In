@@ -7,10 +7,13 @@ from django.dispatch import receiver
 from django.db.models import Avg, Prefetch
 from django.db.models.query import QuerySet
 
-from worker.models import WorkerInfo, Worker
-from .serializers import WorkerInfoSerializer, WorkerSerializer
-from .permissions import IsRightUser, RightMentor
-from .service import SPFListRetrieveViewSet
+from worker.models import WorkerInfo, Worker, Review
+from .serializers import (
+    WorkerInfoSerializer, WorkerSerializer, 
+    ReviewSerializer
+)
+from .permissions import IsRightUser, RightMentor, CanUpdateReview, CanDestroyReview
+from .service import SPFListRetrieveViewSet, PCreateUpdateDestroy
 
 from achieve.api.serializers import AchievementSerializer
 from department.api.serializers import MembersSerializer
@@ -34,7 +37,6 @@ class WorkerViewSet(SPFListRetrieveViewSet):
     permission_classes_by_action = {
         'donementor': [permissions.IsAuthenticated, RightMentor],
         'diagramtask': [permissions.IsAuthenticated, RightMentor],
-        'calendlytask': [permissions.IsAuthenticated, IsRightUser]
     }
 
     def get_queryset(self):
@@ -73,8 +75,7 @@ class WorkerViewSet(SPFListRetrieveViewSet):
     @action(detail=True)
     def calendlytask(self, request, *args, **kwargs):
         '''Все задачи из календаря'''
-        queryset = CalendlyTask.objects.none()
-        user = self.get_object()
+        user = request.user
         memberships = user.departments.all() \
             .select_related('depart')
         departs = [membership.depart for membership in memberships]
@@ -93,6 +94,11 @@ class WorkerViewSet(SPFListRetrieveViewSet):
         return self.fast_response('departments')
 
     @action(detail=True)
+    def review(self, request, *args, **kwargs):
+        '''Отзывы пользователя'''
+        return self.fast_response('reviews')
+
+    @action(detail=True)
     def achievement(self, request, *args, **kwargs):
         '''Достижения пользователя'''
         return self.fast_response('achievements')
@@ -102,3 +108,13 @@ class WorkerInfoUpdateView(UpdateAPIView):
     queryset = WorkerInfo.objects.all()
     serializer_class = WorkerInfoSerializer
     permission_classes = [permissions.IsAuthenticated, IsRightUser]
+
+class ReviewViewSet(PCreateUpdateDestroy):
+    '''Создание, удаление, обновление отзыва'''
+    serializer_class = ReviewSerializer
+    permission_classes = [permissions.IsAuthenticated, CanUpdateReview]
+    permission_classes_by_action = {
+        'create': [permissions.IsAuthenticated],
+        'destroy': [permissions.IsAuthenticated, CanDestroyReview]
+    }
+    queryset = Review.objects.all()

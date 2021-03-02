@@ -12,3 +12,16 @@ class RightMentor(BasePermission):
             request.user == obj.mentor,
             request.user.is_superuser
         ])
+
+class CanUpdateReview(BasePermission):
+    '''Может ли обновлять отзыв'''
+    def has_object_permission(self, request, view, obj):
+        return request.user == obj.user
+
+class CanDestroyReview(BasePermission):
+    '''Может ли обновлять отзыв'''
+    def has_object_permission(self, request, view, obj):
+        return any([
+            request.user == obj.user,
+            request.user == obj.estimated
+        ])
