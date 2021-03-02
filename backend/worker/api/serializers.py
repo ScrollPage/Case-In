@@ -13,6 +13,7 @@ class WorkerSerializer(serializers.ModelSerializer):
     '''Сериализация работника'''
     info = WorkerInfoSerializer(read_only=True)
     rate = serializers.DecimalField(max_digits=3, decimal_places=2)
+    num_reviews = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Worker
@@ -24,7 +25,7 @@ class ShortWorkerSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Worker
-        fields = ['id', 'info']
+        fields = ['id', 'info', 'first_name', 'last_name']
 
 class ReviewSerializer(serializers.ModelSerializer):
     '''Сериализация отзыва'''
