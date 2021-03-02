@@ -17,7 +17,6 @@ const radioStyle = {
 
 export const TestItem: React.FC<Props> = ({ question, id }) => {
   const { state, update } = useContext(Ctx);
-  console.log(state);
   return (
     <Wrapper>
       <Title>{`${id}) ${question.title}`}</Title>
