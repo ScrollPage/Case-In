@@ -19,7 +19,7 @@ export default function Im({ chats, currentChat }: ImProps) {
   return (
     <MainLayout>
       <Head>
-        <title>BNET / Мессенджер</title>
+        <title>CORP.NET / Мессенджер</title>
       </Head>
       <ImContext.Provider value={{ chats, currentChat }}>
         <ImContainer />

@@ -31,7 +31,7 @@ export default function Command({
   return (
     <MainLayout>
       <Head>
-        <title>BNET / Отдел</title>
+        <title>CORP.NET / Отдел</title>
       </Head>
       <CommandContext.Provider value={{ command, posts, docs, members }}>
         <CommandContainer />

@@ -97,19 +97,19 @@ const PostItemComponent: React.FC<PostItemProps> = ({
         </Inner>
         {isAdmin && <Close onClick={handleDelete} />}
         {isShowComment && <Comments postId={id} />}
-        {/* {last_comment && !isShowComment && (
+        {last_comment && !isShowComment && (
           <LastComment>
             <CommentItem
               id={last_comment.id}
-              name={last_comment.initiative.company}
+              name={`${last_comment.user.first_name} ${last_comment.user.last_name}`}
               timestamp={last_comment.timestamp}
-              commentUserId={last_comment.initiative.id}
+              commentUserId={last_comment.user.id}
               content={last_comment.content}
               postId={id}
               isLast={true}
             />
           </LastComment>
-        )} */}
+        )}
       </Wrapper>
     </>
   );

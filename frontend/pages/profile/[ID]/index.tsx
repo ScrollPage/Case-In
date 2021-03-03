@@ -22,7 +22,7 @@ export default function Profile({ user, depart }: ProfileProps) {
   return (
     <MainLayout>
       <Head>
-        <title>BNET / Профиль</title>
+        <title>CORP.NET / Профиль</title>
       </Head>
       <ProfileContext.Provider value={{ user, depart }}>
         <ProfileContainer />

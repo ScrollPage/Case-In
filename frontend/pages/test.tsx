@@ -14,7 +14,7 @@ export default function Test({ serverTests }: TestProps) {
   return (
     <MainLayout>
       <Head>
-        <title>BNET / Тесты</title>
+        <title>CORP.NET / Тесты</title>
       </Head>
       <TestContainer serverTests={serverTests} />
     </MainLayout>

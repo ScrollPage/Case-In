@@ -86,10 +86,11 @@ export const HeaderSide = styled.div`
 `;
 
 export const Logo = styled.div`
-  @media (max-width: 900.98px) {
-    > a > img {
-    width: 130px;
-    }
+  > a > img {
+    width: 212px;
+    @media (max-width: 900.98px) {
+      width: 130px;  
+    }  
   }
 `;
 export const Main = styled.div`

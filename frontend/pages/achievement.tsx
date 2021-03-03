@@ -11,7 +11,7 @@ export default function Achievement({}: AchievementProps) {
   return (
     <MainLayout>
       <Head>
-        <title>BNET / Достижения</title>
+        <title>CORP.NET / Достижения</title>
       </Head>
       <AchievementContainer />
     </MainLayout>

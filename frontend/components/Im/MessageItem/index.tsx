@@ -15,13 +15,13 @@ import {
 interface MessageItemProps {
   content: string;
   timestamp: string;
-  company: string;
+  full_name: string;
   isMy: boolean;
   url?: string;
 }
 
 const MessageItemComponent: React.FC<MessageItemProps> = ({
-  company,
+  full_name,
   content,
   timestamp,
   isMy,
@@ -31,7 +31,7 @@ const MessageItemComponent: React.FC<MessageItemProps> = ({
     <Wrapper isMy={isMy}>
       <Main>
         <Header>
-          <Title>{company}</Title>
+          <Title>{full_name}</Title>
           <Time>{renderTimestamp(timestamp)}</Time>
         </Header>
         <Text>{content}</Text>

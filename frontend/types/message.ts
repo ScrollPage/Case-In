@@ -1,8 +1,8 @@
 export interface IMessage {
   id: number;
-  initiative: {
+  user: {
     id: number;
-    company: string;
+    full_name: string;
   }
   content: string;
   timestamp: string;
