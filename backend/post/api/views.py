@@ -23,7 +23,8 @@ class PostViewSet(SPFUpdateCreateDestoyViewSet):
     }
     permission_classes = [permissions.IsAuthenticated, IsAdmin]
     permission_classes_by_action = {
-        'like': [permissions.IsAuthenticated]
+        'like': [permissions.IsAuthenticated],
+        'comment': [permissions.IsAuthenticated],
     }
     queryset = Post.objects.all()
 

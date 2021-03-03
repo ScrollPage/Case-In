@@ -7,12 +7,17 @@ from django.dispatch import receiver
 from django.db.models import Avg, Prefetch, Count, Q, Avg
 from django.db.models.query import QuerySet
 
+from url_filter.integrations.drf import DjangoFilterBackend
+
 from worker.models import WorkerInfo, Worker, Review
 from .serializers import (
     WorkerInfoSerializer, WorkerSerializer, 
     ReviewSerializer, ReviewSerializer
 )
-from .permissions import IsRightUser, RightMentor, CanUpdateReview, CanDestroyReview
+from .permissions import (
+    IsRightUser, RightMentor, CanUpdateReview, 
+    CanDestroyReview, IsAdmin
+)
 from .service import SPFListRetrieveViewSet, PCreateUpdateDestroy
 
 from achieve.api.serializers import AchievementSerializer
@@ -21,6 +26,7 @@ from diagram.api.serializers import TaskSerializer
 from calendly.api.serializers import CalendlySerializer
 from chat.api.serializers import ChatSerializer
 from calendly.models import CalendlyTask
+from notifications.api.serializers import NotificatonsSeralizer
 from control.api.serializers import TestSerializer
 from backend.core import EmptySerializer
 
@@ -36,14 +42,18 @@ class WorkerViewSet(SPFListRetrieveViewSet):
         'calendlytask': CalendlySerializer,
         'chat': ChatSerializer,
         'review': ReviewSerializer,
-        'test': TestSerializer
+        'test': TestSerializer,
+        'notification': NotificatonsSeralizer
     }
     permission_classes = [permissions.IsAuthenticated]
     permission_classes_by_action = {
         'donementor': [permissions.IsAuthenticated, RightMentor],
         'diagramtask': [permissions.IsAuthenticated, RightMentor],
-        'test': [permissions.IsAuthenticated, IsRightUser]
+        'test': [permissions.IsAuthenticated, IsRightUser],
+        'mentor': [permissions.IsAuthenticated, IsAdmin],
     }
+    filter_backends = [DjangoFilterBackend]
+    filter_fields = '__all__'
 
     def get_queryset(self):
         queryset = Worker.objects.all()
@@ -55,7 +65,7 @@ class WorkerViewSet(SPFListRetrieveViewSet):
             .annotate(has_chat=Count(
                     'chats', 
                     filter=Q(
-                        chats__members__in=[self.request.user], 
+                        chats__members__in=[self.request.user],
                         chats__is_chat=True
                     ), 
                     distinct=True
@@ -64,11 +74,12 @@ class WorkerViewSet(SPFListRetrieveViewSet):
             .annotate(chat_id=Avg(
                     'chats__id', 
                     filter=Q(
-                        chats__members__in=[self.request.user], 
+                        chats__members__in=[self.request.user],
                         chats__is_chat=True
                     ), 
                 )
             ) \
+            .order_by(self.request.query_params.get('sort', '-registered'))
             
     @action(detail=True, methods=['post'])
     def donementor(self, request, *args, **kwargs):
@@ -104,11 +115,11 @@ class WorkerViewSet(SPFListRetrieveViewSet):
                 'id', filter=Q(is_passed=False)
             )
         )['num_tests']
-        # user.num_notes = user.notifcations.aggregate(
-        #     num_notes=Count(
-        #         'id', filter=Q(seen=False)
-        #     )
-        # )['num_notes']
+        user.num_notes = user.notifications.aggregate(
+            num_notes=Count(
+                'id', filter=Q(seen=False)
+            )
+        )['num_notes']
         user.code = user.tg_code.get().code
         serializer = self.get_serializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -136,6 +147,15 @@ class WorkerViewSet(SPFListRetrieveViewSet):
     def diagramtask(self, request, *args, **kwargs):
         '''Все задачи на диаграмме ганта пользователя'''
         return self.fast_response('diagram_tasks')
+
+    @action(detail=False)
+    def notification(self, request, *args, **kwargs):
+        '''Все задачи на диаграмме ганта пользователя'''
+        user = request.user
+        notes = user.notifications.all()
+        serializer = self.get_serializer(notes, many=True)
+        notes.update(seen=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(detail=True)
     def depart(self, request, *args, **kwargs):

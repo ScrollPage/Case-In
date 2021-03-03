@@ -5,6 +5,8 @@ from rest_framework.decorators import action
 from django.db.models import Count, Subquery, OuterRef, Q, Exists, Avg
 from django.shortcuts import get_object_or_404
 
+from url_filter.integrations.drf import DjangoFilterBackend
+
 from .service import SPFModelViewSet
 from .serializers import (
     DepartmentSerializer, DepartmentInfoSerializer, 
@@ -39,6 +41,8 @@ class DepartmentViewSet(SPFModelViewSet):
         'membertoggle': [permissions.IsAuthenticated, IsDepOwner],
         'mentor': [permissions.IsAuthenticated, IsAdmin]
     }
+    filter_backends = [DjangoFilterBackend]
+    filter_fields = '__all__'
 
     @action(detail=True, methods=['post'])
     def membertoggle(self, request, *args, **kwargs):
@@ -97,8 +101,27 @@ class DepartmentViewSet(SPFModelViewSet):
                         user=self.request.user
                     )
                 )
-            ). \
-            annotate(rate=Avg('workers__user__rating__star__value')) \
+            ) \
+            .annotate(rate=Avg('workers__user__rating__star__value')) \
+            .annotate(has_chat=Count(
+                    'admin__chats', 
+                    filter=Q(
+                        admin__chats__members__in=[self.request.user],
+                        admin__chats__is_chat=True
+                    ),
+                    distinct=True
+                )
+            ) \
+            .annotate(chat_id=Avg(
+                    'admin__chats__id', 
+                    filter=Q(
+                        admin__chats__members__in=[self.request.user], 
+                        admin__chats__is_chat=True
+                    ),
+                    distinct=True
+                )
+            ) \
+            .order_by(self.request.query_params.get('sort', '-created'))
                 
     def perform_create(self, serializer):
         serializer.save(admin=self.request.user)
