@@ -38,11 +38,13 @@ const MessageItemComponent: React.FC<MessageItemProps> = ({
       </Main>
       {url && (
         <DocWrapper>
-          <Link href={url.substring(0, url.lastIndexOf("/"))}>
-            <a download="" title="Скачать документ">
-              <img src="/download.svg" alt="Вложенный документ" />
-            </a>
-          </Link>
+          <a
+            href={url.substring(0, url.lastIndexOf("/"))}
+            download=""
+            title="Скачать документ"
+          >
+            <img src="/download.svg" alt="Вложенный документ" />
+          </a>
           <DocName>
             {url.substring(url.lastIndexOf("/") + 1, url.length)}
           </DocName>

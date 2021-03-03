@@ -1,21 +1,17 @@
-import { Avatar } from "@/components/UI/Avatar";
 import { renderTimestamp } from "@/utils/renderTimestamp";
-import Link from "next/link";
 import { memo, useMemo } from "react";
-import { Wrapper, Name, Hero, Title, Main, Time } from "./styles";
+import { Wrapper, Title, Time } from "./styles";
 
 interface NotifyItemProps {
-  command: string;
+  seen: boolean;
   timestamp: string;
   note: number;
-  commandId: number;
 }
 
 const NotifyItemComponent: React.FC<NotifyItemProps> = ({
-  command,
+  seen,
   timestamp,
   note,
-  commandId,
 }) => {
   const text = useMemo(() => {
     if (note === 1) {
@@ -27,18 +23,8 @@ const NotifyItemComponent: React.FC<NotifyItemProps> = ({
 
   return (
     <Wrapper>
-      <Hero>
-        <Avatar href={`/command/${commandId}`} />
-        <Name>
-          <Link href={`/command/${commandId}`}>
-            <a>{command}</a>
-          </Link>
-        </Name>
-      </Hero>
-      <Main>
-        <Title>{text}</Title>
-        <Time>{renderTimestamp(timestamp)}</Time>
-      </Main>
+      <Title>{text}</Title>
+      <Time>{renderTimestamp(timestamp)}</Time>
     </Wrapper>
   );
 };

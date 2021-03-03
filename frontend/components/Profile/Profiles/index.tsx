@@ -31,33 +31,24 @@ interface ProfilesProps {}
 
 const ProfilesComponent = ({}: ProfilesProps) => {
   const { profiles } = useContext(ProfilesContext) as ContextProps;
-  // const { query } = useRouter();
-  // const [serverQuery] = useState(query);
+  const { query } = useRouter();
+  const [serverQuery] = useState(query);
 
-  // const categories = getAsString(query.categories) ?? "";
-  // const requirenments = getAsString(query.requirenments) ?? "";
-  // const search = getAsString(query.search) ?? "";
-  // const rate = getAsString(query.rate) ?? "";
+  const search = getAsString(query.search) ?? "";
+  const sort = getAsString(query.sort);
 
-  // const apiLink = useMemo(() => {
-  //   return `${
-  //     categories && `&info__categories__id__in=${categories?.split(",")}`
-  //   }${
-  //     requirenments &&
-  //     `&info__requirenments__id__in=${requirenments?.split(",")}`
-  //   }${search && `&company__contains=${search}`}${rate && "&sort=-rate"}`;
-  // }, [query]);
+  const apiLink = useMemo(() => {
+    return `${search && `&last_name__contains=${search}`}${
+      sort === "1" ? "&sort=rate" : ""
+    }${sort === "2" ? "&sort=last_name" : ""}`;
+  }, [query]);
 
-  // const { data, error } = useSWR(
-  //   `/api/worker/?${apiLink[0] === "&" ? apiLink.substr(1) : apiLink}`,
-  //   {
-  //     initialData: deepEqual(query, serverQuery) ? profiles : undefined,
-  //   }
-  // );
-
-  const { data, error } = useSWR(`/api/worker/`, {
-    initialData: profiles,
-  });
+  const { data, error } = useSWR(
+    `/api/worker/?${apiLink[0] === "&" ? apiLink.substr(1) : apiLink}`,
+    {
+      initialData: deepEqual(query, serverQuery) ? profiles : undefined,
+    }
+  );
 
   return (
     <Wrapper>

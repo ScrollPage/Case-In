@@ -6,6 +6,7 @@ import { ProfilesContainer } from "@/containers/profiles";
 import { instanceWithSSR } from "@/api";
 import { createContext } from "react";
 import { User } from "@/types/user";
+import { getAsString } from "@/utils/getAsString";
 
 export interface ProfilesProps {
   profiles: User[] | null;
@@ -33,30 +34,16 @@ export const getServerSideProps: GetServerSideProps<ProfilesProps> = async (
 ) => {
   ensureAuth(ctx);
 
-  // const categories = getAsString(ctx?.query?.categories) ?? "";
-  // const requirenments = getAsString(ctx?.query?.requirenments) ?? "";
-  // const search = getAsString(ctx?.query?.search) ?? "";
-  // const rate = getAsString(ctx?.query?.rate) ?? "";
+  const search = getAsString(ctx?.query?.search) ?? "";
+  const sort = getAsString(ctx?.query?.sort);
 
-  // const apiLink = `${
-  //   categories && `&info__categories__id__in=${categories?.split(",")}`
-  // }${
-  //   requirenments && `&info__requirenments__id__in=${requirenments?.split(",")}`
-  // }${search && `&company__contains=${search}`}${rate && "&sort=-rate"}`;
-
-  // let profiles: User[] | null = null;
-  // await instanceWithSSR(ctx)
-  //   .get(`/api/worker/?${apiLink[0] === "&" ? apiLink.substr(1) : apiLink}`)
-  //   .then((response) => {
-  //     profiles = response?.data ?? null;
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
+  const apiLink = `${search && `&last_name__contains=${search}`}${
+    sort === "1" ? "&sort=rate" : ""
+  }${sort === "2" ? "&sort=last_name" : ""}`;
 
   let profiles: User[] | null = null;
   await instanceWithSSR(ctx)
-    .get(`/api/worker/`)
+    .get(`/api/worker/?${apiLink[0] === "&" ? apiLink.substr(1) : apiLink}`)
     .then((response) => {
       profiles = response?.data ?? null;
     })

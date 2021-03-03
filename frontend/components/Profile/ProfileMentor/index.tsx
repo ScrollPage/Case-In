@@ -17,7 +17,7 @@ const ProfileMentorComponent: React.FC = ({}) => {
   const { query } = useRouter();
   const { isCanBeMentor, userId } = useUser();
 
-  if (!isCanBeMentor || query.ID === userId) {
+  if (!isCanBeMentor || query.ID !== userId) {
     return null;
   }
 

@@ -1,19 +1,11 @@
 import styled from 'styled-components';
 
-export const Main = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content:space-between;  
-  width: 100%;
-  @media (max-width: 900.98px) {
-    flex-direction: column;
-  }
-`
 export const Wrapper = styled.div`
   padding: 15px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
+  justify-content: space-between;  
   @media (max-width: 900.98px) {
     flex-direction: column;
   }

@@ -34,30 +34,16 @@ export const getServerSideProps: GetServerSideProps<CommandsProps> = async (
 ) => {
   ensureAuth(ctx);
 
-  // const categories = getAsString(ctx?.query?.categories) ?? "";
-  // const requirenments = getAsString(ctx?.query?.requirenments) ?? "";
-  // const search = getAsString(ctx?.query?.search) ?? "";
-  // const rate = getAsString(ctx?.query?.rate) ?? "";
+  const search = getAsString(ctx?.query?.search) ?? "";
+  const sort = getAsString(ctx?.query?.sort);
 
-  // const apiLink = `${
-  //   categories && `&info__categories__id__in=${categories?.split(",")}`
-  // }${
-  //   requirenments && `&info__requirenments__id__in=${requirenments?.split(",")}`
-  // }${search && `&name__contains=${search}`}${rate && "&sort=-rate"}`;
-
-  // let commands: ICommand[] | null = null;
-  // await instanceWithSSR(ctx)
-  //   .get(`/api/depart/?${apiLink[0] === "&" ? apiLink.substr(1) : apiLink}`)
-  //   .then((response) => {
-  //     commands = response?.data ?? null;
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
+  const apiLink = `${search && `&name__contains=${search}`}${
+    sort === "1" ? "&sort=rate" : ""
+  }${sort === "2" ? "&sort=name" : ""}`;
 
   let commands: ICommand[] | null = null;
   await instanceWithSSR(ctx)
-    .get(`/api/depart/`)
+    .get(`/api/depart/?${apiLink[0] === "&" ? apiLink.substr(1) : apiLink}`)
     .then((response) => {
       commands = response?.data ?? null;
     })

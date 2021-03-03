@@ -7,15 +7,18 @@ export const Wrapper = styled.div`
   padding: 20px 30px;
 `;
 
-export const Title = styled.h3`
-  text-align: center;
+export const Title = styled.h2`
   font-family: Montserrat;
   font-style: normal;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 29px;
-  margin-bottom: 34px;
-`;
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 34px;
+  @media (max-width: 900.98px) {
+    font-size: 18px;
+    line-height: 22px;
+    margin-bottom: 15px;
+  }
+`
 
 export const Inner = styled.div`
   display: flex;
