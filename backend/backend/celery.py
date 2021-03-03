@@ -10,7 +10,7 @@ app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
     'reset': {
-        'task': 'backend.tasks.reset_test_send_notificatons',
+        'task': 'control.tasks.reset_test_send_notificatons',
         'schedule': crontab(day_of_week='*', hour=8)
     }
 }

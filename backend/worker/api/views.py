@@ -25,6 +25,7 @@ from department.api.serializers import MembersSerializer
 from diagram.api.serializers import TaskSerializer
 from calendly.api.serializers import CalendlySerializer
 from chat.api.serializers import ChatSerializer
+from achieve.api.serializers import AchievementSerializer
 from calendly.models import CalendlyTask
 from notifications.api.serializers import NotificatonsSeralizer
 from control.api.serializers import TestSerializer
@@ -43,7 +44,8 @@ class WorkerViewSet(SPFListRetrieveViewSet):
         'chat': ChatSerializer,
         'review': ReviewSerializer,
         'test': TestSerializer,
-        'notification': NotificatonsSeralizer
+        'notification': NotificatonsSeralizer,
+        'achieve': AchievementSerializer
     }
     permission_classes = [permissions.IsAuthenticated]
     permission_classes_by_action = {
@@ -104,6 +106,8 @@ class WorkerViewSet(SPFListRetrieveViewSet):
             return Response(status=status.HTTP_400_BAD_REQUEST)
         user.mentor = request.user
         user.save()
+        '''Ачивка номер 3'''
+        user.achievements.get(id=3).set_done()
         return Response(status=status.HTTP_200_OK)
     
     @action(detail=False)
@@ -181,7 +185,7 @@ class WorkerViewSet(SPFListRetrieveViewSet):
         return self.fast_response('reviews')
 
     @action(detail=True)
-    def achievement(self, request, *args, **kwargs):
+    def achieve(self, request, *args, **kwargs):
         '''Достижения пользователя'''
         return self.fast_response('achievements')
 

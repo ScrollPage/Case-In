@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 from datetime import timedelta
 
-from . import local2
+from . import local2 as local
 import pusher
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'to_3s%(*gk9xedl&536zhf4ytud^h64()ot8r-lr7b2#7&$sg#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', local.DEBUG)
 
 ALLOWED_HOSTS = []
 
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     'channels',
     'corsheaders',
+    'django_celery_beat',
     'djoser',
     'drf_yasg',
     'rest_auth',
@@ -98,8 +99,8 @@ TEMPLATES = [
     },
 ]
 
-REDIS_HOST = os.environ.get('REDIS_HOST', local2.REDIS_HOST)
-REDIS_PORT = os.environ.get('REDIS_PORT', local2.REDIS_PORT)
+REDIS_HOST = os.environ.get('REDIS_HOST', local.REDIS_HOST)
+REDIS_PORT = os.environ.get('REDIS_PORT', local.REDIS_PORT)
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
@@ -127,12 +128,12 @@ CHANNEL_LAYERS = {
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get('SQL_ENGINE', local2.SQL_ENGINE),
-        'NAME': os.environ.get('SQL_DATABASE', local2.SQL_DATABASE),
-        'USER': os.environ.get('SQL_USER', local2.SQL_USER),
-        'PASSWORD': os.environ.get('SQL_PASSWORD', local2.SQL_PASSWORD),
-        'HOST': os.environ.get('SQL_HOST', local2.SQL_HOST),
-        'PORT': os.environ.get('SQL_PORT', local2.SQL_PORT),
+        'ENGINE': os.environ.get('SQL_ENGINE', local.SQL_ENGINE),
+        'NAME': os.environ.get('SQL_DATABASE', local.SQL_DATABASE),
+        'USER': os.environ.get('SQL_USER', local.SQL_USER),
+        'PASSWORD': os.environ.get('SQL_PASSWORD', local.SQL_PASSWORD),
+        'HOST': os.environ.get('SQL_HOST', local.SQL_HOST),
+        'PORT': os.environ.get('SQL_PORT', local.SQL_PORT),
     }
 }
 
@@ -240,15 +241,15 @@ REST_FRAMEWORK = {
 # AWS
 AWS_ACCESS_KEY_ID = os.environ.get(
     'AWS_ACCESS_KEY_ID', 
-    local2.AWS_ACCESS_KEY_ID
+    local.AWS_ACCESS_KEY_ID
 )
 AWS_SECRET_ACCESS_KEY = os.environ.get(
     'AWS_SECRET_ACCESS_KEY', 
-    local2.AWS_SECRET_ACCESS_KEY
+    local.AWS_SECRET_ACCESS_KEY
 )
 AWS_STORAGE_BUCKET_NAME = os.environ.get(
     'AWS_STORAGE_BUCKET_NAME', 
-    local2.AWS_STORAGE_BUCKET_NAME
+    local.AWS_STORAGE_BUCKET_NAME
 )
 
 AWS_S3_FILE_OVERWRITE = False
