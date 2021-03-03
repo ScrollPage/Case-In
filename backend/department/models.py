@@ -53,7 +53,7 @@ def create_instances(sender, instance=None, created=False, **kwargs):
     from chat.models import Chat
     if created:
         DepartmentInfo.objects.create(depart=instance, id=instance.id)
-        Chat.objects.create(depart=instance, is_chat=False)
+        Chat.objects.create(depart=instance, is_chat=False, name=f'Чат отдела {instance}')
         DepMembership.objects.create(user=instance.admin, depart=instance)
         
 
