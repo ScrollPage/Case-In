@@ -63,7 +63,7 @@ class ChatConsumer(WebsocketConsumer):
             'id': message.id,
             'user': {
                 'id': message.user.id,
-                'company': message.user.name,
+                'full_name': message.user.get_full_name(),
             },
             'url': message.url,
             'content': message.content,
