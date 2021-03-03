@@ -20,7 +20,7 @@ export default function UserTask({ tasks }: UserTaskProps) {
   return (
     <MainLayout>
       <Head>
-        <title>BNET / План проекта</title>
+        <title>CORP.NET / План проекта</title>
       </Head>
       <UserTaskContext.Provider value={{ tasks }}>
         <UserTaskContainer />

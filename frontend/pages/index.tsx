@@ -11,7 +11,7 @@ const Login = ({}: LoginProps) => {
   return (
     <AuthLayout>
       <Head>
-        <title>BNET / Вход</title>
+        <title>CORP.NET / Вход</title>
       </Head>
       <LoginContainer />
     </AuthLayout>

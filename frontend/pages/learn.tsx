@@ -16,7 +16,7 @@ export default function Learn() {
   return (
     <>
       <Head>
-        <title>BNET / Обучение</title>
+        <title>CORP.NET / Обучение</title>
       </Head>
       <Wrapper>
         <Inner>

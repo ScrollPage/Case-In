@@ -95,9 +95,11 @@ const renderButtons = (data: ICommand) => {
           Покинуть
         </Button>
       )}
-      <Button width="100%" myType="outline" onClick={handleChat}>
-        Беседа
-      </Button>
+      {(data.joined || Number(userId) === data.admin.id) && (
+        <Button width="100%" myType="outline" onClick={handleChat}>
+          Беседа
+        </Button>
+      )}
     </ButtonsWrapper>
   );
 };

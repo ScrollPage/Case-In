@@ -19,7 +19,7 @@ export default function Profiles({ profiles }: ProfilesProps) {
   return (
     <MainLayout>
       <Head>
-        <title>BNET / Сотрудники</title>
+        <title>CORP.NET / Сотрудники</title>
       </Head>
       <ProfilesContext.Provider value={{ profiles }}>
         <ProfilesContainer />

@@ -14,7 +14,7 @@ export default function Calendly({ calendly }: CalendlyProps) {
   return (
     <MainLayout>
       <Head>
-        <title>BNET / Расписание мероприятий</title>
+        <title>CORP.NET / Расписание мероприятий</title>
       </Head>
       <CalendlyContainer calendly={calendly} />
     </MainLayout>

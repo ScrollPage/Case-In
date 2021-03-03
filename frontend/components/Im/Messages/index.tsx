@@ -15,8 +15,8 @@ const renderMessages = (messages: IMessage[], userId: number) => {
         key={`messageItem__key__${message.id}`}
         content={message.content}
         timestamp={message.timestamp}
-        company={message.initiative.company}
-        isMy={userId === message.initiative.id}
+        full_name={message.user.full_name}
+        isMy={userId === message.user.id}
         url={message.url}
       />
     );

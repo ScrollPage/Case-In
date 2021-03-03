@@ -86,7 +86,8 @@ export const exitOrInviteCommand = (workerId?: number): ThunkType => async dispa
 export const addDocCommand = (values: DocFormValues): ThunkType => async dispatch => {
   const pageCommandId = getAsString(Router.query.ID);
   let form_data = new FormData();
-  form_data.append('name', values.file, values.file.name);
+  form_data.append('name', values.file.name);
+  form_data.append('doc', values.file, values.file.name);
   if (pageCommandId) {
     form_data.append('depart', pageCommandId);
   }

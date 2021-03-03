@@ -35,11 +35,12 @@ export const authInfo = (): ThunkType => async dispatch => {
   await instance()
     .get('/api/worker/me/')
     .then(res => {
-      const { first_name, last_name, id } = res.data;
+      const { first_name, last_name, id, code } = res.data;
 
       Cookie.set('userId', id);
       Cookie.set('firstName', first_name);
       Cookie.set('lastName', last_name);
+      Cookie.set('doc', code);
       // if (first_login) {
       //   dispatch(authFirstLogin());
       //   Router.push({ pathname: `/learn` }, undefined, { shallow: true });
@@ -74,7 +75,7 @@ export const authCheckState = (): ThunkType => dispatch => {
   } else {
     const date: any = Cookie.get('expirationDate');
     const expirationDate = new Date(date);
-
+    console.log(expirationDate, new Date())
     if (expirationDate <= new Date()) {
       dispatch(logout(true));
     } else {

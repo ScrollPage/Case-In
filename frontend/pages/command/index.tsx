@@ -20,7 +20,7 @@ export default function Commands({ commands }: CommandsProps) {
   return (
     <MainLayout>
       <Head>
-        <title>BNET / Отделы</title>
+        <title>CORP.NET / Отделы</title>
       </Head>
       <CommandsContext.Provider value={{ commands }}>
         <CommandsContainer />
