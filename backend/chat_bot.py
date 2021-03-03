@@ -168,7 +168,7 @@ def get_various_messages(message):
             message.chat.id, 
             'Я вас не понимаю. Выберите одно из возможных действий на клавиатуре.', 
             reply_markup=menu
-        )  
+        )
 
 
 bot.enable_save_next_step_handlers()

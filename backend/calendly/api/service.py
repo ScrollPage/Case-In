@@ -7,7 +7,7 @@ from rest_framework.mixins import (
 
 from backend.core import PermissionMixin, SerializerMixin, FastResponseMixin
 
-class CreatepdateDestroyViewSet(
+class CreateUpdateDestroyViewSet(
     GenericViewSet, CreateModelMixin, UpdateModelMixin, 
     DestroyModelMixin
 ):
@@ -15,3 +15,12 @@ class CreatepdateDestroyViewSet(
     Переопределение методов сериализатора и прав доступа
     '''
     pass
+
+class CreateDestroyViewSet(
+    GenericViewSet, CreateModelMixin, DestroyModelMixin
+):
+    '''
+    Переопределение методов сериализатора и прав доступа
+    '''
+    pass
+

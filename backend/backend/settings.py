@@ -15,6 +15,7 @@ import os
 from datetime import timedelta
 
 from . import local2
+import pusher
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -263,3 +264,12 @@ AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazo
 # AWS_DEFAULT_ACL = None
 # AWS_AUTO_CREATE_BUCKET = True
 # S3_USE_SIGV4 = True
+
+# Pusher
+pusher_client = pusher.Pusher(
+    app_id='1165404',
+    key='6a7cdf965390e2c19b3b',
+    secret='a85863a866e5680c2f00',
+    cluster='eu',
+    ssl=True
+)

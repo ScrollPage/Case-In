@@ -9,6 +9,14 @@ class WorkerInfoSerializer(serializers.ModelSerializer):
         model = WorkerInfo
         exclude = ['user']
 
+class ShortWorkerSerializer(serializers.ModelSerializer):
+    '''Сериализация работника'''
+    info = WorkerInfoSerializer(read_only=True)
+    
+    class Meta:
+        model = Worker
+        fields = ['id', 'info', 'first_name', 'last_name']
+
 class WorkerSerializer(serializers.ModelSerializer):
     '''Сериализация работника'''
     info = WorkerInfoSerializer(read_only=True)
@@ -17,18 +25,11 @@ class WorkerSerializer(serializers.ModelSerializer):
     num_notes = serializers.IntegerField(read_only=True)
     num_tests = serializers.IntegerField(read_only=True)
     code = serializers.CharField(read_only=True)
+    mentor = ShortWorkerSerializer(read_only=True)
 
     class Meta:
         model = Worker
         exclude = ['password', 'groups', 'user_permissions']
-
-class ShortWorkerSerializer(serializers.ModelSerializer):
-    '''Сериализация работника'''
-    info = WorkerInfoSerializer(read_only=True)
-    
-    class Meta:
-        model = Worker
-        fields = ['id', 'info', 'first_name', 'last_name']
 
 class ReviewSerializer(serializers.ModelSerializer):
     '''Сериализация отзыва'''

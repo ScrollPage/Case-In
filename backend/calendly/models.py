@@ -1,3 +1,4 @@
+from rest_framework.exceptions import ParseError
 from django.db import models
 
 from worker.models import Worker

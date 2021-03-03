@@ -87,7 +87,14 @@ class DepartmentViewSet(SPFModelViewSet):
     @action(detail=True)
     def calendlytask(self, request, *args, **kwargs):
         '''Календарь отдела'''
-        return self.fast_response('calendly_tasks')
+        depart = self.get_object()
+        tasks = depart.calendly_tasks.all() \
+            .annotate(going=Count(
+                'confirmations', 
+                filter=Q(confirmations__user=self.request.user), distinct=True)
+            )
+        serializer = self.get_serializer(tasks, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def get_queryset(self):
         queryset = Department.objects.all()
