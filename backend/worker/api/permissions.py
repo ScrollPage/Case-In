@@ -13,6 +13,11 @@ class RightMentor(BasePermission):
             request.user.is_superuser
         ])
 
+class IsAdmin(BasePermission):
+    '''Админ ли'''
+    def has_permission(self, request, view):
+        return request.user.is_admin
+
 class CanUpdateReview(BasePermission):
     '''Может ли обновлять отзыв'''
     def has_object_permission(self, request, view, obj):

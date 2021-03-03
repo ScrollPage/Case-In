@@ -8,7 +8,7 @@ from worker.api.serializers import ShortWorkerSerializer
 
 class DocSerializer(serializers.ModelSerializer):
     '''Сериализация документа'''
-    
+
 
     class Meta:
         model = Doc
@@ -16,7 +16,7 @@ class DocSerializer(serializers.ModelSerializer):
 
 class ChatDocSerializer(serializers.ModelSerializer):
     '''Документ в чате'''
-    initiative = ShortWorkerSerializer(read_only=True)
+    user = ShortWorkerSerializer(read_only=True)
 
     class Meta:
         model = ChatDoc

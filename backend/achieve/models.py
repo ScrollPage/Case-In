@@ -30,6 +30,7 @@ class Achievement(models.Model):
         related_name='achievements', on_delete=models.CASCADE
     )
     name = models.CharField(max_length=50, choices=NAME_CHOICES)
+    done = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Достижение'

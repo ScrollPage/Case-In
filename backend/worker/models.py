@@ -36,6 +36,7 @@ class WorkerManager(BaseUserManager):
         user.is_superuser = True
         user.is_active = True
         user.is_staff = True
+        user.is_admin = True
         user.ready = True
 
         user.save(using=self._db)
@@ -48,6 +49,7 @@ class Worker(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=30, default='')
     last_name = models.CharField(max_length=30, default='')
     is_staff = models.BooleanField(default=False)
+    is_admin = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     ready = models.BooleanField(default=False)

@@ -1,4 +1,5 @@
 from rest_framework import permissions
+from rest_framework.decorators import action
 
 from chat.models import Chat 
 from .service import PSFModelViewSet
@@ -31,6 +32,7 @@ class ChatViewSet(PSFModelViewSet):
     def get_queryset(self):
         return Chat.objects.all()
 
+    @action(detail=True)
     def doc(self, request, *args, **kwargs):
         '''Документы чата'''
         return self.fast_response('docs')
