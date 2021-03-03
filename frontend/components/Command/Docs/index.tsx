@@ -16,7 +16,7 @@ const renderDocs = (docs: IDoc[]) => {
   return docs.map((doc) => {
     return (
       <Doc>
-        <Link href={doc.name}>
+        <Link href={doc.doc}>
           <a>{doc.name}</a>
         </Link>
         <img src="/download.svg" alt="Скачать" />
