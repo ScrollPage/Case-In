@@ -13,10 +13,9 @@ const renderRequestItems = (notifications: any[]) => {
     return (
       <NotifyItem
         key={`notifyItem__key__${notification.id}`}
-        command={notification.command_name}
-        timestamp={notification.timestamp}
-        note={notification.note}
-        commandId={notification.id}
+        timestamp={notification.tmiestamp}
+        note={notification.content}
+        seen={notification.seen}
       />
     );
   });
@@ -31,7 +30,7 @@ const NotifyListComponent: React.FC<NotifyListProps> = ({ onClose }) => {
 
   useOnClickOutside(ref, () => onClose());
 
-  const { data, error } = useSWR(`/api/notification/`);
+  const { data, error } = useSWR(`/api/worker/notification/`);
 
   return (
     <Wrapper ref={ref}>

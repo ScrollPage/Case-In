@@ -4,12 +4,18 @@ import { Wrapper, Inner, Title } from "./styles";
 import { Button } from "../Button";
 import { useRouter } from "next/router";
 import { getAsString } from "@/utils/getAsString";
-import { Checkbox } from "antd";
+import { Radio } from "antd";
+
+const radioStyle = {
+  display: "block",
+  height: "30px",
+  lineHeight: "30px",
+};
 
 interface FilterProps {}
 
 interface FiliterFormValues {
-  isRating: boolean;
+  sort?: number;
 }
 
 const FilterComponent: React.FC<FilterProps> = ({}) => {
@@ -20,17 +26,11 @@ const FilterComponent: React.FC<FilterProps> = ({}) => {
       <Title>Сортировка: </Title>
       <Formik
         initialValues={{
-          isRating: !!getAsString(query.rate),
+          sort: query.sort ? Number(getAsString(query.sort)) : undefined,
         }}
         onSubmit={(values, { setSubmitting }) => {
           setSubmitting(true);
-          let queryParams = {};
-          if (values.isRating) {
-            queryParams = {
-              ...queryParams,
-              rate: true,
-            };
-          }
+          let queryParams: any = { sort: values.sort };
           if (query.search) {
             queryParams = {
               ...queryParams,
@@ -51,12 +51,17 @@ const FilterComponent: React.FC<FilterProps> = ({}) => {
         {({ setFieldValue, values }: FormikProps<FiliterFormValues>) => (
           <Form>
             <Inner>
-              <Checkbox
-                value={values.isRating}
-                onChange={(e) => setFieldValue("isRating", e.target.checked)}
+              <Radio.Group
+                value={values.sort}
+                onChange={(e) => setFieldValue("sort", e.target.value)}
               >
-                По рейтингу
-              </Checkbox>
+                <Radio style={radioStyle} value={1}>
+                  По рейтингу
+                </Radio>
+                <Radio style={radioStyle} value={2}>
+                  По имени
+                </Radio>
+              </Radio.Group>
               <Button myType="blue" type="submit" width="100%">
                 Применить
               </Button>

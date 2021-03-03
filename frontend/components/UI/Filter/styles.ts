@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Inner = styled.div`
-  .ant-checkbox-wrapper {
+  .ant-radio-group {
     margin-bottom: 21px;
   }
 `

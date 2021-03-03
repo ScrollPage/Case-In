@@ -22,10 +22,10 @@ const SearchComponent = ({}: SearchProps) => {
         onSubmit={(values, { setSubmitting }) => {
           setSubmitting(true);
           let queryParams = {};
-          if (query.rate) {
+          if (Number(getAsString(query.sort))) {
             queryParams = {
               ...queryParams,
-              rate: true,
+              sort: Number(getAsString(query.sort)),
             };
           }
           if (values.text) {
