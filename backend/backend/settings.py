@@ -273,3 +273,12 @@ pusher_client = pusher.Pusher(
     cluster='eu',
     ssl=True
 )
+
+# Celery
+CELERY_REDIS_DB = '3'
+CELERY_BROKER_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}/{CELERY_REDIS_DB}'
+CELERY_BROKER_TRANSPORT_OPTIONS = {'visiblity_timeout': 3600}
+CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST}:{REDIS_PORT}/{CELERY_REDIS_DB}'
+CELERY_ACCEPT_CONTENT = ['json', 'applicaion/json', 'applicaion/text']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERILIZER = 'json'

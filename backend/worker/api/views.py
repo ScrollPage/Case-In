@@ -131,7 +131,12 @@ class WorkerViewSet(SPFListRetrieveViewSet):
         memberships = user.departments.all() \
             .select_related('depart')
         departs = [membership.depart for membership in memberships]
-        queryset = CalendlyTask.objects.filter(depart__in=departs).order_by('-datetime')
+        queryset = CalendlyTask.objects.filter(depart__in=departs) \
+            .annotate(going=Count(
+                'confirmations', 
+                filter=Q(confirmations__user=self.request.user), distinct=True)
+            ) \
+            .order_by('-datetime')
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

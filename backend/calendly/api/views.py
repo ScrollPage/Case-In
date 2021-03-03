@@ -13,7 +13,7 @@ class CalendlyTaskViewSet(CreateUpdateDestroyViewSet):
     queryset = CalendlyTask.objects.all()
 
 class ConfirmationViewSet(CreateDestroyViewSet):
-    '''Задачи в календаре отдела'''
+    '''Подтвердить поход на мероприятие'''
 
     serializer_class = ConfirmationSerializer
     permission_classes = [permissions.IsAuthenticated, IsInDepart]
