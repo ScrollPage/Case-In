@@ -3,28 +3,34 @@ import { Wrapper, Inner, Title } from "./styles";
 import { Formik, Form, FormikProps } from "formik";
 import { Button } from "@/components/UI/Button";
 import { Select } from "@/components/UI/Select";
+import { useDispatch } from "react-redux";
+import { addMentor } from "@/store/actions/mentor";
+import { useRouter } from "next/router";
+import { useUser } from "@/hooks/useUser";
 
-export interface MemberAddFormValues {
+export interface ProfileMentorValues {
   userId?: number;
 }
 
-interface MemberAddFormProps {
-  handleSubmit: (values: MemberAddFormValues) => void;
-}
+const ProfileMentorComponent: React.FC = ({}) => {
+  const dispatch = useDispatch();
+  const { query } = useRouter();
+  const { isCanBeMentor, userId } = useUser();
 
-const MemberAddFormComponent: React.FC<MemberAddFormProps> = ({
-  handleSubmit,
-}) => {
+  if (!isCanBeMentor || query.ID === userId) {
+    return null;
+  }
+
   return (
     <Wrapper>
-      <Title>Добавление сотрудника в отдел</Title>
+      <Title>Хотите стать наставником?</Title>
       <Formik
         initialValues={{
           userId: undefined,
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
-          handleSubmit(values);
+          dispatch(addMentor(Number(values.userId)));
           setSubmitting(false);
           resetForm();
         }}
@@ -34,14 +40,14 @@ const MemberAddFormComponent: React.FC<MemberAddFormProps> = ({
           isValid,
           setFieldValue,
           values,
-        }: FormikProps<MemberAddFormValues>) => (
+        }: FormikProps<ProfileMentorValues>) => (
           <Form>
             <Inner>
               <Select
-                apiLink="/api/worker/"
+                apiLink="/api/worker/padawan/"
                 name="userId"
                 onChange={setFieldValue}
-                placeholder="Выберите сотрудника"
+                placeholder="Выберите ученика"
                 value={values.userId}
               />
               <Button
@@ -50,7 +56,7 @@ const MemberAddFormComponent: React.FC<MemberAddFormProps> = ({
                 width="218px"
                 disabled={!(dirty && isValid)}
               >
-                Подтвердить
+                Хочу
               </Button>
             </Inner>
           </Form>
@@ -60,4 +66,4 @@ const MemberAddFormComponent: React.FC<MemberAddFormProps> = ({
   );
 };
 
-export const MemberAddForm = memo(MemberAddFormComponent);
+export const ProfileMentor = memo(ProfileMentorComponent);

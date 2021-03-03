@@ -4,17 +4,20 @@ export const useUser = (): {
   userId: string,
   fullName: string,
   code: string,
+  isCanBeMentor: string,
 } => {
   const userId = Cookie.get('userId') ?? "";
   const firstName = Cookie.get('firstName') ?? "";
   const lastName = Cookie.get('lastName') ?? "";
   const code = Cookie.get('code') ?? "";
+  const isCanBeMentor = Cookie.get('isCanBeMentor') ?? "";
 
   const fullName = `${firstName} ${lastName}`
 
   return {
     userId,
     fullName,
-    code
+    code,
+    isCanBeMentor
   }
 }
