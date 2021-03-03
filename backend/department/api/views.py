@@ -103,6 +103,24 @@ class DepartmentViewSet(SPFModelViewSet):
                 )
             ) \
             .annotate(rate=Avg('workers__user__rating__star__value')) \
+            .annotate(has_chat=Count(
+                    'admin__chats', 
+                    filter=Q(
+                        admin__chats__members__in=[self.request.user],
+                        admin__chats__is_chat=True
+                    ),
+                    distinct=True
+                )
+            ) \
+            .annotate(chat_id=Avg(
+                    'admin__chats__id', 
+                    filter=Q(
+                        admin__chats__members__in=[self.request.user], 
+                        admin__chats__is_chat=True
+                    ),
+                    distinct=True
+                )
+            ) \
             .order_by(self.request.query_params.get('sort', '-created'))
                 
     def perform_create(self, serializer):

@@ -18,6 +18,8 @@ class DepartmentSerializer(serializers.ModelSerializer):
     admin = ShortWorkerSerializer(read_only=True)
     joined = serializers.BooleanField(read_only=True)
     rate = serializers.DecimalField(max_digits=3, decimal_places=2, read_only=True)
+    chat_id = serializers.IntegerField(read_only=True)
+    has_chat = serializers.BooleanField(read_only=True)
 
     class Meta:
         model = Department
