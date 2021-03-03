@@ -1,6 +1,9 @@
 export interface UserInfo {
   phone_number: string;
   birth_date: string;
+  hobby: string;
+  about: string;
+  position: string;
 }
 
 export interface User {

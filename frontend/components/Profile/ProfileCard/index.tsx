@@ -147,6 +147,24 @@ const ProfileCardComponent = () => {
               <Info>{userData.info.phone_number}</Info>
             </Stroke>
           )}
+          {userData.info.hobby && (
+            <Stroke>
+              <Label>Хобби</Label>
+              <Info>{userData.info.hobby}</Info>
+            </Stroke>
+          )}
+          {userData.info.about && (
+            <Stroke>
+              <Label>О себе</Label>
+              <Info>{userData.info.about}</Info>
+            </Stroke>
+          )}
+          {userData.info.position && (
+            <Stroke>
+              <Label>Должность</Label>
+              <Info>{userData.info.position}</Info>
+            </Stroke>
+          )}
           {departData.map((depart) => (
             <Stroke>
               <Label>Отдел</Label>

@@ -8,23 +8,38 @@ import { User } from "@/types/user";
 
 const validationSchema = object().shape({
   firstName: string()
-    .min(3, "Слишком короткое имя")
-    .max(50, "Слишком длинное имя")
-    .required("Введите имя"),
+    .min(3, "Слишком короткая поле")
+    .max(50, "Слишком длинное поле")
+    .required("Поле пустое"),
   lastName: string()
-    .min(3, "Слишком короткая фамилиия")
-    .max(50, "Слишком длинное фамилия")
-    .required("Введите фамилию"),
+    .min(3, "Слишком короткая поле")
+    .max(50, "Слишком длинное поле")
+    .required("Поле пустое"),
   phone: string()
-    .min(11, "Слишком короткий номер")
-    .max(11, "Слишком длинный номер")
-    .required("Введите номер телефона"),
+    .min(3, "Слишком короткая поле")
+    .max(50, "Слишком длинное поле")
+    .required("Поле пустое"),
+  hobby: string()
+    .min(3, "Слишком короткая поле")
+    .max(50, "Слишком длинное поле")
+    .required("Поле пустое"),
+  about: string()
+    .min(3, "Слишком короткая поле")
+    .max(50, "Слишком длинное поле")
+    .required("Поле пустое"),
+  position: string()
+    .min(3, "Слишком короткая поле")
+    .max(50, "Слишком длинное поле")
+    .required("Поле пустое"),
 });
 
 export interface ChangeFormValues {
   firstName: string;
   lastName: string;
   phone: string;
+  position: string;
+  hobby: string;
+  about: string;
 }
 
 interface ChangeFormProps {
@@ -44,6 +59,9 @@ const ChangeFormComponent: React.FC<ChangeFormProps> = ({
           firstName: initialValues?.first_name ?? "",
           lastName: initialValues?.last_name ?? "",
           phone: initialValues?.info.phone_number ?? "",
+          hobby: initialValues?.info.hobby ?? "",
+          about: initialValues?.info.about ?? "",
+          position: initialValues?.info.position ?? "",
         }}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -60,6 +78,9 @@ const ChangeFormComponent: React.FC<ChangeFormProps> = ({
                 <Input type="text" name="firstName" placeholder="Имя" />
                 <Input type="text" name="lastName" placeholder="Фамилия" />
                 <Input type="tel" name="phone" placeholder="Номер телефона" />
+                <Input type="text" name="position" placeholder="Должность" />
+                <Input type="text" name="about" placeholder="О себе" />
+                <Input type="text" name="hobby" placeholder="Хобби" />
                 <Button
                   myType="outline"
                   type="submit"
