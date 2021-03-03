@@ -35,7 +35,44 @@ export const TestLabel = styled.p<{ isActive: boolean }>`
   line-height: 15px;
   opacity: ${({ isActive }) => isActive ? "1" : "0.5"};
   cursor: pointer;
+  display: inline-block;
+  margin: 0;
 `
+
+export const TestLabelWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+`
+
+export const CheckMark = styled.div`
+  background: #83BF4F;
+  border-radius: 3px;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  margin-left: 10px;
+  &:after, &:before {
+    content: "";
+    position: absolute;
+    background-color: #fff;
+    width: 1.5px;
+    left: 50%;
+    top: 50%;
+    border-radius: 1px;
+  }
+  &:after {
+    height: 6px;
+    transform: translateX(-220%) translateY(-39%) rotate(-45deg);
+  }
+  &:before {
+    height: 9px;
+    transform: translateX(65%) translateY(-50%) rotate(45deg);
+  }
+`
+
 export const List = styled.div`
   display: flex;
   flex-direction: column;

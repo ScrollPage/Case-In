@@ -4,6 +4,7 @@ export const data: ITest[] = [
   {
     id: 1,
     name: "Ежедневный опрос",
+    isHasAnswers: false,
     questions: [
       {
         title: "Выберите ваше настроение",
@@ -26,6 +27,7 @@ export const data: ITest[] = [
   {
     id: 2,
     name: "Пожарная безопасность 1",
+    isHasAnswers: true,
     questions: [
       {
         title:
@@ -52,6 +54,7 @@ export const data: ITest[] = [
   {
     id: 3,
     name: "Пожарная безопасность 2",
+    isHasAnswers: true,
     questions: [
       {
         title:
@@ -78,6 +81,7 @@ export const data: ITest[] = [
   {
     id: 4,
     name: "Пожарная безопасность 3",
+    isHasAnswers: true,
     questions: [
       {
         title:
