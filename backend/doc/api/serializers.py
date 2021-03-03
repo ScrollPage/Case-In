@@ -8,6 +8,7 @@ from worker.api.serializers import ShortWorkerSerializer
 
 class DocSerializer(serializers.ModelSerializer):
     '''Сериализация документа'''
+    
 
     class Meta:
         model = Doc

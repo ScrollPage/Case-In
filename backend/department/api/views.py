@@ -18,6 +18,7 @@ from .permissions import (
 
 from worker.models import Worker
 from calendly.api.serializers import CalendlySerializer
+from doc.api.serializers import DocSerializer
 from post.api.serializers import PostSerializer
 
 class DepartmentViewSet(SPFModelViewSet):
@@ -27,7 +28,8 @@ class DepartmentViewSet(SPFModelViewSet):
         'membertoggle': DepMembershipSerializer,
         'worker': MembersSerializer,
         'calendlytask': CalendlySerializer,
-        'post': PostSerializer
+        'post': PostSerializer,
+        'doc': DocSerializer
     }
     permission_classes = [permissions.IsAuthenticated]
     permission_classes_by_action = {
