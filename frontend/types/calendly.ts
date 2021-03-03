@@ -3,4 +3,5 @@ export interface ICalendly {
   depart: number;
   datetime: string;
   description: string;
+  going: boolean;
 }

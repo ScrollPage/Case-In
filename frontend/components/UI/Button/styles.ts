@@ -19,8 +19,8 @@ export const Wrapper = styled.button<{ myType: "outline" | "blue", width?: strin
 
   ${({ small }) => small && css`
     border-radius: 5px;
-    height: 18px;
-    font-size: 8px;
+    height: 24px;
+    font-size: 11px;
   `}
 
   ${({ myType, theme }) => myType === 'blue' && css`
