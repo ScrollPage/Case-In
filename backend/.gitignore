@@ -90,6 +90,7 @@ coverage.xml
 # Django stuff:
 *.log
 local_settings.py
+local.py
 
 # Flask stuff:
 instance/
@@ -148,4 +149,4 @@ media/
 !**/migrations
 !**/migrations/__init__.py
 
-local.py
+local2.py
