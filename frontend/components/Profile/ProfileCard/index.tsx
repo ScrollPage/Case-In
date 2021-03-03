@@ -25,12 +25,14 @@ import {
 import { modalShow } from "@/store/actions/modal";
 import { Button } from "@/components/UI/Button";
 import { createChat } from "@/store/actions/chat";
+import { useUser } from "@/hooks/useUser";
 
 const ProfileCardComponent = () => {
   const dispatch = useDispatch();
   const { user, depart } = useContext(ProfileContext) as ProfileProps;
   const { query, push } = useRouter();
   const isYourPage = useIsYour();
+  const { code } = useUser();
 
   const { data: userData, error: userError } = useSWR(
     `/api/worker/${query.ID}/`,
@@ -118,6 +120,12 @@ const ProfileCardComponent = () => {
           )}
         </Main>
         <Hide>
+          {isYourPage && (
+            <Stroke>
+              <Label>Ваш код для телеграм бота</Label>
+              <Info>{code}</Info>
+            </Stroke>
+          )}
           <Stroke>
             <Label>E-mail</Label>
             <Info>{userData.email}</Info>

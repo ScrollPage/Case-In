@@ -22,15 +22,6 @@ const SearchComponent = ({}: SearchProps) => {
         onSubmit={(values, { setSubmitting }) => {
           setSubmitting(true);
           let queryParams = {};
-          if (query.categories) {
-            queryParams = { ...queryParams, categories: query.categories };
-          }
-          if (query.requirenments) {
-            queryParams = {
-              ...queryParams,
-              requirenments: query.requirenments,
-            };
-          }
           if (query.rate) {
             queryParams = {
               ...queryParams,

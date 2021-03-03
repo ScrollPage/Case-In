@@ -40,7 +40,7 @@ export const authInfo = (): ThunkType => async dispatch => {
       Cookie.set('userId', id);
       Cookie.set('firstName', first_name);
       Cookie.set('lastName', last_name);
-      Cookie.set('doc', code);
+      Cookie.set('code', code);
       // if (first_login) {
       //   dispatch(authFirstLogin());
       //   Router.push({ pathname: `/learn` }, undefined, { shallow: true });

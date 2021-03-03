@@ -10,8 +10,6 @@ import { Checkbox } from "antd";
 interface FilterProps {}
 
 interface FiliterFormValues {
-  categories: number[];
-  requirenments: number[];
   isRating: boolean;
 }
 
@@ -20,34 +18,14 @@ const FilterComponent: React.FC<FilterProps> = ({}) => {
 
   return (
     <Wrapper>
-      <Title>Фильтры</Title>
+      <Title>Сортировка: </Title>
       <Formik
         initialValues={{
-          categories:
-            getAsString(query.categories)
-              ?.split(",")
-              .map((item) => Number(item)) ?? [],
-          requirenments:
-            getAsString(query.requirenments)
-              ?.split(",")
-              .map((item) => Number(item)) ?? [],
           isRating: !!getAsString(query.rate),
         }}
         onSubmit={(values, { setSubmitting }) => {
           setSubmitting(true);
           let queryParams = {};
-          if (values.categories.length !== 0) {
-            queryParams = {
-              ...queryParams,
-              categories: values.categories.join(","),
-            };
-          }
-          if (values.requirenments.length !== 0) {
-            queryParams = {
-              ...queryParams,
-              requirenments: values.requirenments.join(","),
-            };
-          }
           if (values.isRating) {
             queryParams = {
               ...queryParams,
@@ -80,20 +58,6 @@ const FilterComponent: React.FC<FilterProps> = ({}) => {
               >
                 По рейтингу
               </Checkbox>
-              <Select
-                width="100%"
-                name="categories"
-                placeholder="Категории"
-                value={values.categories}
-                onChange={setFieldValue}
-              />
-              <Select
-                width="100%"
-                name="requirenments"
-                placeholder="Потребности"
-                value={values.requirenments}
-                onChange={setFieldValue}
-              />
               <Button myType="blue" type="submit" width="100%">
                 Применить
               </Button>
