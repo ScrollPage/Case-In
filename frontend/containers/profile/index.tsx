@@ -3,6 +3,7 @@ import React from "react";
 import { Wrapper, Info, Ads } from "./styles";
 import { Reviews } from "@/components/Review/Reviews";
 import { ProfileDev } from "@/components/Profile/ProfileDev";
+import { ProfileMentor } from "@/components/Profile/ProfileMentor";
 
 export const ProfileContainer = () => {
   return (
@@ -13,6 +14,7 @@ export const ProfileContainer = () => {
       </Info>
       <Ads>
         <ProfileDev />
+        <ProfileMentor />
       </Ads>
     </Wrapper>
   );

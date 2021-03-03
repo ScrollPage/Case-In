@@ -26,13 +26,14 @@ import { modalShow } from "@/store/actions/modal";
 import { Button } from "@/components/UI/Button";
 import { createChat } from "@/store/actions/chat";
 import { useUser } from "@/hooks/useUser";
+import { deleteMentor } from "@/store/actions/mentor";
 
 const ProfileCardComponent = () => {
   const dispatch = useDispatch();
   const { user, depart } = useContext(ProfileContext) as ProfileProps;
   const { query, push } = useRouter();
   const isYourPage = useIsYour();
-  const { code } = useUser();
+  const { code, userId } = useUser();
 
   const { data: userData, error: userError } = useSWR(
     `/api/worker/${query.ID}/`,
@@ -47,6 +48,10 @@ const ProfileCardComponent = () => {
       initialData: depart,
     }
   );
+
+  const handleLeave = () => {
+    dispatch(deleteMentor(Number(query.ID)));
+  };
 
   const handleChange = () => {
     if (userData) {
@@ -109,11 +114,17 @@ const ProfileCardComponent = () => {
           )}
         </Top>
         <Main>
-          {isYourPage ? (
+          {(isYourPage || Number(userId) === userData.mentor) && (
             <Button onClick={handleTask} width="100%" myType="outline">
-              Задачи
+              {isYourPage ? "Мои задачи" : "Добавить задачи"}
             </Button>
-          ) : (
+          )}
+          {Number(userId) === userData.mentor && (
+            <Button onClick={handleLeave} width="100%" myType="outline">
+              Завершить обучение ученика
+            </Button>
+          )}
+          {!isYourPage && (
             <Button onClick={handleMessage} width="100%" myType="outline">
               Написать сообщение
             </Button>

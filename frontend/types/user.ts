@@ -14,4 +14,5 @@ export interface User {
   num_reviews: number;
   info: UserInfo;
   rate?: string;
+  mentor: number;
 }

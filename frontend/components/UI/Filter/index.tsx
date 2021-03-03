@@ -2,7 +2,6 @@ import React, { memo } from "react";
 import { Formik, Form, FormikProps } from "formik";
 import { Wrapper, Inner, Title } from "./styles";
 import { Button } from "../Button";
-import { Select } from "../Select";
 import { useRouter } from "next/router";
 import { getAsString } from "@/utils/getAsString";
 import { Checkbox } from "antd";

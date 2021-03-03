@@ -10,7 +10,7 @@ const renderOptions = (options: User[]) => {
   return options.map((option) => {
     return (
       <Option key={`categoryOption__key__${option.id}`} value={option.id}>
-        {`${option.first_name} ${option.first_name}`}
+        {`${option.first_name} ${option.last_name}`}
       </Option>
     );
   });
@@ -22,6 +22,7 @@ interface SelectProps {
   placeholder: string;
   value?: number;
   width?: string;
+  apiLink: string;
 }
 
 const SelectComponent: React.FC<SelectProps> = ({
@@ -30,8 +31,9 @@ const SelectComponent: React.FC<SelectProps> = ({
   placeholder,
   value,
   width,
+  apiLink,
 }) => {
-  const { error, data } = useSWR<User[]>("/api/worker/");
+  const { error, data } = useSWR<User[]>(apiLink);
 
   const options = useMemo(() => (!error && data ? data : []), [data, error]);
 

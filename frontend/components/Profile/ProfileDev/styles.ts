@@ -30,7 +30,7 @@ export const Wrapper = styled.div<{ percent: number }>`
   border-radius: 20px;
   padding: 20px 30px;
   height: 140px;
-  margin-bottom: 45px;
+  margin-bottom: 20px;
   position: relative;
   &:before {
     z-index: 1;
