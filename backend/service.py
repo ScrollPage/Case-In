@@ -45,7 +45,7 @@ def get_menu(message):
         TGBotCode.objects.get(chat_id=message.chat.id)
     except TGBotCode.DoesNotExist:
         menu.row('Авторизация')
-        menu.row('Получить иформацию', 'Мероприятия')
+        menu.row('Получить иформацию')
     else:
         menu.row('Выход')
         menu.row('Получить иформацию', 'Моя информация', 'Мероприятия')

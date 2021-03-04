@@ -141,11 +141,7 @@ def create_instances(sender, instance=None, created=False, **kwargs):
         for i in range(4):
             Test.objects.create(user=instance, category=i+1)
         for i in range(7):
-            Achievement.objects.create(
-                user=instance, 
-                name=i+1,
-                url=settings.AWS_S3_CUSTOM_DOMAIN+f'/achievements/achieve{i+1}.svg'
-            )
+            Achievement.objects.create(user=instance, name=i+1)
 
 @receiver(post_save, sender=WorkerInfo)
 def second_achieve(sender, instance=None, created=False, **kwargs):
