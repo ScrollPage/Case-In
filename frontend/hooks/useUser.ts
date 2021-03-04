@@ -6,6 +6,7 @@ export const useUser = (): {
   code: string,
   isCanBeMentor: string,
   isReady: string,
+  isAdmin: string,
 } => {
   const userId = Cookie.get('userId') ?? "";
   const firstName = Cookie.get('firstName') ?? "";
@@ -13,6 +14,7 @@ export const useUser = (): {
   const code = Cookie.get('code') ?? "";
   const isCanBeMentor = Cookie.get('isCanBeMentor') ?? "";
   const isReady = Cookie.get('isReady') ?? "";
+  const isAdmin = Cookie.get('isAdmin') ?? "";
 
   const fullName = `${firstName} ${lastName}`
 
@@ -21,6 +23,7 @@ export const useUser = (): {
     fullName,
     code,
     isCanBeMentor,
-    isReady
+    isReady,
+    isAdmin
   }
 }

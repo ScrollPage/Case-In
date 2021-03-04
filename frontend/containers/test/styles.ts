@@ -28,12 +28,12 @@ export const SubTitle = styled.p`
   line-height: 17px;
 `
 export const TestLabel = styled.p<{ isActive: boolean }>`
+  opacity: ${({ isActive }) => isActive ? "1" : "0.5"};
   font-family: Montserrat;
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
   line-height: 15px;
-  opacity: ${({ isActive }) => isActive ? "1" : "0.5"};
   cursor: pointer;
   display: inline-block;
   margin: 0;
