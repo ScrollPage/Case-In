@@ -6,6 +6,7 @@ from aiogram.types import ReplyKeyboardRemove, \
 import datetime as dt
 from django.utils import timezone
 from django.conf import settings
+from django.db.models import Avg
 
 import os
 import django
@@ -85,9 +86,9 @@ def callback_inline(call):
     elif 'innovations' in call.data:
         event = call.data.split(':')[1]
         menu = get_menu(call.message)
-        if event == 'Технологические платформы':
+        if event == 'Технологиии.':
             bot.send_message(call.message.chat.id, TECH, reply_markup=menu)
-        elif event == 'Суперкомпьютерные технологии':
+        elif event == 'Суперкомпьтеры.':
             bot.send_message(call.message.chat.id, SUPERPC, reply_markup=menu)
         else:
             bot.send_message(call.message.chat.id, RES, reply_markup=menu)
@@ -107,14 +108,68 @@ def callback_inline(call):
             bot.send_message(call.message.chat.id, SYSTEM, reply_markup=menu)
         else:
             l = [
-                'Технологические платформы',
-                'Суперкомпьютерные технологии',
+                'Технологиии.',
+                'Суперкомпьютеры.',
                 'Учет результатов.'
             ]
             keboard = make_keyboard(l, 'innovations')
-            bot.send_message(call.message.chat.id, SYSTEM, reply_markup=menu)
+            bot.send_message(call.message.chat.id, SYSTEM, reply_markup=keboard)
 
+    elif 'info' in call.data:
+        try:
+            code = TGBotCode.objects.get(chat_id=call.message.chat.id)
+        except TGBotCode.DoesNotExist:
+            menu = get_menu(message)
+            bot.send_message(
+                message.chat.id, 
+                'Пожалуйста, авторизуйтесь.', 
+                reply_markup=menu
+            )
+            auth(message)            
+        else:
+            event = call.data.split(':')[1]
+            menu = get_menu(call.message)
+            if event == 'Моя должность.':
+                bot.send_message(call.message.chat.id, f'Ваша должность: {code.user.info.position}', reply_markup=menu)
+            elif event == 'Мой наставник.':
+                if code.user.mentor:
+                    bot.send_message(call.message.chat.id, f'Ваш наставник {code.user.mentor}', reply_markup=menu)
+                else:
+                    bot.send_message(call.message.chat.id, f'У вас нет наставника.', reply_markup=menu)
+            elif event == 'Мои отделы.':
+                departs = code.user.departments.all()
+                if departs:
+                    res = ''.join(f'Отдел: {dapert}. Глава отдела: {depart.admin.get_full_name()}\n' \
+                        for depart in code.user.departments.all()
+                    )
+                    bot.send_message(call.message.chat.id, res, reply_markup=menu)
+                else:
+                    bot.send_message(call.message.chat.id, 'Вы не состоите ни в одном из отделов.', reply_markup=menu)
+            elif event == 'Мой рейтинг.':
+                rating = code.user.rating.aggregate(rate=Avg('star__value'))['rate']
+                if rating:
+                    bot.send_message(call.message.chat.id, f'Ваш рейтинг: {rating}', reply_markup=menu)
+                else:
+                    bot.send_message(call.message.chat.id, f'Вас еще никто не оценил.', reply_markup=menu)
+            elif event == 'Мои достижения.':
+                achievements = code.user.achievements.filter(done=True)
+                if achievements:  
+                    for achieve in achievements:
+                        bot.send_message(
+                            call.message.chat.id, 
+                            f'Достижение: {achieve} было получено {achieve.timestamp}\n', 
+                            reply_markup=menu
+                        )
+                else:
+                    bot.send_message(
+                        call.message.chat.id, 
+                        f'У вас пока нет достижений.', 
+                        reply_markup=menu
+                    )
 
+# -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 @bot.message_handler(content_types=['text'])
 def get_various_messages(message):  
@@ -173,12 +228,31 @@ def get_various_messages(message):
         )
 
     elif message.text == 'Моя информация':
-        menu = get_menu(message)
-        bot.send_message(
-            message.chat.id, 
-            'pass', 
-            reply_markup=menu
-        )
+        try:
+            user = TGBotCode.objects.get(chat_id=message.chat.id).user
+        except TGBotCode.DoesNotExist:
+            menu = get_menu(message)
+            bot.send_message(
+                message.chat.id, 
+                'Пожалуйста, авторизуйтесь.', 
+                reply_markup=menu
+            )
+            auth(message)
+        else:
+            l = [
+                'Моя должность.',
+                'Мой оклад.',
+                'Мой наставник.',
+                'Мои отделы.',
+                'Мой рейтинг.',
+                'Мои достижения.',
+            ]
+            keyboard = make_keyboard(l, 'info')
+            bot.send_message(
+                message.chat.id, 
+                'Выберите, какую информацию вы хотите получить.', 
+                reply_markup=keyboard
+            )
 
     elif message.text == 'Выход':
         code = TGBotCode.objects.get(chat_id=message.chat.id)

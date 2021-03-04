@@ -8,6 +8,7 @@ from worker.api.serializers import ShortWorkerSerializer
 class AchievementSerializer(serializers.ModelSerializer):
     '''Сериализатор достижений'''
     user = ShortWorkerSerializer(read_only=True)
+    url = serializers.CharField(read_only=True)
 
     class Meta:
         model = Achievement

@@ -1,6 +1,5 @@
 from django.db import models
-from django.db.models.signals import post_save
-from django.dispatch import receiver
+from django.conf import settings
 
 from worker.models import Worker
 
@@ -35,10 +34,14 @@ class Achievement(models.Model):
         Worker, verbose_name='Пользователь', 
         related_name='achievements', on_delete=models.CASCADE
     )
-    url = models.CharField(max_length=500)
     name = models.CharField(max_length=50, choices=NAME_CHOICES)
     done = models.BooleanField(default=False)
+    timestamp = models.DateField(auto_now_add=True)
 
+    def __str__(self):
+        for choice in self.__class__.NAME_CHOICES:
+            if choice[0] == int(self.name):
+                return choice[1]
 
     class Meta:
         verbose_name = 'Достижение'
@@ -52,3 +55,7 @@ class Achievement(models.Model):
             'new-achieve', 
             {'name': self.name, 'url': self.url}
         )
+
+    @property
+    def url(self):
+        return f'https://{settings.AWS_S3_CUSTOM_DOMAIN}/achievements/achieve{self.name}.svg'
