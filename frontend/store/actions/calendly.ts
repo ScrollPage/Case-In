@@ -9,7 +9,6 @@ export const goToEvent = (id: number): ThunkType => async dispatch => {
       task: id
     })
     .then(() => {
-      dispatch(show('Вы успешно отметились на мероприятие!', 'success'));
     })
     .catch(() => {
       dispatch(show('Ошибка при отметке на мероприятие!', 'warning'));

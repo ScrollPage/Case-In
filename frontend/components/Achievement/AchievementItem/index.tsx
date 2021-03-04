@@ -10,10 +10,7 @@ interface Props {
 export const AchievementItem: React.FC<Props> = ({ achievement }) => {
   return (
     <Wrapper isCompleted={achievement.done}>
-      <img
-        src={`http://${achievement.url}`}
-        alt={achieveData[achievement.name - 1].name}
-      />
+      <img src={achievement.url} alt={achieveData[achievement.name - 1].name} />
       <Main>
         <Title>{achieveData[achievement.name - 1].name}</Title>
         <SubTitle>{achieveData[achievement.name - 1].description}</SubTitle>

@@ -4,7 +4,7 @@ import * as actions from './../actions/alert';
 const initialState = {
     text: null as string | null,
     typeOf: 'success' as "success" | "warning" | "error",
-    IsNotClose: false
+    image: undefined as string | undefined,
 };
 
 type InititalStateType = typeof initialState;
@@ -14,7 +14,7 @@ type AlertActionsTypes = ReturnType<PropertiesType<typeof actions>>
 export const alertReducer = (state = initialState, action: AlertActionsTypes): InititalStateType => {
     switch (action.type) {
         case 'ALERT_SHOW':
-            return { ...state, text: action.text, typeOf: action.typeOf, IsNotClose: action?.IsNotClose ? true : false }
+            return { ...state, text: action.text, typeOf: action.typeOf, image: action?.image }
         case 'ALERT_HIDE':
             return { ...state, text: null }
         default:

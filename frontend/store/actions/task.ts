@@ -17,9 +17,7 @@ export const addUserTask = (values: CreateUserTaskFormValues): ThunkType => asyn
       description: values.description,
       user: pageUserId
     })
-    .then((res) => {
-      dispatch(show('Вы успешно добавили задачу!', 'success'));
-    })
+    .then((res) => { })
     .catch(() => {
       dispatch(show('Ошибка при добавлении задачи!', 'warning'));
     });

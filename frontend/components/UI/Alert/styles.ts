@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   position: fixed;
   bottom: 20px;
   left: 20px;
-  z-index: 100;
+  z-index: 900;
   @media (max-width: 900.98px) {
     left: 10px;
     top: 10px !important;
@@ -19,6 +19,7 @@ export const Content = styled.div<{ type: typeOfType }>`
   @media (max-width: 900.98px) {
     padding: 12px;
   }
+  flex-direction: column;
   border-radius: 12px;
   display: flex;
   justify-content: flex-start;
@@ -38,6 +39,7 @@ export const Text = styled.div`
   @media (max-width: 900.98px) {
     font-size: 15px;
   }
+  margin-bottom: 20px;
 `;
 
 export const Close = styled.div`

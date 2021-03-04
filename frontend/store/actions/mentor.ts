@@ -7,7 +7,6 @@ export const deleteMentor = (id: number): ThunkType => async dispatch => {
   await instance()
     .post(`/api/worker/${id}/donementor/`, {})
     .then((res) => {
-      dispatch(show('Вы успешно завершили обучение сотрудника!', 'success'));
     })
     .catch(() => {
       dispatch(show('Ошибка при завершении обучения сотрудника!', 'warning'));

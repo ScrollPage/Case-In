@@ -5,14 +5,11 @@ import { getAlertInfo } from "@/store/selectors";
 import { Wrapper, Content, Text, Close } from "./styles";
 
 const AlertComponent: React.FC = () => {
-  const { text, type, isNotClose } = useSelector(getAlertInfo);
+  const { text, type, image } = useSelector(getAlertInfo);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isNotClose) {
-      return;
-    }
     setTimeout(hideHandler, 3000);
   }, [text]);
 
@@ -27,6 +24,7 @@ const AlertComponent: React.FC = () => {
       <Content type={type}>
         <Close onClick={hideHandler} />
         <Text>{text}</Text>
+        {image && <img alt="asdasd" src={image} />}
       </Content>
     </Wrapper>
   );

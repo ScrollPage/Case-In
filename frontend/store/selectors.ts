@@ -1,11 +1,11 @@
 import { AppStateType } from './reducers/rootReducer';
 
 export const getAlertInfo = (state: AppStateType) => {
-  const { text, typeOf, IsNotClose } = state.alert;
+  const { text, typeOf, image } = state.alert;
   return {
     text,
     type: typeOf,
-    isNotClose: IsNotClose
+    image
   }
 }
 
