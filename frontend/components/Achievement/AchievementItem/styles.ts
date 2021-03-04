@@ -28,7 +28,7 @@ export const Wrapper = styled.div<{ isCompleted: boolean }>`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 5px;
+  padding: 10px;
   border-radius: 10px;
   background-color: ${({ theme, isCompleted }) => isCompleted ? theme.greenBgc : theme.grayBgc};
   margin-bottom: 15px;

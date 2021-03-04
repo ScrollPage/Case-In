@@ -6,6 +6,7 @@ import Router from 'next/router';
 import { LoginFormValues } from '@/components/Auth/LoginForm';
 import { ChangeFormValues } from '@/components/Auth/ChangeForm';
 import { trigger } from 'swr';
+import { achieve } from './achieve';
 
 export const authLogin = (values: LoginFormValues): ThunkType => async dispatch => {
   await instanceWithOutHeaders
@@ -35,17 +36,19 @@ export const authInfo = (): ThunkType => async dispatch => {
   await instance()
     .get('/api/worker/me/')
     .then(res => {
-      const { first_name, last_name, id, code, is_admin } = res.data;
+      const { first_name, last_name, id, code, is_admin, ready, first_login } = res.data;
 
       Cookie.set('userId', id);
       Cookie.set('firstName', first_name);
       Cookie.set('lastName', last_name);
       Cookie.set('code', code);
       Cookie.set('isCanBeMentor', is_admin);
-      // if (first_login) {
-      //   dispatch(authFirstLogin());
-      //   Router.push({ pathname: `/learn` }, undefined, { shallow: true });
-      // }
+      Cookie.set('isReady', ready);
+      if (first_login) {
+        dispatch(achieve())
+        // dispatch(authFirstLogin());
+        // Router.push({ pathname: `/learn` }, undefined, { shallow: true });
+      }
 
       console.log('Информация успешно занесена в куки');
     })
