@@ -26,6 +26,8 @@ class WorkerSerializer(serializers.ModelSerializer):
     num_tests = serializers.IntegerField(read_only=True)
     code = serializers.CharField(read_only=True)
     mentor = ShortWorkerSerializer(read_only=True)
+    achieve = serializers.IntegerField(read_only=True)
+    total_achieve = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Worker

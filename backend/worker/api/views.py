@@ -81,6 +81,12 @@ class WorkerViewSet(SPFListRetrieveViewSet):
                     ), 
                 )
             ) \
+            .annotate(
+                achieve=Count('achievements', filter=Q(achievements__done=True), disctinct=True)
+            ) \
+            .annotate(
+                total_achieve=Count('achievements', disctinct=True)
+            ) \
             .order_by(self.request.query_params.get('sort', '-registered'))
             
     @action(detail=True, methods=['post'])
