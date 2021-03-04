@@ -1,17 +1,22 @@
+import { IAchieve } from "@/types/achieve";
+import { achieveData } from "@/utils/achieveData";
 import React from "react";
 import { Wrapper, Main, Title, SubTitle } from "./styles";
 
 interface Props {
-  achievement: any;
+  achievement: IAchieve;
 }
 
 export const AchievementItem: React.FC<Props> = ({ achievement }) => {
   return (
-    <Wrapper isCompleted={achievement.completed} >
-      <img src="/train.svg" alt="Достижение" />
+    <Wrapper isCompleted={achievement.done}>
+      <img
+        src={`http://${achievement.url}`}
+        alt={achieveData[achievement.name - 1].name}
+      />
       <Main>
-        <Title>{achievement.title}</Title>
-        <SubTitle>{achievement.label}</SubTitle>
+        <Title>{achieveData[achievement.name - 1].name}</Title>
+        <SubTitle>{achieveData[achievement.name - 1].description}</SubTitle>
       </Main>
     </Wrapper>
   );

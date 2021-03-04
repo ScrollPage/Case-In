@@ -33,7 +33,7 @@ export const mainLoyoutLinks = (userId: number): LinkType[] => {
       label: "Календарь",
     },
     {
-      href: `/achievement`,
+      href: `/profile/${userId}/achievement`,
       pathname: "/achievement",
       label: "Достижения",
     },
