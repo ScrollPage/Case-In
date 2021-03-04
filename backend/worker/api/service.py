@@ -10,6 +10,7 @@ from backend.core import PermissionMixin, SerializerMixin, FastResponseMixin
 class SPFListRetrieveViewSet(
     PermissionMixin, SerializerMixin, FastResponseMixin,
     GenericViewSet, RetrieveModelMixin, ListModelMixin,
+    UpdateModelMixin
 ):
     '''
     Переопределение методов сериализатора и прав доступа

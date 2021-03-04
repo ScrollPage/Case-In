@@ -52,6 +52,8 @@ class WorkerViewSet(SPFListRetrieveViewSet):
         'donementor': [permissions.IsAuthenticated, RightMentor],
         'diagramtask': [permissions.IsAuthenticated, RightMentor],
         'test': [permissions.IsAuthenticated, IsRightUser],
+        'update': [permissions.IsAuthenticated, IsRightUser],
+        'partial_update': [permissions.IsAuthenticated, IsRightUser],
         'mentor': [permissions.IsAuthenticated, IsAdmin],
     }
     filter_backends = [DjangoFilterBackend]

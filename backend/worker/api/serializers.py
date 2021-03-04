@@ -20,7 +20,7 @@ class ShortWorkerSerializer(serializers.ModelSerializer):
 class WorkerSerializer(serializers.ModelSerializer):
     '''Сериализация работника'''
     info = WorkerInfoSerializer(read_only=True)
-    rate = serializers.DecimalField(max_digits=3, decimal_places=2)
+    rate = serializers.DecimalField(max_digits=3, decimal_places=2, read_only=True)
     num_reviews = serializers.IntegerField(read_only=True)
     num_notes = serializers.IntegerField(read_only=True)
     num_tests = serializers.IntegerField(read_only=True)
@@ -32,6 +32,10 @@ class WorkerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Worker
         exclude = ['password', 'groups', 'user_permissions']
+        read_only_fields = [
+            'last_login', 'is_staff', 'is_superuser', 
+            'is_admin', 'is_active', 'ready', 'first_login',
+        ]
 
 class ReviewSerializer(serializers.ModelSerializer):
     '''Сериализация отзыва'''
