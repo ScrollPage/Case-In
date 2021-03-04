@@ -16,6 +16,6 @@ python manage.py flush --no-input
 python manage.py makemigrations
 python manage.py migrate
 python manage.py collectstatic --noinput
-python chat_bot.py
+# python chat_bot.py
 
 exec "$@"

@@ -18,7 +18,7 @@ FROM python:3.9
 
 RUN apt-get update
 RUN apt-get upgrade -y
-RUN apt-get install -y netcat
+RUN apt-get install -y netcat supervisor
 
 COPY --from=builder /usr/src/app/wheels /wheels
 # COPY --from=builder /usr/src/app/req.txt .
@@ -34,7 +34,7 @@ ENV HOME=/home/app
 ENV APP_HOME=/home/app/web
 RUN mkdir $APP_HOME
 RUN mkdir $APP_HOME/staticfiles
-# RUN mkdir /run/daphne
+RUN mkdir /run/daphne
 WORKDIR $APP_HOME
 
 COPY ./entrypoint.sh $APP_HOME

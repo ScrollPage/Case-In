@@ -60,7 +60,7 @@ def callback_inline(call):
                         for i, task in enumerate(queryset)
                 )
             else:
-                res = 'You have no nearest tasks!'
+                res = 'Ближайших задач нет!'
             menu = get_menu(call.message)
             bot.send_message(call.message.chat.id, res, reply_markup=menu)
 

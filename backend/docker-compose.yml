@@ -103,8 +103,8 @@ services:
       context: ./
       dockerfile: Dockerfile
     tty: true
-    # command: bash -c "/usr/bin/supervisord"
-    command: python manage.py runserver 0.0.0.0:8000
+    command: bash -c "/usr/bin/supervisord"
+    # command: python manage.py runserver 0.0.0.0:8000
     # command: gunicorn backend.asgi:application --bind 0.0.0.0:8000 -w 4 -k uvicorn.workers.UvicornWorker
     volumes: 
       - static_volume:/home/app/web/staticfiles
@@ -115,6 +115,9 @@ services:
       # - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
     env_file:
       - ./.env
+    expose:
+      - 8000
+      - 9000
     depends_on:
       - db
       - redis
