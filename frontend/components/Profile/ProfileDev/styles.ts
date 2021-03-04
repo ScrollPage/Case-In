@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Percent = styled.p`
   z-index: 2;
   position: absolute;
-  left: 40px;
+  left: 20px;  
   bottom: 10px;
   margin: 0;
   font-family: Play;

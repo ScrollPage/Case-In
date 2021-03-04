@@ -17,5 +17,11 @@ export interface User {
   num_reviews: number;
   info: UserInfo;
   rate?: string;
-  mentor: number;
+  mentor: {
+    id: number;
+    first_name: string;
+    last_name: string;
+  };
+  achieve: number;
+  total_achieve: number;
 }

@@ -92,10 +92,24 @@ export const authCheckState = (): ThunkType => dispatch => {
 export const authChange = (values: ChangeFormValues): ThunkType => async dispatch => {
   const userId = Cookie.get('userId');
   await instance()
-    .patch(`/api/worker/info/${userId}/`, {
+    .put(`/api/worker/${userId}/`, {
       firtst_name: values.firstName,
       last_name: values.lastName,
-      phone_number: values.phone
+    })
+    .then((res) => {
+      Cookie.set('firstName', values.firstName);
+      Cookie.set('lastName', values.lastName);
+      dispatch(show('Вы успешно сменели данные!', 'success'));
+    })
+    .catch(() => {
+      dispatch(show('Ошибка при смене информации о пользователе!', 'warning'));
+    });
+  await instance()
+    .put(`/api/worker/info/${userId}/`, {
+      phone_number: values.phone,
+      about: values.about,
+      hobby: values.hobby,
+      position: values.position,
     })
     .then((res) => {
       Cookie.set('firstName', values.firstName);

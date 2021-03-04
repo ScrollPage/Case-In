@@ -114,12 +114,12 @@ const ProfileCardComponent = () => {
           )}
         </Top>
         <Main>
-          {(isYourPage || Number(userId) === userData.mentor) && (
+          {(isYourPage || Number(userId) === userData.mentor?.id) && (
             <Button onClick={handleTask} width="100%" myType="outline">
               {isYourPage ? "Мои задачи" : "Добавить задачи"}
             </Button>
           )}
-          {Number(userId) === userData.mentor && (
+          {Number(userId) === userData.mentor?.id && (
             <Button onClick={handleLeave} width="100%" myType="outline">
               Завершить обучение ученика
             </Button>
@@ -135,6 +135,12 @@ const ProfileCardComponent = () => {
             <Stroke>
               <Label>Ваш код для телеграм бота</Label>
               <Info>{code}</Info>
+            </Stroke>
+          )}
+          {userData.mentor && (
+            <Stroke>
+              <Label>Наставник</Label>
+              <Info>{`${userData.mentor?.first_name} ${userData.mentor?.last_name}`}</Info>
             </Stroke>
           )}
           <Stroke>
