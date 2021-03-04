@@ -5,6 +5,7 @@ from aiogram.types import ReplyKeyboardRemove, \
     InlineKeyboardMarkup, InlineKeyboardButton
 import datetime as dt
 from django.utils import timezone
+from django.conf import settings
 
 import os
 import django
@@ -16,7 +17,11 @@ django.setup()
 
 from worker.models import Worker, TGBotCode
 from calendly.models import CalendlyTask
-from service import get_menu, bot, auth
+from service import get_menu, bot, auth, make_keyboard
+from bot_docs.texts.text import (
+    IND, DESC, INDUSTRIES, AIM, STRATEGY, 
+    SYSTEM, INNO, TECH, SUPERPC, RES
+)
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
@@ -58,18 +63,58 @@ def callback_inline(call):
             bot.send_message(call.message.chat.id, res, reply_markup=menu)
 
     elif 'company' in call.data:
-        from bot_docs.texts.text import IND, DESC
-
         event = call.data.split(':')[1]
         menu = get_menu(call.message)
 
-        if event == 'Информация.':
-            bot.send_message(call.message.chat.id, DESC, reply_markup=menu)
+        if event == 'О ГК Росатом.':
+            bot.send_message(call.message.chat.id, DESC+IND, reply_markup=menu)
         elif event == 'Показатели деятельности.':
-            bot.send_message(call.message.chat.id, IND, reply_markup=menu)
+            bot.send_message(call.message.chat.id, INDUSTRIES, reply_markup=menu)
         else:
-            doc = open("./bot_docs/pdf/rosatom.pdf",'r')
-            bot.send_document(call.message.chat.id, doc, reply_markup=menu)
+            l = [
+                'Миссия.',
+                'Стратегические цели.',
+                'Ценности.',
+                'Общая информация.',
+                'Производственная система.',
+                'Инновации'
+            ]
+            keyboard = make_keyboard(l, 'mission')
+            bot.send_message(call.message.chat.id, AIM, reply_markup=keyboard)
+    
+    elif 'innovations' in call.data:
+        event = call.data.split(':')[1]
+        menu = get_menu(call.message)
+        if event == 'Технологические платформы':
+            bot.send_message(call.message.chat.id, TECH, reply_markup=menu)
+        elif event == 'Суперкомпьютерные технологии':
+            bot.send_message(call.message.chat.id, SUPERPC, reply_markup=menu)
+        else:
+            bot.send_message(call.message.chat.id, RES, reply_markup=menu)
+
+    elif 'mission' in call.data:
+        event = call.data.split(':')[1]
+        menu = get_menu(call.message)
+        if event == 'Миссия.':
+            bot.send_message(call.message.chat.id, DESC+IND, reply_markup=menu)
+        elif event == 'Стратегические цели.':
+            bot.send_message(call.message.chat.id, INDUSTRIES, reply_markup=menu)
+        elif event == 'Общая информация.':
+            bot.send_photo(call.message.chat.id, settings.AWS_S3_CUSTOM_DOMAIN+f'/rosatom_bot/rosatom1.png')
+            bot.send_photo(call.message.chat.id, settings.AWS_S3_CUSTOM_DOMAIN+f'/rosatom_bot/rosatom2.png')
+            bot.send_message(call.message.chat.id, STRATEGY, reply_markup=menu)
+        elif event == 'Производственная система.':
+            bot.send_message(call.message.chat.id, SYSTEM, reply_markup=menu)
+        else:
+            l = [
+                'Технологические платформы',
+                'Суперкомпьютерные технологии',
+                'Учет результатов.'
+            ]
+            keboard = make_keyboard(l, 'innovations')
+            bot.send_message(call.message.chat.id, SYSTEM, reply_markup=menu)
+
+
 
 @bot.message_handler(content_types=['text'])
 def get_various_messages(message):  
@@ -101,38 +146,26 @@ def get_various_messages(message):
             bot.send_message(message.chat.id, 'Вы не авторизовались!', reply_markup=menu)
         else:
             user = code.user
-            keyboard = types.InlineKeyboardMarkup()
             menu = get_menu(message)
             l = [
                 'на следующий день', 
                 'на следующую неделю', 
                 'на следующий месяц'
             ]
-            for period in l:
-                keyboard.add(
-                    types.InlineKeyboardButton(
-                        f'{period.capitalize()}', callback_data=f'events:{period}'
-                    )
-                )
+            keyboard = make_keyboard(l, 'events')
             bot.send_message(
                 message.chat.id,  
                 'Выберите период, за который вы хотите посмотреть все мероприятия',
                 reply_markup=keyboard
             )
 
-    elif message.text == 'О компании':
+    elif message.text == 'Получить иформацию':
         l = [
-            'Информация.', 
-            'Показатели деятельности.', 
-            'Годовой отчет за 2019г.',
+            'О ГК Росатом.', 
+            'Преприятия Рсатома.', 
+            'Общая информация.',
         ]
-        keyboard = types.InlineKeyboardMarkup()
-        for event in l:
-            keyboard.add(
-                types.InlineKeyboardButton(
-                    event, callback_data=f'company:{event}'
-                )
-            )
+        keyboard = make_keyboard(l, 'company')
         bot.send_message(
             message.chat.id, 
             'Выберите один из возможных пунктов для получения информации.',

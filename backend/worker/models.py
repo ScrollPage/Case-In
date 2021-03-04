@@ -7,6 +7,7 @@ from django.contrib.auth.models import (
     BaseUserManager, 
     PermissionsMixin
 )
+from django.conf import settings
 
 from backend.settings import pusher_client as pusher
 
@@ -143,15 +144,16 @@ def create_instances(sender, instance=None, created=False, **kwargs):
             Achievement.objects.create(
                 user=instance, 
                 name=i+1,
-                url=Achievement.DOMEN+f'achieve{i+1}.svg'
+                url=settings.AWS_S3_CUSTOM_DOMAIN+f'/achievements/achieve{i+1}.svg'
             )
 
 @receiver(post_save, sender=WorkerInfo)
 def second_achieve(sender, instance=None, created=False, **kwargs):
     '''Ачивка номер 2'''
-    achieve = instance.user.achievements.get(name=2)
-    if not achieve.done:
-        if not created and all([getattr(instance, field.get_attname()) \
-            for field in instance._meta.fields[2:]]):
-            achieve.set_done()
+    if not created:
+        achieve = instance.user.achievements.get(name=2)
+        if not achieve.done:
+            if not created and all([getattr(instance, field.get_attname()) \
+                for field in instance._meta.fields[2:]]):
+                achieve.set_done()
     
