@@ -37,7 +37,7 @@ const MainLayoutComponent: React.FC<MainLayoutProps> = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const { pathname } = useRouter();
-  const { userId, fullName } = useUser();
+  const { userId, fullName, isAdmin } = useUser();
   const [isShowNotify, setIsShowNotify] = useState(false);
   const [disabled, setDisabled] = useState(false);
 
@@ -132,6 +132,13 @@ const MainLayoutComponent: React.FC<MainLayoutProps> = ({ children }) => {
                 </Link>
               </SideLink>
             ))}
+            {isAdmin && (
+              <SideLink isActive={pathname === "/statistics"}>
+                <Link href="/statistics">
+                  <a>Статистика</a>
+                </Link>
+              </SideLink>
+            )}
             <Button onClick={logoutHandler} myType="outline" width="182px">
               Выход
             </Button>

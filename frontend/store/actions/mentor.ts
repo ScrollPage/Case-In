@@ -8,7 +8,6 @@ export const deleteMentor = (id: number): ThunkType => async dispatch => {
     .post(`/api/worker/${id}/donementor/`, {})
     .then((res) => {
       dispatch(show('Вы успешно завершили обучение сотрудника!', 'success'));
-      Router.push({ pathname: `/profile/${id}` }, undefined, { shallow: true });
     })
     .catch(() => {
       dispatch(show('Ошибка при завершении обучения сотрудника!', 'warning'));
@@ -20,6 +19,7 @@ export const addMentor = (id: number): ThunkType => async dispatch => {
     .post(`/api/worker/${id}/mentor/`, {})
     .then((res) => {
       dispatch(show('Вы успешно стали наставником!', 'success'));
+      Router.push({ pathname: `/profile/${id}` }, undefined, { shallow: true });
     })
     .catch(() => {
       dispatch(show('Ошибка при становлении наставником!', 'warning'));

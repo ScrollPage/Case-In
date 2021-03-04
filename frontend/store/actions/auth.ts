@@ -36,7 +36,7 @@ export const authInfo = (): ThunkType => async dispatch => {
   await instance()
     .get('/api/worker/me/')
     .then(res => {
-      const { first_name, last_name, id, code, is_admin, ready, first_login } = res.data;
+      const { first_name, last_name, id, code, is_admin, ready, first_login, is_superuser } = res.data;
 
       Cookie.set('userId', id);
       Cookie.set('firstName', first_name);
@@ -44,6 +44,7 @@ export const authInfo = (): ThunkType => async dispatch => {
       Cookie.set('code', code);
       Cookie.set('isCanBeMentor', is_admin);
       Cookie.set('isReady', ready);
+      Cookie.set('isAdmin', is_superuser);
       if (first_login) {
         dispatch(achieve())
         // dispatch(authFirstLogin());
