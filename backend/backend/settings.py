@@ -28,9 +28,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'to_3s%(*gk9xedl&536zhf4ytud^h64()ot8r-lr7b2#7&$sg#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', local.DEBUG)
+DEBUG = bool(int(os.environ.get('DEBUG', local.DEBUG)))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '127.0.0.1 localhost').split(' ')
 
 
 # Application definition
@@ -268,11 +268,11 @@ AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazo
 
 # Pusher
 pusher_client = pusher.Pusher(
-    app_id='1165404',
-    key='6a7cdf965390e2c19b3b',
-    secret='a85863a866e5680c2f00',
-    cluster='eu',
-    ssl=True
+    app_id=os.environ.get('PUSHER_APP_ID', local.PUSHER_APP_ID),
+    key=os.environ.get('PUSHER_KEY', local.PUSHER_KEY),
+    secret=os.environ.get('PUSHER_SECRET', local.PUSHER_SECRET),
+    cluster=os.environ.get('PUSHER_CLUSTER', local.PUSHER_CLUSTER),
+    ssl=bool(os.environ.get('PUSHER_SSL', local.PUSHER_SSL))
 )
 
 # Celery

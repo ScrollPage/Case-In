@@ -13,7 +13,7 @@ from worker.models import Worker, TGBotCode
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
 django.setup()
 
-bot = telebot.TeleBot(local.CHAT_BOT_TOKEN)
+bot = telebot.TeleBot(os.environ.get('CHAT_BOT_TOKEN', local.CHAT_BOT_TOKEN))
 
 def auth(message):
     msg = bot.send_message(message.chat.id, 'Введите код: ')
@@ -45,10 +45,11 @@ def get_menu(message):
         TGBotCode.objects.get(chat_id=message.chat.id)
     except TGBotCode.DoesNotExist:
         menu.row('Авторизация')
-        menu.row('Получить иформацию')
+        menu.row('Получить иформацию', 'Наставничество')
     else:
         menu.row('Выход')
-        menu.row('Получить иформацию', 'Моя информация', 'Мероприятия')
+        menu.row('Получить иформацию', 'Наставничество')
+        menu.row('Моя информация', 'Мероприятия')
     finally:
         return menu
 

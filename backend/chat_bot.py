@@ -21,7 +21,8 @@ from calendly.models import CalendlyTask
 from service import get_menu, bot, auth, make_keyboard
 from bot_docs.texts.text import (
     IND, DESC, INDUSTRIES, AIM, STRATEGY, 
-    SYSTEM, INNO, TECH, SUPERPC, RES
+    SYSTEM, INNO, TECH, SUPERPC, RES,
+    WHO_MENTOR, DUTIES, WHAT_GIVES, HOW_TO_BE
 )
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -114,6 +115,18 @@ def callback_inline(call):
             ]
             keboard = make_keyboard(l, 'innovations')
             bot.send_message(call.message.chat.id, SYSTEM, reply_markup=keboard)
+
+    elif 'mentor' in call.data:
+        event = call.data.split(':')[1]
+        menu = get_menu(call.message)
+        if event == 'Кто такой наставник.':
+            bot.send_message(call.message.chat.id, WHO_MENTOR, reply_markup=menu)
+        elif event == 'Что дает.':
+            bot.send_message(call.message.chat.id, WHAT_GIVES, reply_markup=menu)
+        elif event == 'Что должен наставник.':
+            bot.send_message(call.message.chat.id, DUTIES, reply_markup=menu)
+        else:
+            bot.send_message(call.message.chat.id, HOW_TO_BE, reply_markup=menu)
 
     elif 'info' in call.data:
         try:
@@ -253,6 +266,20 @@ def get_various_messages(message):
                 'Выберите, какую информацию вы хотите получить.', 
                 reply_markup=keyboard
             )
+
+    elif message.text == 'Наставничество':
+        l = [
+            'Кто такой наставник.',
+            'Что дает.',
+            'Что должен наставник.',
+            'Как стать наставником.'
+        ]
+        keyboard = make_keyboard(l, 'mentor')
+        bot.send_message(
+            message.chat.id, 
+            'Выберите, какую информацию вы хотите получить.', 
+            reply_markup=keyboard
+        )
 
     elif message.text == 'Выход':
         code = TGBotCode.objects.get(chat_id=message.chat.id)
