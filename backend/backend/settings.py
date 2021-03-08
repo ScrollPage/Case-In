@@ -105,7 +105,7 @@ REDIS_PORT = os.environ.get('REDIS_PORT', local.REDIS_PORT)
 WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Django Channels
-ASGI_APPLICATION = 'backend.routing.application'
+ASGI_APPLICATION = 'backend.asgi.application'
 
 CHANNEL_LAYERS = {
     'default': {

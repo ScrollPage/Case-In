@@ -84,7 +84,11 @@ class WorkerViewSet(SPFListRetrieveViewSet):
                 )
             ) \
             .annotate(
-                achieve=Count('achievements', filter=Q(achievements__done=True), disctinct=True)
+                achieve=Count(
+                    'achievements', 
+                    filter=Q(achievements__done=True), 
+                    disctinct=True
+                )
             ) \
             .annotate(
                 total_achieve=Count('achievements', disctinct=True)
@@ -115,7 +119,7 @@ class WorkerViewSet(SPFListRetrieveViewSet):
         user.mentor = request.user
         user.save()
         '''Ачивка номер 3'''
-        user.achievements.get(id=3).set_done()
+        user.achievements.get(name=3).set_done()
         return Response(status=status.HTTP_200_OK)
     
     @action(detail=False)
