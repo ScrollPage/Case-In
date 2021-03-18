@@ -24,8 +24,6 @@ docker-compose up
 
 Open [http://localhost:8000](http://localhost:8000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
 ## Learn More
 
 To learn more about Django and DRF, take a look at the following resources:
