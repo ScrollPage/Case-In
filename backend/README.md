@@ -38,7 +38,7 @@ You can check out [the DRF GitHub repository](https://github.com/encode/django-r
 ## Deploy on VPS
 
 - Connect to a VPS via ssh or by password
-- Run foolowing commands
+- Run following commands
 ```bash
 sudo apt-get update
 sudo apt-get upgrade
