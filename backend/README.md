@@ -30,8 +30,8 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 
 To learn more about Django and DRF, take a look at the following resources:
 
-- [Next.js Documentation](https://www.django-rest-framework.org/) - learn about DRF features.
-- [Learn Next.js](https://docs.djangoproject.com/en/3.1/intro/) -  Django tutorial.
+- [DRF Documentation](https://www.django-rest-framework.org/) - learn about DRF features.
+- [Learn Django](https://docs.djangoproject.com/en/3.1/intro/) -  Django tutorial.
 
 You can check out [the DRF GitHub repository](https://github.com/encode/django-rest-framework) - your feedback and contributions are welcome!
 
