@@ -1,5 +1,3 @@
-from django.shortcuts import get_object_or_404
-
 import json
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
