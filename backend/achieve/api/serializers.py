@@ -3,21 +3,22 @@ from rest_framework.exceptions import ParseError
 
 from achieve.models import Achievement
 
-from worker.api.serializers import ShortWorkerSerializer 
+from worker.api.serializers import ShortWorkerSerializer
+
 
 class AchievementSerializer(serializers.ModelSerializer):
-    '''Сериализатор достижений'''
+    """Сериализатор достижений"""
+
     user = ShortWorkerSerializer(read_only=True)
     url = serializers.CharField(read_only=True)
 
     class Meta:
         model = Achievement
-        fields = '__all__'
-        read_only_fields = ['done', 'desc']
+        fields = "__all__"
+        read_only_fields = ["done", "desc"]
 
     def validate(self, attrs):
-        data = self.context['request'].data
-        if data['name'] == '1':
+        data = self.context["request"].data
+        if data["name"] == "1":
             return super().validate(attrs)
-        raise ParseError('Only first login achieve.')
-            
+        raise ParseError("Only first login achieve.")

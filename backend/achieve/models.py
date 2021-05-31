@@ -5,19 +5,20 @@ from worker.models import Worker
 
 from backend.settings import pusher_client as pusher
 
-class Achievement(models.Model):
-    '''Достижение'''
 
-    DOMEN = 'https://business-net-pictures.s3.eu-north-1.amazonaws.com/achievements/'
+class Achievement(models.Model):
+    """Достижение"""
+
+    DOMEN = "https://business-net-pictures.s3.eu-north-1.amazonaws.com/achievements/"
 
     NAME_CHOICES = (
-        (1, 'Начало карьеры'),
-        (2, 'Мы все знаем'),
-        (3, 'Большой брат'),
-        (4, 'Новичок'),
-        (5, 'Работяга'),
-        (6, 'Гулена'),
-        (7, 'Все впорядке'),
+        (1, "Начало карьеры"),
+        (2, "Мы все знаем"),
+        (3, "Большой брат"),
+        (4, "Новичок"),
+        (5, "Работяга"),
+        (6, "Гулена"),
+        (7, "Все впорядке"),
     )
 
     # DESCRIPTION_CHOICES = (
@@ -31,8 +32,10 @@ class Achievement(models.Model):
     # )
 
     user = models.ForeignKey(
-        Worker, verbose_name='Пользователь', 
-        related_name='achievements', on_delete=models.CASCADE
+        Worker,
+        verbose_name="Пользователь",
+        related_name="achievements",
+        on_delete=models.CASCADE,
     )
     name = models.CharField(max_length=50, choices=NAME_CHOICES)
     done = models.BooleanField(default=False)
@@ -44,18 +47,18 @@ class Achievement(models.Model):
                 return choice[1]
 
     class Meta:
-        verbose_name = 'Достижение'
-        verbose_name_plural = 'Достижения'
+        verbose_name = "Достижение"
+        verbose_name_plural = "Достижения"
 
     def set_done(self):
         self.done = True
         self.save()
         pusher.trigger(
-            f'achieve{self.user.id}', 
-            'new-achieve', 
-            {'name': self.name, 'url': self.url}
+            f"achieve{self.user.id}",
+            "new-achieve",
+            {"name": self.name, "url": self.url},
         )
 
     @property
     def url(self):
-        return f'https://{settings.AWS_S3_CUSTOM_DOMAIN}/achievements/achieve{self.name}.svg'
+        return f"https://{settings.AWS_S3_CUSTOM_DOMAIN}/achievements/achieve{self.name}.svg"

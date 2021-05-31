@@ -6,17 +6,21 @@ from django.dispatch import receiver
 from worker.models import Worker
 from department.models import Department
 
+
 class Chat(models.Model):
-    '''Чатик'''
+    """Чатик"""
+
     name = models.CharField(max_length=50)
     members = models.ManyToManyField(
-        Worker, verbose_name='Участники', 
-        related_name='chats'
+        Worker, verbose_name="Участники", related_name="chats"
     )
     is_chat = models.BooleanField(default=True)
     depart = models.OneToOneField(
-        Department, verbose_name='Чат отдела', null=True,
-        on_delete=models.CASCADE, related_name='chat',
+        Department,
+        verbose_name="Чат отдела",
+        null=True,
+        on_delete=models.CASCADE,
+        related_name="chat",
     )
 
     @property
@@ -24,30 +28,28 @@ class Chat(models.Model):
         return self.messages.last()
 
     class Meta:
-        verbose_name = 'Чат'
-        verbose_name_plural = 'Чаты'
+        verbose_name = "Чат"
+        verbose_name_plural = "Чаты"
+
 
 class Message(models.Model):
-    '''Сообщение'''
+    """Сообщение"""
 
     url = models.CharField(max_length=200, null=True)
     chat = models.ForeignKey(
-        Chat, verbose_name='Чат', 
-        on_delete=models.CASCADE, related_name='messages'
+        Chat, verbose_name="Чат", on_delete=models.CASCADE, related_name="messages"
     )
     user = models.ForeignKey(
-        Worker, 
-        verbose_name='Отправитель',
-        null=True, 
-        on_delete=models.SET_NULL
+        Worker, verbose_name="Отправитель", null=True, on_delete=models.SET_NULL
     )
     timestamp = models.DateTimeField(auto_now_add=True)
     is_read = models.BooleanField(default=False)
     content = models.TextField(max_length=5000)
 
     class Meta:
-        verbose_name = 'Сообщение'
-        verbose_name_plural = 'Сообщения'
+        verbose_name = "Сообщение"
+        verbose_name_plural = "Сообщения"
+
 
 # @receiver(post_save, sender=Message)
 # def send_join_note(sender, instance=None, **kwargs):

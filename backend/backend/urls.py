@@ -19,23 +19,21 @@ from django.urls import path, include
 from .yasg import urlpatterns as doc_urls
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-
-    path('api-auth/', include('rest_framework.urls')),
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.jwt')),
-    path('silk/', include('silk.urls')),
-
-    path('api/', include('achieve.api.urls')),
-    path('api/', include('calendly.api.urls')),
-    path('api/', include('chat.api.urls')),
-    path('api/', include('control.api.urls')),
-    path('api/', include('department.api.urls')),
-    path('api/', include('diagram.api.urls')),
-    path('api/', include('doc.api.urls')),
-    path('api/', include('feed.api.urls')),
-    path('api/', include('post.api.urls')),
-    path('api/', include('worker.api.urls'))
+    path("admin/", admin.site.urls),
+    path("api-auth/", include("rest_framework.urls")),
+    path("auth/", include("djoser.urls")),
+    path("auth/", include("djoser.urls.jwt")),
+    path("silk/", include("silk.urls")),
+    path("api/", include("achieve.api.urls")),
+    path("api/", include("calendly.api.urls")),
+    path("api/", include("chat.api.urls")),
+    path("api/", include("control.api.urls")),
+    path("api/", include("department.api.urls")),
+    path("api/", include("diagram.api.urls")),
+    path("api/", include("doc.api.urls")),
+    path("api/", include("feed.api.urls")),
+    path("api/", include("post.api.urls")),
+    path("api/", include("worker.api.urls")),
 ]
 
 urlpatterns += doc_urls

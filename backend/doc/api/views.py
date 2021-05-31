@@ -6,14 +6,18 @@ from .serializers import DocSerializer, ChatDocSerializer
 from .service import CreateDestroyViewSet
 from .permissions import IsAdmin, UserInChat
 
+
 class DocViewSet(CreateDestroyViewSet):
-    '''Создание и удаление документов'''
+    """Создание и удаление документов"""
+
     serializer_class = DocSerializer
     permission_classes = [permissions.IsAuthenticated, IsAdmin]
     queryset = Doc.objects.all()
 
+
 class ChatDocView(CreateAPIView):
-    '''Создание документа в чате'''
+    """Создание документа в чате"""
+
     serializer_class = ChatDocSerializer
     permission_classes = [permissions.IsAuthenticated, UserInChat]
 

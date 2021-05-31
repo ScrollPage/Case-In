@@ -5,23 +5,25 @@ from diagram.models import DiagramTask
 
 from worker.api.serializers import ShortWorkerSerializer
 
+
 class TaskSerializer(serializers.ModelSerializer):
-    '''Сериализация задач'''
+    """Сериализация задач"""
+
     initiative = ShortWorkerSerializer(read_only=True)
 
     class Meta:
         model = DiagramTask
-        fields = '__all__'
+        fields = "__all__"
 
     def validate(self, validated_data):
         try:
-            percentage = int(validated_data['percentage'])
+            percentage = int(validated_data["percentage"])
         except KeyError:
             pass
         except ValueError:
-            raise ParseError(f'Percentage must be int not {type(percentage)}.')
+            raise ParseError(f"Percentage must be int not {type(percentage)}.")
         else:
             if percentage > 100 or percentage < 0:
-                raise ParseError('Percentage must be <= 100 and >= 0.')
+                raise ParseError("Percentage must be <= 100 and >= 0.")
         finally:
             return super().validate(validated_data)
